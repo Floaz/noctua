@@ -15,7 +15,8 @@ subprojects {
     apply plugin: 'license'
 	apply plugin: 'jdepend'
 
-	def javaFxHome = "/opt/jre1.7.0_21";
+	def javaFxHome = "$System.env.JAVAFX_HOME"
+	//def javaFxHome = "/opt/jre1.7.0_21";
 
     repositories {
        mavenCentral()
