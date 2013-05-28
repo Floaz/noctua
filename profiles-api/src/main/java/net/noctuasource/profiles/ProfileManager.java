@@ -1,0 +1,52 @@
+/**
+ * This file is part of Noctua.
+ *
+ * Copyright (C) 2013 Philipp Rene Thomas <info@noctuasource.net>
+ *
+ * Noctua is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Noctua is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+
+package net.noctuasource.profiles;
+
+import java.io.File;
+import java.io.IOException;
+
+
+public interface ProfileManager extends Observable {
+
+	public void					reloadProfiles(File dir, String filename);
+
+
+	public Iterable<Profile>	getAllProfiles();
+
+
+	public Profile				getDefaultProfile();
+
+	public void					setDefaultProfile(Profile profile);
+
+
+	public boolean				isValidProfileName(String name);
+
+
+	public Profile				addProfile(ProfileData data) throws IOException;
+
+	public void					editProfile(Profile profile,  ProfileData newData) throws IOException;
+
+	public void					deleteProfile(Profile profile) throws IOException;
+
+	public void					deleteProfile(Profile profile, boolean deleteDir) throws IOException;
+
+}
