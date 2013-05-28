@@ -1,0 +1,46 @@
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.6.0'
+	}
+}
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'license'
+	apply plugin: 'jdepend'
+
+	def javaFxHome = "/opt/jre1.7.0_21";
+
+    repositories {
+       mavenCentral()
+    }
+
+    dependencies {
+		compile files("$javaFxHome/lib/jfxrt.jar")
+        testCompile 'junit:junit:4.11'
+    }
+
+    version = '6.0.0'
+
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+
+	license {
+		header rootProject.file('etc/header.txt')
+		strictCheck true
+	}
+
+}
+
+task docs(type: Javadoc) {
+	source subprojects.collect {project -> project.sourceSets.main.allJava }
+	classpath = files(subprojects.collect {project -> project.sourceSets.main.compileClasspath})
+	destinationDir = new File(rootProject.buildDir, 'javadoc')
+}

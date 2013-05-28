@@ -1,0 +1,2 @@
+rootProject.name='noctua'
+include "instance", "act", "act-spring", "act-javafx", "util", "profiles-api", "profiles-impl", "noctua-core-api", "noctua-core-impl" 
