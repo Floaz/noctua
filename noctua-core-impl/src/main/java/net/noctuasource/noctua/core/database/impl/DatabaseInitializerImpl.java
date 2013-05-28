@@ -33,7 +33,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.ProfilesContext;
+import net.noctuasource.noctua.core.datastore.ProfilesContext;
 
 import net.noctuasource.noctua.core.dao.impl.SessionHolder;
 import net.noctuasource.noctua.core.database.DatabaseInitializationException;
@@ -106,15 +106,16 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 
 	@Override
 	public boolean openDatabase() throws DatabaseInitializationException {
+		if(databaseFile != null) {
+			throw new DatabaseInitializationException("Database already opened!");
+		}
 
 		logger.debug("Initialize database...");
 
-		closeDatabase();
+		File dir = new File(profilesContext.getAbsoluteProfileDir());
 
-		File dir = new File(profilesContext.getProfileDir());
-
-		if( !dir.exists()) {
-			throw new IllegalArgumentException("Database dir does not exist!");
+		if(!dir.exists()) {
+			throw new DatabaseInitializationException("Database dir does not exist!");
 		}
 
 		databaseFile = new File(dir + File.separator + DATABASE_FILENAME);

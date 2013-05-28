@@ -75,7 +75,7 @@ public abstract class AfterDestroyRunnable implements Runnable {
 	private void destroyEvent(ControllerDestroyedEvent event) {
 		if(event.getDestroyedController() == controller) {
 			run();
-			controller.unregisterEventListener(eventListener);
+			controller.getParentController().unregisterEventListener(eventListener);
 		}
 	}
 }

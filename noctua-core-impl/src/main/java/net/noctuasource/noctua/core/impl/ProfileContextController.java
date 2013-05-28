@@ -20,13 +20,14 @@ package net.noctuasource.noctua.core.impl;
 
 
 
-import net.noctuasource.noctua.core.ProfilesContext;
+import net.noctuasource.noctua.core.datastore.ProfilesContext;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.spring.SpringDefaultConstants;
 import net.noctuasource.noctua.core.database.DatabaseInitializationException;
 import net.noctuasource.noctua.core.database.DatabaseInitializer;
 import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.ui.other.DatastoreTooNewMessageDialog;
 import net.noctuasource.profiles.Profile;
 import org.apache.log4j.Logger;
 
@@ -38,7 +39,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
-
+/**
+ * Initializes the profiles context.
+ * @author Philipp Thomas
+ */
 public class ProfileContextController extends SubContextController {
 
 
@@ -54,41 +58,43 @@ public class ProfileContextController extends SubContextController {
 
 	// -- Members ------------------------------
 
-	ConfigurableApplicationContext context;
+	private ConfigurableApplicationContext	context;
+
+	private ProfilesContext					profilesContext;
+
+	private DatabaseInitializer				dbInitializer;
 
 
 
 	@RunLater
 	public void init() {
-		logger.debug("Load profile context...");
-
 		try {
-			// Load spring application context
-			ApplicationContext parentApplicationContext =
-								getControllerData().getOrThrow(SpringDefaultConstants.DEFAULT_CONTEXT_DATA_KEY,
-															   ApplicationContext.class);
-
-			context = new ClassPathXmlApplicationContext(new String[]{PROFILE_CONTEXT_FILE}, parentApplicationContext);
-
-			getControllerData().set(SpringDefaultConstants.DEFAULT_CONTEXT_DATA_KEY, context);
-
+			initApplicationContext();
+			injectResources();
 
 			// Load profile
 			Profile profile = getControllerParams().getOrThrow("profile", Profile.class);
-
-			ProfilesContext profilesContext = context.getBean(ProfilesContext.class);
 			profilesContext.init(profile);
 
-			DatabaseInitializer dbInitializer = context.getBean(DatabaseInitializer.class);
+			if(profilesContext.getProfileVersion() < profilesContext.getNeededProfileVersion()) {
+				updateProfileDir();
+			}
+			else if(profilesContext.getProfileVersion() > profilesContext.getNeededProfileVersion()) {
+				showTooNewMessage();
+				return;
+			}
+
+
 			dbInitializer.openDatabase();
 
-
-			// Show main window
-			executeController("mainWindowView");
-			
+			startMainWindow();
 		}
-		catch (DatabaseInitializationException ex) {
+		catch(DatabaseInitializationException ex) {
 			logger.error("Could not initialize database!", ex);
+			NoctuaInstanceUtil.destroyNoctuaInstance(this);
+		}
+		catch(Exception ex) {
+			logger.error("Could not initialize profile context!", ex);
 			NoctuaInstanceUtil.destroyNoctuaInstance(this);
 		}
 	}
@@ -96,6 +102,60 @@ public class ProfileContextController extends SubContextController {
 
 	@Override
 	protected void onDestroy() {
-		context.close();
+		if(context != null) {
+			context.close();
+		}
 	}
+
+
+
+
+	/**
+	 * Initializes the application context for profiles.
+	 */
+	private void initApplicationContext() {
+		logger.debug("Load profile application context...");
+
+		ApplicationContext parentApplicationContext =
+							getControllerData().getOrThrow(SpringDefaultConstants.DEFAULT_CONTEXT_DATA_KEY,
+														   ApplicationContext.class);
+
+		context = new ClassPathXmlApplicationContext(new String[]{PROFILE_CONTEXT_FILE}, parentApplicationContext);
+
+		getControllerData().set(SpringDefaultConstants.DEFAULT_CONTEXT_DATA_KEY, context);
+	}
+
+
+	/**
+	 * Initializes the application context for profiles.
+	 */
+	private void injectResources() {
+		profilesContext = context.getBean(ProfilesContext.class);
+		dbInitializer = context.getBean(DatabaseInitializer.class);
+	}
+
+
+	/**
+	 * Updates the old profile dir.
+	 */
+	private void updateProfileDir() {
+		profilesContext.setProfileVersion(1);
+	}
+
+
+	/**
+	 * Starts main window.
+	 */
+	private void startMainWindow() {
+		executeController("mainWindowView");
+	}
+
+
+	/**
+	 * Show too new message.
+	 */
+	private void showTooNewMessage() {
+		executeController(DatastoreTooNewMessageDialog.class);
+	}
+
 }

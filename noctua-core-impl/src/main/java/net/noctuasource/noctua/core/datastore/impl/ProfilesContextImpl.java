@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.impl;
+package net.noctuasource.noctua.core.datastore.impl;
 
 
 import java.io.File;
@@ -26,7 +26,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 import net.noctuasource.noctua.core.GlobalPaths;
-import net.noctuasource.noctua.core.ProfilesContext;
+import net.noctuasource.noctua.core.datastore.ProfilesContext;
+import net.noctuasource.noctua.core.impl.GlobalPathsFactory;
 import net.noctuasource.profiles.Profile;
 
 import org.apache.log4j.Logger;
@@ -44,6 +45,8 @@ public class ProfilesContextImpl implements ProfilesContext {
 	// -- Static Members ------------------------
 
 	static final String		CONFIG_FILE = "config.properties";
+
+	private static final int	NEEDED_VERSION = 1;
 
 
 
@@ -77,6 +80,7 @@ public class ProfilesContextImpl implements ProfilesContext {
 
 		profileConfigFile = new File(absoluteProfilePath + File.separator + CONFIG_FILE);
 
+
 		logger.debug("Load profile config file \"" + profileConfigFile + "\"...");
 
 		profileConfig = new Properties();
@@ -101,7 +105,7 @@ public class ProfilesContextImpl implements ProfilesContext {
 
 
 	@Override
-	public String getProfileDir() {
+	public String getAbsoluteProfileDir() {
 		return absoluteProfilePath.getAbsolutePath();
 	}
 
@@ -119,6 +123,24 @@ public class ProfilesContextImpl implements ProfilesContext {
 		}
 
 		profileConfig.store(new FileOutputStream(profileConfigFile), "");
+	}
+
+
+	@Override
+	public int getProfileVersion() {
+		return profile.getData().getVersion();
+	}
+
+
+	@Override
+	public void setProfileVersion(int newVersionNumber) {
+		profile.getData().setVersion(newVersionNumber);
+	}
+
+
+	@Override
+	public int getNeededProfileVersion() {
+		return NEEDED_VERSION;
 	}
 
 

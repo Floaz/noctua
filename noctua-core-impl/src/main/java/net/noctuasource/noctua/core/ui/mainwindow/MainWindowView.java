@@ -37,7 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.ProfilesContext;
+import net.noctuasource.noctua.core.datastore.ProfilesContext;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.data.ControllerParams;
 import net.noctuasource.act.data.ControllerParamsBuilder;

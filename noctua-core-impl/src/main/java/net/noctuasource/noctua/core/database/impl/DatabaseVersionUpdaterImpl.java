@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import net.noctuasource.noctua.core.database.DatabaseVersion;
 import net.noctuasource.noctua.core.database.DatabaseVersionUpdater;
@@ -31,6 +32,12 @@ import net.noctuasource.noctua.core.database.DatabaseVersionUpdater;
 import org.apache.log4j.Logger;
 
 
+
+
+/**
+ * DatabaseVersionUpdaterImpl.
+ * @author Philipp Thomas
+ */
 public class DatabaseVersionUpdaterImpl implements DatabaseVersionUpdater {
 
 	private static final int	NEEDED_VERSION = 2;
@@ -44,6 +51,8 @@ public class DatabaseVersionUpdaterImpl implements DatabaseVersionUpdater {
 
 	private static Logger		logger = Logger.getLogger(DatabaseVersionUpdaterImpl.class);
 
+
+	private Set<DatabaseVersion>	versions;
 
 
 
@@ -104,8 +113,6 @@ public class DatabaseVersionUpdaterImpl implements DatabaseVersionUpdater {
 
 	private Map<Integer, DatabaseVersion> getVersionMap() {
 		Map<Integer, DatabaseVersion> versionMap = new HashMap<>();
-
-		DatabaseVersion[] versions = new DatabaseVersion[0];
 
 		for(DatabaseVersion versionObj : versions) {
 			DatabaseVersion version = (DatabaseVersion) versionObj;
@@ -204,4 +211,10 @@ public class DatabaseVersionUpdaterImpl implements DatabaseVersionUpdater {
 		}
 	}
 
+
+
+	
+	public void setVersions(Set<DatabaseVersion> versions) {
+		this.versions = versions;
+	}
 }

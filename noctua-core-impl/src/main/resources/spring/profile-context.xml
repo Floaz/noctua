@@ -19,9 +19,17 @@
 
 	<bean id="sessionHolder" class="net.noctuasource.noctua.core.dao.impl.SessionHolder"/>
 	<bean id="databaseInitializer" class="net.noctuasource.noctua.core.database.impl.DatabaseInitializerImpl"/>
-	<bean id="databaseVersionUpdater" class="net.noctuasource.noctua.core.database.impl.DatabaseVersionUpdaterImpl"/>
 
-	<bean id="profilesContext" class="net.noctuasource.noctua.core.impl.ProfilesContextImpl"/>
+	<bean id="databaseVersionUpdater" class="net.noctuasource.noctua.core.database.impl.DatabaseVersionUpdaterImpl">
+		<property name="versions">
+            <set>
+                <ref bean="databaseVersion01" />
+                <ref bean="databaseVersion02" />
+            </set>
+		</property>
+	</bean>
+
+	<bean id="profilesContext" class="net.noctuasource.noctua.core.datastore.impl.ProfilesContextImpl"/>
 
 
 	<context:annotation-config />
