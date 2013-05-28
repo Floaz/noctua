@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet TestOptionsView.css?>
+
+<VBox fx:id="rootBox" prefHeight="420.0" prefWidth="790.0" spacing="10.0" xmlns:fx="http://javafx.com/fxml">
+  <HBox fx:id="headerBox" spacing="10.0" styleClass="headerBox">
+    <ImageView>
+      <fitHeight>
+        <Long fx:value="64" />
+      </fitHeight>
+      <fitWidth>
+        <Long fx:value="64" />
+      </fitWidth>
+      <image>
+        <Image url="@images/TestMultipleChoice.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <VBox alignment="CENTER_LEFT">
+      <Label fx:id="headerTitle" styleClass="headerTitle" text="Testoptionen">
+        <effect>
+          <InnerShadow />
+        </effect>
+        <translateX>
+          <Long fx:value="0" />
+        </translateX>
+        <translateY>
+          <Long fx:value="0" />
+        </translateY>
+        <translateZ>
+          <Long fx:value="0" />
+        </translateZ>
+      </Label>
+      <Label fx:id="testTypeText" styleClass="testTypeText" text="Multiple Choice" />
+    </VBox>
+  </HBox>
+  <TabPane VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <tabs>
+      <Tab fx:id="optionsTab" closable="false" text="Optionen">
+        <HBox>
+          <prefWidth>
+            <Long fx:value="-1" />
+          </prefWidth>
+          <spacing>
+            <Long fx:value="10" />
+          </spacing>
+          <VBox alignment="TOP_CENTER" spacing="10.0" styleClass="infoBoxHolder" HBox.hgrow="ALWAYS">
+            <prefWidth>
+              <Long fx:value="100" />
+            </prefWidth>
+            <HBox.margin>
+              <Insets />
+            </HBox.margin>
+            <TitledPane id="resultTitledPane" fx:id="fetchTitledPane" animated="false" collapsible="false" text="Auswahl" VBox.vgrow="ALWAYS">
+              <content>
+                <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                  <children>
+                    <GridPane id="GridPane">
+                      <children>
+                        <Label id="resultTextLabel" fx:id="numberDescLabel" alignment="CENTER" contentDisplay="CENTER" text="Anzahl Vokabeln: " textAlignment="CENTER" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <prefWidth>
+                            <Long fx:value="-1" />
+                          </prefWidth>
+                        </Label>
+                        <TextField fx:id="numberField" prefHeight="26.0" promptText="10" text="TextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <prefWidth>
+                            <Long fx:value="-1" />
+                          </prefWidth>
+                        </TextField>
+                        <ChoiceBox fx:id="chooseMethodBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Item 1" />
+                              <String fx:value="Item 2" />
+                              <String fx:value="Item 3" />
+                            </FXCollections>
+                          </items>
+                        </ChoiceBox>
+                        <Label fx:id="chooseMethodDescLabel" text="Auswahlmethode:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <hgap>
+                        <Long fx:value="6" />
+                      </hgap>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES">
+                          <prefHeight>
+                            <Long fx:value="-1" />
+                          </prefHeight>
+                        </RowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES">
+                          <prefHeight>
+                            <Long fx:value="-1" />
+                          </prefHeight>
+                        </RowConstraints>
+                      </rowConstraints>
+                      <vgap>
+                        <Long fx:value="10" />
+                      </vgap>
+                      <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x2" />
+                      </VBox.margin>
+                    </GridPane>
+                  </children>
+                </VBox>
+              </content>
+              <font>
+                <Font name="System Bold" size="13.0" fx:id="x1" />
+              </font>
+              <minWidth>
+                <Long fx:value="-1" />
+              </minWidth>
+              <prefHeight>
+                <Long fx:value="-1" />
+              </prefHeight>
+              <prefWidth>
+                <Long fx:value="100" />
+              </prefWidth>
+            </TitledPane>
+          </VBox>
+          <VBox id="VBox" alignment="TOP_CENTER" spacing="5.0">
+            <children>
+              <TitledPane id="resultTitledPane" fx:id="timeTitledPane" animated="false" collapsible="false" font="$x1" text="Zeitbegrenzung">
+                <content>
+                  <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                    <children>
+                      <GridPane id="GridPane">
+                        <children>
+                          <CheckBox fx:id="timeLimitCheckbox" mnemonicParsing="false" text="Zeitbegrenzung aktivieren" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0" />
+                          <Label id="resultTextLabel" fx:id="timeLimitDescLabel" alignment="CENTER" contentDisplay="CENTER" text="Sekunden pro Vokabel: " textAlignment="CENTER" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <prefWidth>
+                              <Long fx:value="-1" />
+                            </prefWidth>
+                          </Label>
+                          <TextField fx:id="timeLimitField" prefHeight="26.0" promptText="10" text="TextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <prefWidth>
+                              <Long fx:value="-1" />
+                            </prefWidth>
+                          </TextField>
+                        </children>
+                        <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        </columnConstraints>
+                        <hgap>
+                          <Long fx:value="0" />
+                        </hgap>
+                        <rowConstraints>
+                          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES">
+                            <prefHeight>
+                              <Long fx:value="-1" />
+                            </prefHeight>
+                          </RowConstraints>
+                          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES">
+                            <prefHeight>
+                              <Long fx:value="-1" />
+                            </prefHeight>
+                          </RowConstraints>
+                        </rowConstraints>
+                        <vgap>
+                          <Long fx:value="10" />
+                        </vgap>
+                        <VBox.margin>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x2" />
+                        </VBox.margin>
+                      </GridPane>
+                    </children>
+                  </VBox>
+                </content>
+                <minWidth>
+                  <Long fx:value="-1" />
+                </minWidth>
+                <prefHeight>
+                  <Long fx:value="-1" />
+                </prefHeight>
+                <prefWidth>
+                  <Long fx:value="100" />
+                </prefWidth>
+              </TitledPane>
+              <TitledPane id="resultTtitledPane" fx:id="directionTitledPane" alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" font="$x1" text="Abfragerichtung" VBox.vgrow="NEVER">
+                <content>
+                  <VBox id="VBox" alignment="CENTER_LEFT" padding="$x2" spacing="5.0">
+                    <children>
+                      <RadioButton fx:id="toForeignRadioButton" mnemonicParsing="false" text="Fremdsprache erfragen" />
+                      <RadioButton fx:id="toNativeRadioButton" mnemonicParsing="false" text="Muttersprache erfragen" />
+                    </children>
+                  </VBox>
+                </content>
+                <VBox.margin>
+                  <Insets top="20.0" />
+                </VBox.margin>
+              </TitledPane>
+            </children>
+            <prefWidth>
+              <Long fx:value="100" />
+            </prefWidth>
+            <HBox.margin>
+              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x2" />
+            </HBox.margin>
+          </VBox>
+        </HBox>
+      </Tab>
+      <Tab fx:id="moreTab" closable="false" text="Erweitert">
+        <content>
+          <VBox id="VBox" spacing="5.0">
+            <children>
+              <GridPane id="GridPane">
+                <children>
+                  <CheckBox fx:id="affectCardBoxCheckbox" mnemonicParsing="false" selected="true" text="Karteikasten beeinflussen" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <CheckBox id="addInfo" fx:id="showAddInfoCheckbox" mnemonicParsing="false" text="Zusatzinformationen vorher anzeigen" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <CheckBox fx:id="caseSensitiveCheckbox" mnemonicParsing="false" selected="true" text="Groß-/Kleinschreibung beachten" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <CheckBox fx:id="showImagesCheckbox" mnemonicParsing="false" selected="true" text="Bilder anzeigen" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                </children>
+                <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                </columnConstraints>
+                <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <vgap>
+                  <Long fx:value="10" />
+                </vgap>
+                <VBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                </VBox.margin>
+              </GridPane>
+            </children>
+          </VBox>
+        </content>
+      </Tab>
+    </tabs>
+    <translateX>
+      <Long fx:value="1" />
+    </translateX>
+    <translateY>
+      <Long fx:value="1" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="1" />
+    </translateZ>
+  </TabPane>
+  <HBox alignment="CENTER" spacing="10.0">
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+        <Button fx:id="cancelButton" contentDisplay="CENTER" onAction="#handleCloseButtonAction" style="-fx-padding: 6px;&#10;" text="Abbrechen">
+          <effect>
+            <Reflection />
+          </effect>
+          <font>
+            <Font name="System Bold" size="12.0" fx:id="x3" />
+          </font>
+          <graphicTextGap>
+            <Long fx:value="4" />
+          </graphicTextGap>
+          <HBox.margin>
+            <Insets />
+          </HBox.margin>
+        </Button>
+      </children>
+    </HBox>
+    <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+        <Button fx:id="startButton" contentDisplay="CENTER" font="$x3" onAction="#handleStartButtonAction" style="-fx-padding: 6px;&#10;" text="Test starten">
+          <effect>
+            <Reflection />
+          </effect>
+          <graphicTextGap>
+            <Long fx:value="4" />
+          </graphicTextGap>
+        </Button>
+      </children>
+    </HBox>
+  </HBox>
+  <stylesheets>
+    <URL value="@TestOptionsView.css" />
+  </stylesheets>
+</VBox>

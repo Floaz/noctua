@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet TestOptionsView.css?>
+
+<VBox id="" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <HBox fx:id="headerBox" spacing="10.0" styleClass="headerBox">
+    <ImageView>
+      <fitHeight>
+        <Long fx:value="64" />
+      </fitHeight>
+      <fitWidth>
+        <Long fx:value="64" />
+      </fitWidth>
+      <image>
+        <Image url="@images/noctua_owl_64.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <VBox alignment="CENTER_LEFT">
+      <Label fx:id="headerTitle" styleClass="headerTitle" text="Noctua">
+        <translateX>
+          <Long fx:value="0" />
+        </translateX>
+        <translateY>
+          <Long fx:value="0" />
+        </translateY>
+        <translateZ>
+          <Long fx:value="0" />
+        </translateZ>
+      </Label>
+    </VBox>
+    <VBox id="VBox" alignment="BOTTOM_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+        <MenuButton mnemonicParsing="false" styleClass="superButton" text="Thomy">
+          <effect>
+            <Reflection bottomOpacity="0.007874015748031482" fraction="0.34055118110236227" topOpacity="1.0" />
+          </effect>
+          <graphic>
+            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <fitHeight>
+                <Long fx:value="24" />
+              </fitHeight>
+              <fitWidth>
+                <Long fx:value="24" />
+              </fitWidth>
+              <image>
+                <Image url="@images/User.png" preserveRatio="false" smooth="false" />
+              </image>
+            </ImageView>
+          </graphic>
+          <items>
+            <MenuItem mnemonicParsing="false" text="Einstellungen">
+              <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                  <fitHeight>
+                    <Long fx:value="16" />
+                  </fitHeight>
+                  <fitWidth>
+                    <Long fx:value="16" />
+                  </fitWidth>
+                  <image>
+                    <Image url="@images/settings.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Über Noctua">
+              <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                  <fitHeight>
+                    <Long fx:value="16" />
+                  </fitHeight>
+                  <fitWidth>
+                    <Long fx:value="16" />
+                  </fitWidth>
+                  <image>
+                    <Image url="@images/FrameIcon.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Noctua beenden">
+              <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                  <fitHeight>
+                    <Long fx:value="16" />
+                  </fitHeight>
+                  <fitWidth>
+                    <Long fx:value="16" />
+                  </fitWidth>
+                  <image>
+                    <Image url="@images/quit.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+          </items>
+        </MenuButton>
+      </children>
+    </VBox>
+  </HBox>
+  <TabPane fx:id="profileTabPane" VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <tabs>
+      <Tab fx:id="profilesTab" closable="false" onSelectionChanged="#handleTabPaneSelectionChanged" text="Lektionen">
+        <graphic>
+          <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+            <fitHeight>
+              <Long fx:value="16" />
+            </fitHeight>
+            <fitWidth>
+              <Long fx:value="16" />
+            </fitWidth>
+            <image>
+              <Image url="@images/objecttreeicon.png" preserveRatio="false" smooth="false" />
+            </image>
+          </ImageView>
+        </graphic>
+        <HBox id="HBox" alignment="CENTER" spacing="5.0">
+          <children>
+            <VBox HBox.margin="$x2">
+              <children>
+                <TitledPane animated="false" collapsible="false" text="Lernen">
+                  <content>
+                    <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                      <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Normale Abfrage">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/TestNormalTest.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                          <VBox.margin>
+                            <Insets fx:id="x2" />
+                          </VBox.margin>
+                        </Button>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Multiple Choice">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/TestMultipleChoice.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                        </Button>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Fragebogen">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/TestSchoolTest.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                        </Button>
+                      </children>
+                      <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                      </padding>
+                    </VBox>
+                  </content>
+                  <font>
+                    <Font name="System Bold" size="13.0" fx:id="x1" />
+                  </font>
+                </TitledPane>
+                <TitledPane animated="false" collapsible="false" font="$x1" text="Neu">
+                  <content>
+                    <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                      <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Neue Lektion">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/Group.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                          <VBox.margin>
+                            <Insets fx:id="x2" />
+                          </VBox.margin>
+                        </Button>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Neuer Ordner">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/Folder.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                        </Button>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Neue Sprache">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/World.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                        </Button>
+                      </children>
+                      <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                      </padding>
+                    </VBox>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" collapsible="false" font="$x1" text="Bearbeiten">
+                  <content>
+                    <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                      <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Umbennen">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/TestMultipleChoice.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                        </Button>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebarButton" text="Löschen">
+                          <graphic>
+                            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                              <fitHeight>
+                                <Long fx:value="16" />
+                              </fitHeight>
+                              <fitWidth>
+                                <Long fx:value="16" />
+                              </fitWidth>
+                              <image>
+                                <Image url="@images/TestSchoolTest.png" preserveRatio="false" smooth="false" />
+                              </image>
+                            </ImageView>
+                          </graphic>
+                        </Button>
+                      </children>
+                      <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                      </padding>
+                    </VBox>
+                  </content>
+                </TitledPane>
+              </children>
+              <padding>
+                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+              </padding>
+              <prefHeight>
+                <Long fx:value="-1" />
+              </prefHeight>
+              <prefWidth>
+                <Long fx:value="200" />
+              </prefWidth>
+              <spacing>
+                <Long fx:value="6" />
+              </spacing>
+            </VBox>
+            <VBox id="VBox" alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
+              <children>
+                <TreeView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0">
+                  <children>
+                    <CheckBox mnemonicParsing="false" text="Mehrere auswählen" />
+                    <Region HBox.hgrow="ALWAYS">
+                      <prefHeight>
+                        <Long fx:value="-1" />
+                      </prefHeight>
+                      <prefWidth>
+                        <Long fx:value="-1" />
+                      </prefWidth>
+                    </Region>
+                    <Button fx:id="editButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleEditButtonAction" style="-fx-padding: 6px;" text="Öffnen">
+                      <graphic>
+                        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                          <fitHeight>
+                            <Long fx:value="16" />
+                          </fitHeight>
+                          <fitWidth>
+                            <Long fx:value="16" />
+                          </fitWidth>
+                          <image>
+                            <Image url="@images/continue.png" preserveRatio="false" smooth="false" />
+                          </image>
+                        </ImageView>
+                      </graphic>
+                    </Button>
+                  </children>
+                </HBox>
+              </children>
+              <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+              </padding>
+              <prefWidth>
+                <Long fx:value="100" />
+              </prefWidth>
+            </VBox>
+          </children>
+        </HBox>
+      </Tab>
+      <Tab fx:id="newProfileTab" closable="false" onSelectionChanged="#handleTabPaneSelectionChanged" text="Weiteres">
+        <content>
+          <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                <children>
+                  <GridPane style="-fx-background-color: rgba(255,255,255,0.1);&#10;-fx-background-radius: 6px;&#10;">
+                    <children>
+                      <Label font="$x1" text="Anzahl Vokabeln:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                      <Label text="638" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                      <Label font="$x1" text="Anzahl Lektionen:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                      <Label text="32" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      <Label font="$x1" text="Anzahl Abfragen:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                      <Label text="213" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    </children>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <hgap>
+                      <Long fx:value="6" />
+                    </hgap>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Virtuelle Tastatur anpassen" />
+                      <Button layoutX="14.0" layoutY="46.0" mnemonicParsing="false" text="Vokabeln importieren" />
+                    </children>
+                  </AnchorPane>
+                </children>
+                <prefHeight>
+                  <Long fx:value="-1" />
+                </prefHeight>
+              </VBox>
+              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                <children>
+                  <CheckBox mnemonicParsing="false" selected="true" text="Standardprofil beim Start" />
+                </children>
+                <prefHeight>
+                  <Long fx:value="-1" />
+                </prefHeight>
+              </VBox>
+            </children>
+            <padding>
+              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+            </padding>
+          </HBox>
+        </content>
+        <graphic>
+          <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+            <fitHeight>
+              <Long fx:value="16" />
+            </fitHeight>
+            <fitWidth>
+              <Long fx:value="16" />
+            </fitWidth>
+            <image>
+              <Image url="@images/Star.png" preserveRatio="false" smooth="false" />
+            </image>
+          </ImageView>
+        </graphic>
+      </Tab>
+    </tabs>
+    <translateX>
+      <Long fx:value="1" />
+    </translateX>
+    <translateY>
+      <Long fx:value="1" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="1" />
+    </translateZ>
+    <VBox.margin>
+      <Insets bottom="10.0" left="10.0" right="10.0" />
+    </VBox.margin>
+  </TabPane>
+  <prefHeight>
+    <Long fx:value="460" />
+  </prefHeight>
+  <prefWidth>
+    <Long fx:value="640" />
+  </prefWidth>
+  <spacing>
+    <Long fx:value="0" />
+  </spacing>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+</VBox>

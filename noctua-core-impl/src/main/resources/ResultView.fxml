@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet ResultView.css?>
+
+<VBox fx:id="rootBox" prefWidth="700.0" spacing="10.0" xmlns:fx="http://javafx.com/fxml">
+  <HBox fx:id="headerBox" spacing="10.0" styleClass="headerBox">
+    <ImageView>
+      <fitHeight>
+        <Long fx:value="64" />
+      </fitHeight>
+      <fitWidth>
+        <Long fx:value="64" />
+      </fitWidth>
+      <image>
+        <Image url="@images/Marks.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <VBox alignment="CENTER_LEFT">
+      <Label fx:id="headerTitle" styleClass="headerTitle" text="Testergebnis">
+        <effect>
+          <InnerShadow />
+        </effect>
+        <translateX>
+          <Long fx:value="0" />
+        </translateX>
+        <translateY>
+          <Long fx:value="0" />
+        </translateY>
+        <translateZ>
+          <Long fx:value="0" />
+        </translateZ>
+      </Label>
+      <Label fx:id="testTypeText" styleClass="testTypeText" text="Multiple Choice" />
+    </VBox>
+  </HBox>
+  <TabPane VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <tabs>
+      <Tab fx:id="statisticsTab" closable="false" text="Statistiken">
+        <HBox>
+          <prefWidth>
+            <Long fx:value="-1" />
+          </prefWidth>
+          <spacing>
+            <Long fx:value="10" />
+          </spacing>
+          <VBox alignment="CENTER" spacing="10.0" styleClass="infoBoxHolder" HBox.hgrow="ALWAYS">
+            <PieChart id="PieChart" fx:id="testResultChart" title="" />
+            <prefWidth>
+              <Long fx:value="100" />
+            </prefWidth>
+            <HBox.margin>
+              <Insets />
+            </HBox.margin>
+          </VBox>
+          <VBox id="VBox" alignment="BOTTOM_CENTER" spacing="5.0">
+            <children>
+              <TitledPane id="resultTitledPane" fx:id="summaryTitledPane" animated="false" collapsible="false" text="Zusammenfassung">
+                <content>
+                  <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                    <children>
+                      <Label id="resultTextLabel" fx:id="summaryTextLabel" alignment="CENTER" contentDisplay="CENTER" text="Das Ergebnis ist nicht so prickelnd. Du solltest noch ein wenig mehr lernen. Vielleicht wiederholst du diesen Test später noch einmal." textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
+                        <prefWidth>
+                          <Long fx:value="300" />
+                        </prefWidth>
+                      </Label>
+                      <Label fx:id="markLabel" alignment="CENTER" contentDisplay="CENTER" text="6" textFill="#ff7a00">
+                        <effect>
+                          <DropShadow blurType="GAUSSIAN" height="7.0" radius="3.0" width="7.0">
+                            <input>
+                              <Glow level="0.7548387096774194">
+                                <input>
+                                  <Reflection fraction="0.8051181102362205" topOpacity="0.5393700787401575" />
+                                </input>
+                              </Glow>
+                            </input>
+                          </DropShadow>
+                        </effect>
+                        <font>
+                          <Font name="System Bold" size="32.0" />
+                        </font>
+                      </Label>
+                    </children>
+                  </VBox>
+                </content>
+                <font>
+                  <Font name="System Bold" size="13.0" fx:id="x1" />
+                </font>
+                <minWidth>
+                  <Long fx:value="-1" />
+                </minWidth>
+                <prefHeight>
+                  <Long fx:value="-1" />
+                </prefHeight>
+                <prefWidth>
+                  <Long fx:value="100" />
+                </prefWidth>
+              </TitledPane>
+              <TitledPane fx:id="resultTtitledPane" alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" font="$x1" text="Ergebnis" VBox.vgrow="NEVER">
+                <content>
+                  <GridPane>
+                    <children>
+                      <Label fx:id="dateDescLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Datum:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                      <Label fx:id="tipsDescLabel" text="Benötigte Tips:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                      <Label fx:id="wrongDescLabel" text="Flasch beantwortet:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                      <Label id="dateDescLabel" fx:id="correctDescLabel" text="Richtig beantwortet:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                      <Label fx:id="countDescLabel" text="Anzahl Vokabeln:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                      <Label fx:id="dateValueLabel" text="04. Mai 2011" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                      <Label fx:id="countValueLabel" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      <Label fx:id="correctValueLabel" text="7" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                      <Label fx:id="wrongValueLabel" text="3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                      <Label fx:id="tipsValueLabel" text="2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                      <Label id="time" fx:id="elapsedTimeDescLabel" text="Benötigte Zeit:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                      <Label id="elapsedTimeDescLabel" fx:id="elapsedTimeValueLabel" text="3 Min. 12 Sek." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    </children>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <hgap>
+                      <Long fx:value="8" />
+                    </hgap>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <vgap>
+                      <Long fx:value="0" />
+                    </vgap>
+                  </GridPane>
+                </content>
+                <VBox.margin>
+                  <Insets top="20.0" />
+                </VBox.margin>
+              </TitledPane>
+            </children>
+            <HBox.margin>
+              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </HBox.margin>
+          </VBox>
+        </HBox>
+      </Tab>
+      <Tab fx:id="answersTab" closable="false" text="Antworten">
+        <content>
+          <VBox id="VBox" alignment="CENTER" spacing="5.0">
+            <children>
+              <TableView fx:id="testAnswersTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+              </TableView>
+            </children>
+          </VBox>
+        </content>
+      </Tab>
+    </tabs>
+    <translateX>
+      <Long fx:value="1" />
+    </translateX>
+    <translateY>
+      <Long fx:value="1" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="1" />
+    </translateZ>
+  </TabPane>
+  <HBox alignment="BOTTOM_RIGHT" spacing="10.0">
+    <Button contentDisplay="CENTER" onAction="#handleCloseButtonAction" style="-fx-padding: 6px;&#10;" text="Fertig">
+      <effect>
+        <Reflection />
+      </effect>
+      <font>
+        <Font name="System Bold" size="12.0" />
+      </font>
+      <graphicTextGap>
+        <Long fx:value="4" />
+      </graphicTextGap>
+      <HBox.margin>
+        <Insets bottom="10.0" left="10.0" />
+      </HBox.margin>
+    </Button>
+  </HBox>
+  <prefHeight>
+    <Long fx:value="-1" />
+  </prefHeight>
+  <stylesheets>
+    <URL value="@ResultView.css" />
+  </stylesheets>
+</VBox>

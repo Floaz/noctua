@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet ResultView.css?>
+
+<VBox id="" fx:id="rootBox" prefHeight="458.0" prefWidth="700.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <TabPane fx:id="tabbedPane" focusTraversable="false" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <tabs>
+      <Tab fx:id="assistantTab" closable="false" text="Schnelle Eingabe">
+        <VBox id="VBox" alignment="TOP_LEFT" spacing="5.0">
+          <children>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@images/noctua_owl_64.png" />
+                  </image>
+                </ImageView>
+                <Label fx:id="assistantIntro" prefHeight="100.0" text="Eine Karteikarte kann mehrere Einträge von Fremdsprache, Muttersprache und Beispielsätze enthalten. Z.B. kichern, lachen. Jede Zeile, die mit der Entertaste erstellt wird bedeutet einen neuen Eintrag." textAlignment="JUSTIFY" wrapText="true" />
+              </children>
+            </HBox>
+            <HBox id="HBox" alignment="CENTER_LEFT" spacing="10.0">
+              <children>
+                <VBox id="VBox" alignment="TOP_LEFT" spacing="5.0">
+                  <children>
+                    <TitledPane animated="false" collapsible="false" expanded="true" focusTraversable="false" text="Fremdsprache">
+                      <content>
+                        <TextArea fx:id="foreignTextArea" prefHeight="-1.0" prefWidth="200.0" wrapText="true" />
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" collapsible="false" focusTraversable="false" text="Muttersprache">
+                      <content>
+                        <TextArea fx:id="nativeTextArea" prefHeight="-1.0" prefWidth="200.0" wrapText="true" />
+                      </content>
+                    </TitledPane>
+                  </children>
+                  <padding>
+                    <Insets fx:id="x1" />
+                  </padding>
+                </VBox>
+                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                <VBox id="VBox" alignment="TOP_LEFT" padding="$x1" spacing="5.0" HBox.hgrow="ALWAYS">
+                  <children>
+                    <TitledPane animated="false" collapsible="true" focusTraversable="false" text="Beispielsätze (Fremdsprache)" VBox.vgrow="SOMETIMES">
+                      <content>
+                        <TextArea id="foreignSentence" fx:id="foreignSentenceTextArea" prefHeight="60.0" prefWidth="200.0" wrapText="true" />
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" collapsible="true" focusTraversable="false" prefWidth="-1.0" text="Notiz" VBox.vgrow="ALWAYS">
+                      <content>
+                        <TextField fx:id="addInfoTextField" minHeight="28.0" prefHeight="-1.0" prefWidth="-1.0" />
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" collapsible="true" focusTraversable="false" prefHeight="-1.0" text="Extra">
+                      <content>
+                        <GridPane gridLinesVisible="false" hgap="6.0">
+                          <children>
+                            <Label text="Geschlecht:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                              <labelFor>
+                                <ChoiceBox fx:id="genderChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                  <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                      <String fx:value="Item 1" />
+                                      <String fx:value="Item 2" />
+                                      <String fx:value="Item 3" />
+                                    </FXCollections>
+                                  </items>
+                                </ChoiceBox>
+                              </labelFor>
+                            </Label>
+                            <Label text="Wortart:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                              <labelFor>
+                                <ChoiceBox id="speechTypeChoiceBox" fx:id="partOfSpeechChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                  <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                      <String fx:value="Item 1" />
+                                      <String fx:value="Item 2" />
+                                      <String fx:value="Item 3" />
+                                    </FXCollections>
+                                  </items>
+                                </ChoiceBox>
+                              </labelFor>
+                            </Label>
+                            <fx:reference source="genderChoiceBox" />
+                            <fx:reference source="partOfSpeechChoiceBox" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </content>
+                    </TitledPane>
+                  </children>
+                </VBox>
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+          </padding>
+        </VBox>
+      </Tab>
+    </tabs>
+    <translateX>
+      <Long fx:value="1" />
+    </translateX>
+    <translateY>
+      <Long fx:value="1" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="1" />
+    </translateZ>
+    <VBox.margin>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </VBox.margin>
+  </TabPane>
+  <HBox alignment="BOTTOM_LEFT" styleClass="bottomButtonBar">
+    <spacing>
+      <Long fx:value="10" />
+    </spacing>
+    <Button focusTraversable="false" onAction="#handleCloseButtonAction" style="&#10;" text="Schließen">
+      <effect>
+        <Reflection />
+      </effect>
+      <font>
+        <Font name="System Bold" size="12.0" fx:id="x2" />
+      </font>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="24" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="24" />
+          </fitWidth>
+          <image>
+            <Image url="@images/cancel.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+      </graphic>
+      <graphicTextGap>
+        <Long fx:value="2" />
+      </graphicTextGap>
+      <HBox.margin>
+        <Insets fx:id="x1" />
+      </HBox.margin>
+    </Button>
+    <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+        <Button fx:id="addButton" font="$x2" onAction="#handleAddButtonAction" style="&#10;" text="Hinzufügen">
+          <effect>
+            <Reflection />
+          </effect>
+          <graphic>
+            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <fitHeight>
+                <Long fx:value="24" />
+              </fitHeight>
+              <fitWidth>
+                <Long fx:value="24" />
+              </fitWidth>
+              <image>
+                <Image url="@images/Add.png" />
+              </image>
+            </ImageView>
+          </graphic>
+          <graphicTextGap>
+            <Long fx:value="2" />
+          </graphicTextGap>
+        </Button>
+      </children>
+    </HBox>
+  </HBox>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+</VBox>

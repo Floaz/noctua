@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet TestOptionsView.css?>
+
+<VBox id="" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <HBox fx:id="headerBox" spacing="10.0" styleClass="headerBox">
+    <ImageView>
+      <fitHeight>
+        <Long fx:value="64" />
+      </fitHeight>
+      <fitWidth>
+        <Long fx:value="64" />
+      </fitWidth>
+      <image>
+        <Image url="@images/noctua_owl_64.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <VBox alignment="CENTER_LEFT">
+      <Label fx:id="headerTitle" styleClass="headerTitle" text="Noctua">
+        <translateX>
+          <Long fx:value="0" />
+        </translateX>
+        <translateY>
+          <Long fx:value="0" />
+        </translateY>
+        <translateZ>
+          <Long fx:value="0" />
+        </translateZ>
+      </Label>
+    </VBox>
+    <VBox id="VBox" alignment="BOTTOM_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+        <MenuButton fx:id="superButton" mnemonicParsing="false" styleClass="superButton" text="Noctua">
+          <effect>
+            <Reflection bottomOpacity="0.007874015748031482" fraction="0.34055118110236227" topOpacity="1.0" />
+          </effect>
+          <graphic>
+            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <fitHeight>
+                <Long fx:value="24" />
+              </fitHeight>
+              <fitWidth>
+                <Long fx:value="24" />
+              </fitWidth>
+              <image>
+                <Image url="@images/User.png" preserveRatio="false" smooth="false" />
+              </image>
+            </ImageView>
+          </graphic>
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleSettingsMenuItem" text="Einstellungen" fx:id="settingsMenuItem">
+              <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                  <fitHeight>
+                    <Long fx:value="16" />
+                  </fitHeight>
+                  <fitWidth>
+                    <Long fx:value="16" />
+                  </fitWidth>
+                  <image>
+                    <Image url="@images/settings.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#handleAboutMenuItem" text="Über Noctua" fx:id="aboutMenuItem">
+              <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                  <fitHeight>
+                    <Long fx:value="16" />
+                  </fitHeight>
+                  <fitWidth>
+                    <Long fx:value="16" />
+                  </fitWidth>
+                  <image>
+                    <Image url="@images/FrameIcon.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#handleExitMenuItem" text="Noctua beenden" fx:id="exitMenuItem">
+              <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                  <fitHeight>
+                    <Long fx:value="16" />
+                  </fitHeight>
+                  <fitWidth>
+                    <Long fx:value="16" />
+                  </fitWidth>
+                  <image>
+                    <Image url="@images/quit.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+          </items>
+        </MenuButton>
+      </children>
+    </VBox>
+  </HBox>
+  <TabPane id="profileTabPane" fx:id="tabPane" VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <translateX>
+      <Long fx:value="1" />
+    </translateX>
+    <translateY>
+      <Long fx:value="1" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="1" />
+    </translateZ>
+    <VBox.margin>
+      <Insets bottom="10.0" left="10.0" right="10.0" />
+    </VBox.margin>
+  </TabPane>
+  <minHeight>
+    <Long fx:value="350" />
+  </minHeight>
+  <minWidth>
+    <Long fx:value="400" />
+  </minWidth>
+  <prefHeight>
+    <Long fx:value="460" />
+  </prefHeight>
+  <prefWidth>
+    <Long fx:value="640" />
+  </prefWidth>
+  <spacing>
+    <Long fx:value="0" />
+  </spacing>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+</VBox>

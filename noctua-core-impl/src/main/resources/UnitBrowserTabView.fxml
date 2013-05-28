@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet TestOptionsView.css?>
+
+<HBox id="HBox" alignment="CENTER" prefWidth="640.0" spacing="5.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <VBox HBox.margin="$x2">
+      <children>
+        <TitledPane animated="false" collapsible="false" text="Lernen">
+          <content>
+            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Button fx:id="normalTestButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNormalTestButtonAction" styleClass="sidebarButton" text="Normale Abfrage">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/TestNormalTest.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                  <VBox.margin>
+                    <Insets fx:id="x2" />
+                  </VBox.margin>
+                </Button>
+                <Button fx:id="mcTestButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMCTestButtonAction" styleClass="sidebarButton" text="Multiple Choice">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/TestMultipleChoice.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+                <Button id="schoolTestButto" fx:id="schoolTestButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSchoolTestButtonAction" styleClass="sidebarButton" text="Fragebogen">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/TestSchoolTest.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+              </children>
+              <padding>
+                <Insets bottom="5.0" top="5.0" />
+              </padding>
+            </VBox>
+          </content>
+          <font>
+            <Font name="System Bold" size="13.0" fx:id="x1" />
+          </font>
+        </TitledPane>
+        <TitledPane animated="false" collapsible="false" font="$x1" text="Neu">
+          <content>
+            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Button fx:id="newUnitButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewUnitButtonAction" styleClass="sidebarButton" text="Neue Lektion">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/Group.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                  <VBox.margin>
+                    <Insets fx:id="x2" />
+                  </VBox.margin>
+                </Button>
+                <Button id="new" fx:id="newFolderButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewFolderButtonAction" styleClass="sidebarButton" text="Neuer Ordner">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/Folder.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+                <Button fx:id="newLanguageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewLanguageButtonAction" styleClass="sidebarButton" text="Neue Sprache">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/World.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+              </children>
+              <padding>
+                <Insets bottom="5.0" top="5.0" />
+              </padding>
+            </VBox>
+          </content>
+        </TitledPane>
+        <TitledPane animated="false" collapsible="false" font="$x1" text="Bearbeiten">
+          <content>
+            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Button fx:id="renameButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRenameButtonAction" styleClass="sidebarButton" text="Umbennen">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/TestMultipleChoice.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+                <Button fx:id="deleteButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeleteButtonAction" styleClass="sidebarButton" text="Löschen">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/TestSchoolTest.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+              </children>
+              <padding>
+                <Insets bottom="5.0" top="5.0" />
+              </padding>
+            </VBox>
+          </content>
+        </TitledPane>
+      </children>
+      <padding>
+        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+      </padding>
+      <prefHeight>
+        <Long fx:value="-1" />
+      </prefHeight>
+      <prefWidth>
+        <Long fx:value="200" />
+      </prefWidth>
+      <spacing>
+        <Long fx:value="6" />
+      </spacing>
+    </VBox>
+    <VBox id="VBox" alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+        <VBox fx:id="treeViewBox" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+        <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0">
+          <children>
+            <CheckBox id="multipleSelectionButton" fx:id="multipleSelectionCheckbox" mnemonicParsing="false" onAction="#handleMultipleSelectionCheckbox" text="Mehrere auswählen" />
+            <Region HBox.hgrow="ALWAYS">
+              <prefHeight>
+                <Long fx:value="-1" />
+              </prefHeight>
+              <prefWidth>
+                <Long fx:value="-1" />
+              </prefWidth>
+            </Region>
+            <Button id="editButton" fx:id="openButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleOpenButtonAction" style="-fx-padding: 6px;" text="Öffnen">
+              <graphic>
+                <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                  <fitHeight>
+                    <Long fx:value="16" />
+                  </fitHeight>
+                  <fitWidth>
+                    <Long fx:value="16" />
+                  </fitWidth>
+                  <image>
+                    <Image url="@images/continue.png" preserveRatio="false" smooth="false" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </children>
+        </HBox>
+      </children>
+      <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+      <prefWidth>
+        <Long fx:value="100" />
+      </prefWidth>
+    </VBox>
+  </children>
+</HBox>

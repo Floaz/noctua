@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet TestOptionsView.css?>
+
+<VBox id="" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <HBox fx:id="headerBox" spacing="10.0" styleClass="headerBox">
+    <ImageView>
+      <fitHeight>
+        <Long fx:value="64" />
+      </fitHeight>
+      <fitWidth>
+        <Long fx:value="64" />
+      </fitWidth>
+      <image>
+        <Image url="@images/noctua_owl_64.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <VBox alignment="CENTER_LEFT">
+      <Label fx:id="headerTitle" styleClass="headerTitle" text="Profilauswahl">
+        <translateX>
+          <Long fx:value="0" />
+        </translateX>
+        <translateY>
+          <Long fx:value="0" />
+        </translateY>
+        <translateZ>
+          <Long fx:value="0" />
+        </translateZ>
+      </Label>
+    </VBox>
+  </HBox>
+  <Label fx:id="descriptionLabel" style="&#10;" text="Hier kannst du ein Profil auswählen oder ein neues erstellen. Wenn du Noctua mit anderen teilst, kommt ihr euch so nicht in die Quere." textAlignment="JUSTIFY" wrapText="true">
+    <prefHeight>
+      <Long fx:value="290" />
+    </prefHeight>
+    <prefWidth>
+      <Long fx:value="-1" />
+    </prefWidth>
+    <VBox.margin>
+      <Insets left="10.0" right="10.0" />
+    </VBox.margin>
+  </Label>
+  <TabPane fx:id="profileTabPane" VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <tabs>
+      <Tab fx:id="profilesTab" closable="false" onSelectionChanged="#handleTabPaneSelectionChanged" text="Profile">
+        <VBox id="VBox" alignment="TOP_CENTER" spacing="5.0">
+          <children>
+            <ListView id="profileList" fx:id="profilesList" onKeyPressed="#handleListViewKeyPressed" onMouseClicked="#handleListViewMouseClickChange" style="-fx-font-size: 18px;">
+              <prefHeight>
+                <Long fx:value="-1" />
+              </prefHeight>
+              <prefWidth>
+                <Long fx:value="-1" />
+              </prefWidth>
+            </ListView>
+            <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0">
+              <children>
+                <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonAction" text="Bearbeiten">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/edit.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Löschen">
+                  <graphic>
+                    <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                      <fitHeight>
+                        <Long fx:value="16" />
+                      </fitHeight>
+                      <fitWidth>
+                        <Long fx:value="16" />
+                      </fitWidth>
+                      <image>
+                        <Image url="@images/Remove.png" preserveRatio="false" smooth="false" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+                <Region HBox.hgrow="ALWAYS">
+                  <prefHeight>
+                    <Long fx:value="-1" />
+                  </prefHeight>
+                  <prefWidth>
+                    <Long fx:value="-1" />
+                  </prefWidth>
+                </Region>
+                <CheckBox fx:id="autoLoginCheckbox" mnemonicParsing="false" text="Nicht mehr nachfragen" />
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+          </padding>
+          <prefWidth>
+            <Long fx:value="100" />
+          </prefWidth>
+        </VBox>
+        <graphic>
+          <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+            <fitHeight>
+              <Long fx:value="16" />
+            </fitHeight>
+            <fitWidth>
+              <Long fx:value="16" />
+            </fitWidth>
+            <image>
+              <Image url="@images/Users.png" preserveRatio="false" smooth="false" />
+            </image>
+          </ImageView>
+        </graphic>
+      </Tab>
+      <Tab fx:id="newProfileTab" closable="false" onSelectionChanged="#handleTabPaneSelectionChanged" text="Neues Profil">
+        <content>
+          <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0">
+            <children>
+              <ImageView pickOnBounds="true" preserveRatio="true">
+                <fitHeight>
+                  <Long fx:value="32" />
+                </fitHeight>
+                <fitWidth>
+                  <Long fx:value="32" />
+                </fitWidth>
+                <image>
+                  <Image url="@images/User.png" preserveRatio="false" smooth="false" />
+                </image>
+              </ImageView>
+              <VBox id="VBox" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <children>
+                  <Label text="Profilbezeichnung:">
+                    <font>
+                      <Font name="System Bold" size="13.0" />
+                    </font>
+                    <graphicTextGap>
+                      <Long fx:value="4" />
+                    </graphicTextGap>
+                    <VBox.margin>
+                      <Insets left="3.0" />
+                    </VBox.margin>
+                  </Label>
+                  <TextField fx:id="newProfileNameTextField" onAction="#handleTextFieldReturnAction" promptText="Dein Name" style="-fx-font-size: 24px;">
+                    <prefWidth>
+                      <Long fx:value="-1" />
+                    </prefWidth>
+                  </TextField>
+                </children>
+                <spacing>
+                  <Long fx:value="6" />
+                </spacing>
+              </VBox>
+            </children>
+            <padding>
+              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+            </padding>
+          </HBox>
+        </content>
+        <graphic>
+          <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+            <fitHeight>
+              <Long fx:value="16" />
+            </fitHeight>
+            <fitWidth>
+              <Long fx:value="16" />
+            </fitWidth>
+            <image>
+              <Image url="@images/Add.png" preserveRatio="false" smooth="false" />
+            </image>
+          </ImageView>
+        </graphic>
+      </Tab>
+    </tabs>
+    <translateX>
+      <Long fx:value="1" />
+    </translateX>
+    <translateY>
+      <Long fx:value="1" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="1" />
+    </translateZ>
+    <VBox.margin>
+      <Insets bottom="10.0" left="10.0" right="10.0" />
+    </VBox.margin>
+  </TabPane>
+  <prefHeight>
+    <Long fx:value="460" />
+  </prefHeight>
+  <prefWidth>
+    <Long fx:value="500" />
+  </prefWidth>
+  <spacing>
+    <Long fx:value="0" />
+  </spacing>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+  <HBox alignment="CENTER" spacing="10.0" styleClass="bottomButtonBar">
+    <Button fx:id="exitButton" onAction="#handleCloseButtonAction" style="-fx-padding: 6px;&#10;" text="Beenden">
+      <effect>
+        <Reflection />
+      </effect>
+      <font>
+        <Font name="System Bold" size="12.0" fx:id="x3" />
+      </font>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="24" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="24" />
+          </fitWidth>
+          <image>
+            <Image url="@images/quit.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+      </graphic>
+      <graphicTextGap>
+        <Long fx:value="4" />
+      </graphicTextGap>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+    </Button>
+    <Region HBox.hgrow="ALWAYS">
+      <prefHeight>
+        <Long fx:value="-1" />
+      </prefHeight>
+      <prefWidth>
+        <Long fx:value="-1" />
+      </prefWidth>
+    </Region>
+    <Button fx:id="startButton" contentDisplay="RIGHT" font="$x3" onAction="#handleStartButtonAction" style="-fx-padding: 6px;&#10;" text="Starten">
+      <effect>
+        <Reflection />
+      </effect>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="24" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="24" />
+          </fitWidth>
+          <image>
+            <Image url="@images/continue.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+      </graphic>
+      <graphicTextGap>
+        <Long fx:value="4" />
+      </graphicTextGap>
+    </Button>
+  </HBox>
+</VBox>

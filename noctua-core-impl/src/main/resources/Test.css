@@ -1,0 +1,230 @@
+/**
+ * This file is part of Noctua.
+ *
+ * Copyright (C) 2013 Philipp Rene Thomas <info@noctuasource.net>
+ *
+ * Noctua is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Noctua is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
+ */
+﻿
+.root {
+	-fx-text-fill: #878787;
+}
+
+.rootBox {
+	-fx-padding: 10px;      
+	-fx-background-color:
+			linear-gradient(#d4e4ef 0%, #86aecc 100%);
+}
+
+
+.descLabel {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+
+.headerBox {
+	
+	-fx-font-weight: bold;
+}
+
+.headerTitle {
+	-fx-text-fill: #888;
+	-fx-font-size: 32px;
+/*     -fx-effect: dropshadow(gaussian, #000, 10, 0,3,3 ); */
+}
+
+.testTypeText {
+  -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );  
+}
+
+
+.infoBoxHolder {
+	-fx-padding: 10px;
+}
+
+.infoBox {
+	-fx-padding: 0px;
+	-fx-background-color:
+        linear-gradient(rgb(200,205,220) 90%, transparent 100%);
+    -fx-border-color: #333;
+    -fx-border-style: solid;
+    -fx-border-width: 0px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.infoBoxTitle {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+/*
+#blubb {
+	-fx-background-color: rgb(240,240,255);
+    -fx-border-color: #333;
+    -fx-border-style: solid;
+    -fx-border-width: 0px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(100,140,255,0.8) , 10, 0.7, 0,1 );
+}
+
+/**
+  * Middle Toggle Button
+  */
+.middleToggleButton {
+    -fx-background-insets: 0 0 0 1, 1 0 1 0, 2 0 2 0;
+    -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+}
+
+ /**
+  * Left side Toggle Button
+  */
+.leftToggleButton {
+    -fx-background-insets: 0 0 0 1, 1 0 1 1, 2 0 2 2;
+    -fx-background-radius: 0 0 0 5, 4 0 0 4, 3 0 0 3;
+}
+
+ /**
+  * Right side Toggle Button
+  */
+.rightToggleButton {
+    -fx-background-insets: 0 1 0 0, 1 1 1 0, 2 2 2 0 ;
+    -fx-background-radius: 0 5 0 0, 0 4 4 0, 0 3 3 0;  
+}
+
+
+#container {
+    -fx-padding: 3px;
+    -fx-background-color: 
+        linear-gradient(#ffffff 0%, #ced3da 4%, #c1c6cf 17%, 
+        #b4bbc5 18%, #e5ebeb 100%);
+}
+
+.toolbarContainer {
+    -fx-background-color: 
+        linear-gradient(#dae0e7 0%, #ced4dd 14%, 
+        #c8ced7 15%, #dfe5e6 100%),
+        linear-gradient(#bdbfc1 0%, #9a9c9f 14%, 
+        #888b90 15%, #838686 100%),
+        linear-gradient(#eef1f6 0%, #e1e6ee 14%, 
+        #d5dbe7 15%, #eef4f4 79%, 
+        #ced4e6 79%, #afb6c8 100%);
+
+    -fx-background-insets: 1 0 1 1, 1, 2;
+    -fx-background-radius: 5,4,3;
+    -fx-padding: 4 8 0 8;
+}
+
+
+
+.tab-pane *.tab-header-background {
+	-fx-background-color: transparent;
+}
+
+/*.tab-pane *.tab {
+    -fx-background-color: 
+        linear-gradient(#ffffff 0%, #ced3da 4%, #c1c6cf 17%, 
+        #b4bbc5 18%, #e5ebeb 100%);
+    -fx-effect: innershadow(gaussian, rgba(100,100,100,0.8) , 2, 0.6, 0,1 );
+}*/
+
+.questionPane {
+	-fx-background-color: rgb(230,230,230);
+    -fx-border-color: #aaaaaa;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+
+
+
+.ribbonTabPane *.tab-header-background {
+    -fx-background-color: 
+        linear-gradient(#ffffff 0%, #ced3da 4%, #c1c6cf 17%, 
+        #b4bbc5 18%, #e5ebeb 100%);
+}
+
+.ribbonTabPane *.tab {
+    -fx-background-color: 
+        linear-gradient(#ffffff 0%, #ced3da 4%, #c1c6cf 17%, 
+        #b4bbc5 18%, #e5ebeb 100%);
+}
+
+.ribbonTabPane *.tab:hover {
+    -fx-background-color: 
+        linear-gradient(#aaaaaa 0%, #bed3da 4%, #b1c6cf 17%, 
+        #a4bbc5 18%, #d5ebeb 100%);
+}
+
+.ribbonTabPane *.tab-content-area {
+	-fx-background-color: #333;
+}
+
+
+
+
+.default-color0.chart-pie { -fx-pie-color: #44ff00; }
+.default-color1.chart-pie { -fx-pie-color: #ff6600; }
+.default-color2.chart-pie { -fx-pie-color: #ffdd00; }
+
+
+
+.answerTextField {
+	-fx-font-size: 24px;
+}
+
+
+.transparentScrollpane {
+	-fx-background-color: rgba(255,255,255,0);
+}
+
+
+.mcAnswerButton {
+	-fx-padding: 6px;
+	-fx-border: none;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: normal;
+    -fx-background-color: linear-gradient(#dddde3, #eeeeff);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.mcAnswerButton:hover {
+    -fx-background-color: linear-gradient(#eeeeee, #ffffff);
+}
+
+
+
+
+
+

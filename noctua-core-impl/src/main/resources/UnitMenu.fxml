@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet ResultView.css?>
+
+<VBox id="" fx:id="rootBox" prefHeight="458.0" prefWidth="700.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <TabPane VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <tabs>
+      <Tab fx:id="statisticsTab" closable="false" text="Informationen">
+        <VBox id="VBox" alignment="CENTER" spacing="5.0">
+          <children>
+            <VBox alignment="CENTER" spacing="10.0" styleClass="infoBoxHolder">
+              <prefWidth>
+                <Long fx:value="100" />
+              </prefWidth>
+              <HBox id="HBox" alignment="CENTER_LEFT">
+                <children>
+                  <ImageView>
+                    <fitHeight>
+                      <Long fx:value="64" />
+                    </fitHeight>
+                    <fitWidth>
+                      <Long fx:value="64" />
+                    </fitWidth>
+                    <image>
+                      <Image url="@images/kartiekarte.gif" preserveRatio="false" smooth="false" />
+                    </image>
+                  </ImageView>
+                  <Label fx:id="flashCardGroupTitle" text="I ate my cat!">
+                    <font>
+                      <Font name="System Bold" size="15.0" />
+                    </font>
+                  </Label>
+                </children>
+                <spacing>
+                  <Long fx:value="10" />
+                </spacing>
+              </HBox>
+              <TitledPane fx:id="resultTtitledPane" animated="false" collapsible="false" text="Statistiken" VBox.vgrow="NEVER">
+                <content>
+                  <GridPane>
+                    <children>
+                      <Label fx:id="dateDescLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Erstellt am:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <prefWidth>
+                          <Long fx:value="-1" />
+                        </prefWidth>
+                      </Label>
+                      <Label fx:id="wrongDescLabel" text="Durchschnittsnote:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                      <Label id="dateDescLabel" fx:id="correctDescLabel" text="Anzahl Tests:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                      <Label fx:id="countDescLabel" text="Anzahl Vokabeln:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                      <Label fx:id="dateValueLabel" text="04. Mai 2011" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                      <Label fx:id="countValueLabel" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      <Label fx:id="correctValueLabel" text="7" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                      <Label fx:id="wrongValueLabel" text="2-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    </children>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0">
+                        <prefWidth>
+                          <Long fx:value="160" />
+                        </prefWidth>
+                      </ColumnConstraints>
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <hgap>
+                      <Long fx:value="8" />
+                    </hgap>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <vgap>
+                      <Long fx:value="0" />
+                    </vgap>
+                  </GridPane>
+                </content>
+                <font>
+                  <Font name="System Bold" size="13.0" fx:id="x1" />
+                </font>
+                <VBox.margin>
+                  <Insets top="20.0" />
+                </VBox.margin>
+              </TitledPane>
+            </VBox>
+          </children>
+        </VBox>
+      </Tab>
+      <Tab fx:id="answersTab" closable="false" text="Vokabeln">
+        <content>
+          <VBox id="VBox" alignment="CENTER" spacing="5.0">
+            <children>
+              <TableView id="testAnswersTable" fx:id="vocabularyTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+              </TableView>
+              <HBox>
+                <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Hinzufügen">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/Add.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                  <Region HBox.hgrow="ALWAYS">
+                    <prefHeight>
+                      <Long fx:value="-1" />
+                    </prefHeight>
+                    <prefWidth>
+                      <Long fx:value="-1" />
+                    </prefWidth>
+                  </Region>
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonAction" text="Editieren">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/edit.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                  <Button fx:id="moveButton" mnemonicParsing="false" onAction="#handleMoveButtonAction" text="Verschieben">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/move.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Löschen">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/delete.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                </children>
+                <prefHeight>
+                  <Long fx:value="-1" />
+                </prefHeight>
+                <prefWidth>
+                  <Long fx:value="-1" />
+                </prefWidth>
+                <spacing>
+                  <Long fx:value="6" />
+                </spacing>
+                <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+                </VBox.margin>
+              </HBox>
+            </children>
+          </VBox>
+        </content>
+      </Tab>
+    </tabs>
+    <translateX>
+      <Long fx:value="1" />
+    </translateX>
+    <translateY>
+      <Long fx:value="1" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="1" />
+    </translateZ>
+    <VBox.margin>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </VBox.margin>
+  </TabPane>
+  <HBox alignment="BOTTOM_LEFT" styleClass="bottomButtonBar">
+    <spacing>
+      <Long fx:value="10" />
+    </spacing>
+    <Button cancelButton="true" onAction="#handleCloseButtonAction" style="&#10;" text="Schließen">
+      <effect>
+        <Reflection />
+      </effect>
+      <font>
+        <Font name="System Bold" size="12.0" />
+      </font>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="24" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="24" />
+          </fitWidth>
+          <image>
+            <Image url="@images/cancel.png" />
+          </image>
+        </ImageView>
+      </graphic>
+      <graphicTextGap>
+        <Long fx:value="2" />
+      </graphicTextGap>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+    </Button>
+  </HBox>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+</VBox>

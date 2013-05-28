@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet ResultView.css?>
+
+<VBox id="" fx:id="rootBox" prefHeight="500.0" prefWidth="600.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+  <HBox alignment="BOTTOM_LEFT" styleClass="bottomButtonBar">
+    <spacing>
+      <Long fx:value="10" />
+    </spacing>
+    <Button cancelButton="true" focusTraversable="false" onAction="#handleCloseButtonAction" style="&#10;" text="Schließen">
+      <effect>
+        <Reflection />
+      </effect>
+      <font>
+        <Font name="System Bold" size="12.0" fx:id="x2" />
+      </font>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="24" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="24" />
+          </fitWidth>
+          <image>
+            <Image url="@images/cancel.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+      </graphic>
+      <graphicTextGap>
+        <Long fx:value="2" />
+      </graphicTextGap>
+      <HBox.margin>
+        <Insets fx:id="x1" />
+      </HBox.margin>
+    </Button>
+    <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
+      <children>
+        <Button id="addButton" fx:id="editButton" defaultButton="true" font="$x2" onAction="#handleEditButtonAction" style="&#10;" text="Speichern">
+          <effect>
+            <Reflection />
+          </effect>
+          <graphic>
+            <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <fitHeight>
+                <Long fx:value="24" />
+              </fitHeight>
+              <fitWidth>
+                <Long fx:value="24" />
+              </fitWidth>
+              <image>
+                <Image url="@images/apply.png" />
+              </image>
+            </ImageView>
+          </graphic>
+          <graphicTextGap>
+            <Long fx:value="2" />
+          </graphicTextGap>
+        </Button>
+      </children>
+    </HBox>
+  </HBox>
+</VBox>

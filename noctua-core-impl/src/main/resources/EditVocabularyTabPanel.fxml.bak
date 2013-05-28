@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet ResultView.css?>
+
+<VBox id="" fx:id="rootBox" prefHeight="200.0" prefWidth="400.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+  <VBox id="VBox" alignment="TOP_LEFT" prefWidth="400.0" spacing="5.0">
+    <children>
+      <ListView fx:id="listPanel" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+        <children>
+          <Button fx:id="deleteButton" mnemonicParsing="false" text="Löschen">
+            <graphic>
+              <ImageView fitHeight="16.0" fitWidth="16.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <image>
+                  <Image url="@images/delete.png" />
+                </image>
+              </ImageView>
+            </graphic>
+          </Button>
+        </children>
+      </HBox>
+    </children>
+    <padding>
+      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+    </padding>
+  </VBox>
+</VBox>

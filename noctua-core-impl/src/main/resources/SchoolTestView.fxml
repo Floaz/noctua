@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet Test.css?>
+
+<VBox alignment="CENTER" prefWidth="700.0" spacing="10.0" styleClass="rootBox" xmlns:fx="http://javafx.com/fxml">
+  <HBox fx:id="headerBox" alignment="CENTER_LEFT" spacing="10.0" styleClass="headerBox">
+    <ImageView opacity="0.5">
+      <fitHeight>
+        <Long fx:value="64" />
+      </fitHeight>
+      <fitWidth>
+        <Long fx:value="64" />
+      </fitWidth>
+      <image>
+        <Image url="@images/Marks.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <Label fx:id="headerTitle" opacity="0.51" styleClass="headerTitle" text="Test">
+      <effect>
+        <InnerShadow />
+      </effect>
+      <translateX>
+        <Long fx:value="0" />
+      </translateX>
+      <translateY>
+        <Long fx:value="0" />
+      </translateY>
+      <translateZ>
+        <Long fx:value="0" />
+      </translateZ>
+    </Label>
+    <Region HBox.hgrow="ALWAYS">
+      <prefHeight>
+        <Long fx:value="-1" />
+      </prefHeight>
+      <prefWidth>
+        <Long fx:value="-1" />
+      </prefWidth>
+    </Region>
+    <Label fx:id="timeLeftLabel" alignment="CENTER_RIGHT" text="30 Sek. verbleibend" textFill="#404040" />
+  </HBox>
+  <prefHeight>
+    <Long fx:value="-1" />
+  </prefHeight>
+  <stylesheets>
+    <URL value="@Test.css" />
+  </stylesheets>
+  <ScrollPane fitToWidth="true" style="-fx-background-color:transparent;" VBox.vgrow="ALWAYS">
+    <content>
+      <VBox fx:id="answerPanelBox" alignment="TOP_CENTER" styleClass="transparentScrollpane">
+        <prefHeight>
+          <Long fx:value="-1" />
+        </prefHeight>
+        <prefWidth>
+          <Long fx:value="-1" />
+        </prefWidth>
+        <spacing>
+          <Long fx:value="6" />
+        </spacing>
+      </VBox>
+    </content>
+    <hvalue>
+      <Long fx:value="0" />
+    </hvalue>
+    <prefHeight>
+      <Long fx:value="400" />
+    </prefHeight>
+    <prefWidth>
+      <Long fx:value="-1" />
+    </prefWidth>
+    <vvalue>
+      <Long fx:value="0" />
+    </vvalue>
+  </ScrollPane>
+  <VBox fx:id="addonBox">
+    <prefHeight>
+      <Long fx:value="-1" />
+    </prefHeight>
+    <prefWidth>
+      <Long fx:value="-1" />
+    </prefWidth>
+  </VBox>
+  <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+    <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" style="-fx-padding: 6px;&#10;" text="Abbrechen">
+      <effect>
+        <Reflection />
+      </effect>
+      <font>
+        <Font name="System Bold" size="12.0" />
+      </font>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="16" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="16" />
+          </fitWidth>
+          <image>
+            <Image url="@images/cancel.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+      </graphic>
+      <graphicTextGap>
+        <Long fx:value="4" />
+      </graphicTextGap>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+    </Button>
+    <Region HBox.hgrow="ALWAYS">
+      <prefHeight>
+        <Long fx:value="-1" />
+      </prefHeight>
+      <prefWidth>
+        <Long fx:value="-1" />
+      </prefWidth>
+    </Region>
+    <Button fx:id="nextButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleNextButtonAction" style="-fx-padding: 6px;&#10;&#10;" text="Antworten überprüfen">
+      <font>
+        <Font name="System Bold" size="13.0" fx:id="x1" />
+      </font>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="16" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="16" />
+          </fitWidth>
+          <image>
+            <Image url="@images/continue.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+      </graphic>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+    </Button>
+  </HBox>
+</VBox>

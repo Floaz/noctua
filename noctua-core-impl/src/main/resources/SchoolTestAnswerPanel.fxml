@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet Test.css?>
+
+<VBox alignment="CENTER_LEFT" prefWidth="680.0" styleClass="questionPane" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <Label id="answerDescription" fx:id="questionLabel" text="essen">
+      <font>
+        <Font name="System Bold" size="13.0" fx:id="x1" />
+      </font>
+    </Label>
+    <TextField fx:id="answerTextField" onAction="#handleTextFieldReturnAction" prefWidth="354.9998779296875" promptText="Keine Antwort" styleClass="answerTextField" />
+    <HBox id="correctBox" fx:id="answerCorrectBox" alignment="CENTER_LEFT">
+      <children>
+        <ImageView pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="32" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="32" />
+          </fitWidth>
+          <image>
+            <Image url="@images/Correct.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+        <Label id="correctText" fx:id="answerCorrectText" text="Deine Antwort ist richtig!">
+          <textFill>
+            <Color blue="0.000" green="0.400" red="0.129" fx:id="x4" />
+          </textFill>
+        </Label>
+      </children>
+      <prefHeight>
+        <Long fx:value="-1" />
+      </prefHeight>
+      <prefWidth>
+        <Long fx:value="-1" />
+      </prefWidth>
+      <spacing>
+        <Long fx:value="6" />
+      </spacing>
+    </HBox>
+    <HBox id="correctBox" fx:id="answerWrongBox" alignment="CENTER_LEFT">
+      <children>
+        <ImageView pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="32" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="32" />
+          </fitWidth>
+          <image>
+            <Image url="@images/Wrong.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+        <Label id="correctText" fx:id="answerWrongText" text="Deine Antwort ist falsch!">
+          <textFill>
+            <Color blue="0.000" green="0.000" red="0.400" fx:id="x3" />
+          </textFill>
+        </Label>
+        <Region HBox.hgrow="ALWAYS">
+          <prefHeight>
+            <Long fx:value="-1" />
+          </prefHeight>
+          <prefWidth>
+            <Long fx:value="-1" />
+          </prefWidth>
+        </Region>
+        <CheckBox fx:id="correctCheckbox" mnemonicParsing="false" text="Doch richtig!" textFill="$x3" />
+      </children>
+      <prefHeight>
+        <Long fx:value="-1" />
+      </prefHeight>
+      <prefWidth>
+        <Long fx:value="-1" />
+      </prefWidth>
+      <spacing>
+        <Long fx:value="6" />
+      </spacing>
+    </HBox>
+  </children>
+  <maxWidth>
+    <Long fx:value="-1" />
+  </maxWidth>
+  <padding>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+  </padding>
+  <prefHeight>
+    <Long fx:value="-1" />
+  </prefHeight>
+  <spacing>
+    <Long fx:value="6" />
+  </spacing>
+</VBox>

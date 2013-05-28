@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+
+
+	<!-- Noctua start handler -->
+	<bean id="profileManagerFactory" class="net.noctuasource.profiles.impl.DefaultProfileManagerFactory"/>
+	<bean id="profileManager" factory-bean="profileManagerFactory" factory-method="createProfileManager"/>
+
+	<bean id="controllerLookupRegistry" class="net.noctuasource.noctua.core.impl.ControllerLookupRegistryImpl"/>
+
+	<bean id="datastoreManager" class="net.noctuasource.noctua.core.datastore.impl.DatastoreManagerImpl"/>
+
+
+
+	<!-- Database Versions -->
+	<bean id="databaseVersion01" class="net.noctuasource.noctua.core.database.impl.DatabaseVersion01"/>
+	<bean id="databaseVersion02" class="net.noctuasource.noctua.core.database.impl.DatabaseVersion02"/>
+
+	<context:annotation-config />
+</beans>

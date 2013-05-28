@@ -1,0 +1,484 @@
+------------------------------------------------
+------------------------------------------------
+
+Noctua 6.0 (bisher noch nicht veröffentlicht):
+----------------------------------------------
+Noctua wurde auf Java portiert und läuft nun auf allen Betriebssystemen.
+- Neues Design und sehr gute Anpassungsfähigkeit
+sind die großen Neuerungen dieser Version.
+Features werden in den kommenden Versionen
+nachrücken.
+
+
+
+Noctua 5.0:
+----------------------------------------------
+Diese Version gab es nur als Beta!
+Ab hier gab es auch einen großen Umbruch!
+Noctua wurde nun komplett neu geschrieben und
+es wurde eine neue Programmiersprache benutzt. (C++)
+Der Programmierer hat sich geändert.
+Hier nochmal vielen Dank an Thomas Bögel, der
+Noctua zu dem gemacht hat, was es ist!
+- Neues Design und sehr gute Anpassungsfähigkeit
+sind die großen Neuerungen dieser Version.
+Features werden in den kommenden Versionen
+nachrücken.
+
+
+
+Noctua 4.23 (19.10.2009):
+------------------------
+Bugfix: Datentypen bei falscher Eingabe in der Abfrage
+Automatisches Ausblenden des Latein-Menues
+
+
+Noctua 4.22 (23.12.2008):
+------------------------
+Beseitigung von doppelten Lösungsmöglichkeiten bei der Multiple-Choice-Abfrage
+Bugfix: Ungültiger Eigenschaftswert beim Multiple-Choice-Test
+Druckendialog: Auswahl des Vokabelfachs
+Statistik: Anzeige der Wörter in einem Fach
+
+
+
+
+Noctua 4.21 (21.02.2008):
+--------------------------
+Beseitigung des Hochkomma-Fehlers beim Intensiv-Lernen
+Beseitigung eines Fehlers beim Ändern von Vokabeln
+Beseitigung eines Fehlers beim Hinzufügen von Bildern
+Beseitigung eines Datenbank-Fehlers beim Konjugationsassistenten
+Beseitigung eines Export-Fehlers
+Beseitigung eines Fehlers beim erneuten Abfragen eines Wortes
+Neu: Möglichkeit zur Auswahl aller Lektionen einer Sprache
+Neu: Anzeige der Wörter in einem Karteifach vor der Abfrage
+
+
+
+Noctua 4.20 (26.12.2008):
+---------------------------
+Vollständige Anpassung des Konjugationsassistenten
+Beseitigung des Hochkomma-Fehlers beim Intensiv-Lernen
+Beseitigung des Hochkomma-Fehlers beim Vokabeltest
+Beseitigung eines kritischen Fehlers beim Multiple-Choice-Test
+Wiedereinführung der Sonderzeichen
+Umbau des Lerncenters
+Wiedereinführung der Standardabfrage
+Restrukturierung und Stabilisierung sämtlicher Abfrage-Modi
+Beseitigung eines kritischen Fehlers beim Vokabeltest (Scrollbar)
+Beseitigung eines kritischen Fehlers beim Konjugationsassistenten für alles
+Sprachen
+Beschleunigung des Vokabeltests
+Einbau von Statuselementen in den Vokabeltest
+Wiedereinführung des Lexikons
+Wiedereinführung der Fehlerlektion
+Geringfügige Änderung des Farbschemas
+Implementierung der Möglichkeit, Vokabeln direkt beim Abfragen zu ändern
+
+
+
+
+Noctua 4.11 (18.09.2007):
+----------------------------
+Wiedereinführung des Konjugationsassistenten für alle Sprachen
+Diverse Fehlerbereinigungen
+
+
+
+
+
+
+Noctua 4.10 (23.05.2007):
+--------------------------
+Zahlreiche Fehlerbereinigungen bei Abfrage und Import
+Umgestaltung des Lernen-Dialogs
+
+
+Noctua 4.01 (11.02.2007):
+-------------------------
+Endlosschleife, wenn die Datenbank in einem Netzwerk liegt
+Programmfehler beim Aufruf des "Assistenten zur Erstkonfiguration"
+Programmfehler beim Lernen von Vokabeln importierer Lektionen (Überlauf)
+Fehler, der fälschlicherweise eine nicht ausreichende Zahl von Wörtern bei der
+Abfrage angibt.
+
+
+Noctua 4.0 (25.01.2007):
+------------------------
+Komplette Umgestaltung der Abfrage aufgrund von wissenschaftlichen
+Untersuchungen
+Komplett überarbeiteter Export und Import von Dateien Neues Dateiformat mit
+vielen zusätzlichen Wort-Informationen Neues Lerncenter Neuer Lernmodus
+Verbesserung des Karteikarstensystems Verbesserung/Optimierung der Lern-
+Vorschläge Neuer Multiple-Choice-Test Verbesserter Vokabeltest Einbau einer
+Guide-Figur Ausrichtung an Usability-Standards Neuer Stammformentrainer
+Speicherung der Statistik für einzelne Wörter Überarbeitetes Fehler-Fenster
+Überarbeitete Grafiken Überarbeiteter Startbildschirm Komplett neu gestaltete
+Lektions-Verwaltung Verbessertes Handling von Benutzer-Verzeichnissen!
+
+
+Noctua 3.211 (12.09.2006):
+--------------------------
+Bugfix: Sonderzeichendialog
+Bugfix: Internet-Adresse beim Ersteinrichtungsassistenten
+Bugfix: Noctua-Logo beim Start anzeigen
+
+
+
+Noctua 3.21 (05.08.06):
+------------
+Fehlerbereinigung beim Abfragen
+Bugfix: Vokabeltest
+Neu: Änderung der Abfragerichtung beim Vokabeltest!
+Bugfix: Exportieren von Statistiken
+
+
+
+
+Noctua 3.2 (06.06.06):
+-----------------------
+
+Bugfix: Vokabelsuche
+Bugfix: Import von CSV-Dateien
+Neu: Shortcuts für die wichtigsten Funktionen
+Mehrere Fehlerbereinigungen (u.a. im Konjugationsentwurf)
+Neu: Mehrere Lektionen auf einmal exportierbar
+
+
+
+
+Noctua 3.10 (19.02.2006):
+--------------------------
+Bugfix: Sonderzeichen während der Abfrage einfügen
+Bugfix: Mehrmalige Abfrage bei Falscheingabe
+Bugfix: Dialog Einstellungen
+Bugfix: Fehler 13 beim Abfragen
+Bugfix: Abfragen aller Lektionen
+Bugfix: Vokabelkartendruck
+Bugfix: Vokabeln lernen
+Neu: Vokabeln suchen
+Neu: Erstellen von Sprach unabhängigen Konjugationstabellen
+Neu: Abfrage von Konjugationsdateien
+
+
+
+
+
+Noctua 3.01 (13.02.2006):
+---------------------------
+Sonderzeichen automatisch anzeigen lassen
+Sonderzeichen permanent anzeigen
+Sonderzeichen-Eingabe beim Abfragen
+Bugfix: Karteikasten-Nummer
+Neue Aufgaben im Hauptfenster
+Bugfix: Karteikasten-Druck
+Möglichkeit zum Minimieren von Noctua
+Spracheinstellung vor der Abfrage
+Möglichkeit zum Löschen eines Wortes aus dem Lexikon
+Bugfix: Klick im Hauptfenster
+Bugfix: Hinzufügen von Lektionen
+Bugfix: Beschriftung beim Einrichtungsassistenten
+Bugfix: Online-Lexikon
+Bugfix: Fehlerhafte Anzeige einer Vokabel in der Abfrage
+Bugfix: Beschriftungen
+Bugfix: Über Noctua
+Möglichkeit zum Sortieren der Vokabeln im Ändern-Dialog
+
+
+
+
+3.0 (11.01.2005):
+---------------------
+
+NEU: KARTEIKARTENDRUCK!
+Zurückführung auf den Stand von 2.90
+Verbesserung des Vokabeltests
+Zusammenbau aller Vokabel-Abfrage-Einheiten in ein Modul
+Bugfix: Ändern von Vokabeln
+Bugfix: Löschen von Vokabeln
+Bugfix: Lexikon
+Neu: Neue fortgeschrittene Optionen
+Neu: Optionales Schweizer-Notensystem
+Neu: Möglichkeit, das interne Lexikon abzuschalten
+Neu: Möglichkeit, Zusatztext bei der Abfrage abzuschalten
+Verbesserung des Noten-Systems allgemein (Punkte-System)
+Neu: Möglichkeit zum Ausschalten des Start-Bildschirms
+Intelligentere Fehlerlektion, die gewusste Wörter wieder löscht!
+
+
+
+
+
+
+2.90 (21.12.2005):
+---------------------
+
+Bugfix: Keine doppelten Lexika mehr!
+Neu: Vokabeltest
+Neu: Möglichkeit, sich eine Liste mit allen Vokabeln anzeigen lassen zu können
+NEU: Möglichkeit zum Einfügen von SONDERZEICHEN!!!
+Überarbeitete Hilfe!
+Neu: Update-Möglichkeit
+Neu: Alphabetische Sortierung beim Anzeigen und Ändern aller Wörter!
+Automatisches Hinzufügen eines Lexikons beim Hinzufügen einer Sprache
+Überarbeitung des Lexikons-> Schnellere Suche
+Weihnachtsspecial!
+
+
+
+
+2.81 (26.11.2005):
+---------------------
+Bugfix: Arbeitsauftrag funktioniert und ist schon gesetzt
+Hinzufügen einer Sicherheitsabfrage beim Verlassen des Lektionen-Dialogs, wenn
+eine Lektion begonnen aber noch nicht gespeichert wurde
+Einbau einer Sicherheitsabfrage, bevor ein Wort doppelt eingegeben wird
+Verbesserung der Tabstop-Regelung beim Hinzufügen mehrerer Bedeutungen
+Tastenkombination STRG+B zum Hinzufügen einer Bedeutung festgelegt
+Fehlerbereinigung beim Exportieren als HTML-Datei
+Bugfix: Nachschlagen eines Wortes im Internet-Englisch-Lexikon
+Bugfix: Hochkomma-Fehler im Lexikon
+Bugfix: Abbrechen des Exportierens
+
+
+
+2.80 (19.11.2005):
+---------------------
+Fehlerbeseitigung beim Bild-Upload
+Neu: Möglichkeit zum komfortablen Hinzfügen mehrerer Bedeutungen zu einer
+vokabel
+Neu: Möglichkeit zum Export als CVS-Datei (Excel-Tabelle!)
+Fehlerbeseitigung beim Drucken!
+Fehlerbeseitigung beim Statistik-Fenster!
+Neu: Möglichkeit zum Drucken einer Liste mit allen Vokabeln einer Sprache!
+Anpassung der String-Länge beim Dialog "Lernen"
+Fehlerbeseitigung beim Abfragen
+
+
+
+
+
+
+Noctua 2.62 (23.10.2005):
+------------------------------
+Fehlerbeseitigungen:
+	* Dialog: Vokabeln lernen
+	* Dialog: Abfrage
+	* Dialog: Vokabeln ändern
+Ausbau der Möglichkeit zum Bild-Upload und Fehlerbeseitigung
+
+
+
+Noctua 2.61 (16.10.2005):
+------------------------------
+Fehlerbeseitigungen!
+
+
+
+Noctua 2.60 (10.09.2005)
+------------------------------
+Fehlerbeseitigung beim Abfragen
+Neu: Einführung des Lektionen-Verwaltungscenters
+Neu: Möglichkeit zum Hinzufügen von Bildern zu den Vokabeln (zum Beispiel
+Landkarten, etc.)
+Neu: Möglichkeit zum Hinzufügen von Arbeitsaufträgen zu jeder Lektion (Zum
+Beipsiel: eine Erdkunde-Lektion: "Benenne die auf dem Bild gezeigten Länder!")
+Neu: Anzeigemöglichkeit für Bilder während der Abfrage
+diverse Fehlerbeseitigungen
+
+
+
+
+Noctua 2.51d (30.09.2005):
+-----------------------------------
+Fehlerbeseitigung beim Abfragen einer Lektion
+Einbau einer Sicherheitsabfrage beim Löschen der Benutzerdaten
+
+
+Noctua 2.51 (25.09.2005):
+--------------------------
+Neu: Möglichkeit zum Ausdruck eines Wörtertests
+Neue Einstellungsmöglichkeiten beim Drucken (Anzahl der Wörter, etc.)
+Umgestaltung des Drucken-Dialogs und Behebung von Fehlern
+Aktualisierung der Hilfe
+Fehlerbeseitigungen
+Möglichkeit zum Einstellen der Anzahl der abzufragenden Wörter
+Verbessertes Handling (Tabstops)
+Neue Lektionen!
+
+
+
+
+Noctua 2.50 (02.09.2005):
+----------------------------
+Fehlerbeseitigung beim Hinzufügen eines Lexikons
+Umgestaltung des Druck-Fensters
+Neu: Möglichkeit zum Export der Statistik als HTML-Datei
+Neu: Möglihckeit zum Export der Statistik als Noctua-Datei
+Neu: Import der Statistik möglich
+Neu: Löschen von Statistiken
+Mehrere Fehlerbeseitigungen
+Neue Lektionen für Noctua!
+Neu: Umstrukturierung und dadurch Beseitigung der Probleme mit den
+Benutzerrechten
+Neu: Jeder Benutzer eines Computers hat seine eigenen User-Dateien
+Bearbeitung der Benutzerhilfe
+Beseitigung einer Handling-Schwierigkeit beim Abfragen aller Lektionen einer
+Sprache
+Zahlreiche kleinere Verbesserungen
+
+
+Noctua 2.42 (19.08.05):
+--------------------------
+Fehlerbeseitigung: Hinzufügen einer Vokabel zum Lexikon
+Möglichkeit zur Übersetzung aller Wörter (egal welche Sprache) beim Hinzufügen
+von Wörtern zu einer Lektion
+Fehlerbeseitigung: Importieren von Lexika
+Fehlerbeseitigung: Abfrage aller Wörter
+Fehlerbeseitigung: Falsche Beschriftung im Fehlerfenster
+Neue Einstellungsmöglichkeit: Erneutes Abfragen nicht gewusster Wörter
+Umgestaltung und Optimierung der Abfrage aller Wörter
+Aktualisierung der Benutzerhilfe
+Neue fertige Lektionen für Noctua!
+
+
+
+
+Noctua 2.41 (07.08.05):
+----------------------------
+Ausbau der Möglichkeit zum Importieren von Lexika
+Ausbau der Druckfunktion
+Möglichkeit zum Ändern der Kopfzeile
+Fehlerbeseitigungen beim Importieren
+
+
+
+
+
+Noctua 2.40 (24.07.05):
+----------------------------
+Neu: Möglichkeit zum Hinzufügen von Lexika!
+Neu: Möglichkeit zum Importieren von Lexika
+Neu: Möglichkeit zum Exportieren von Lexika!
+Ausbau der Druckfunktion
+Möglichkeit zum Ändern der Kopfzeile
+Bearbeitung der Benutzerhilfe
+Neu: Nun stehen schon zwei Lektionen zum Download zur Verfügung.
+Wiedereinführung des Fehlerfensters auf vielfachen Wunsch hin.
+
+
+
+
+
+
+
+
+
+Noctua 2.30 (22.06.2005):
+----------------------------
+Neu: Noctua Druckfunktion! (im Anfangsstadium!)
+Fehlerbeseitigung, Kategorie 3: Button Zurücksetzen in den Einstellungen hat nun
+eine Funktion!
+Anpassen der Schwellenwerte (nun müsste die Bandbreite für jeden passen!)
+Fehlerbeseitigung, Kategorie 1: Datenbank neu entworfen (nun sind auch längere
+Eingaben als Zusatztext möglich!) inklusive Updater!
+Beim Importieren wird nun angezeigt, wer die Lektion zur Verfügung gestellt hat!
+Nun kannst du beim Exportieren deinen Namen/E-Mail-Adresse eingeben, damit
+jeder weiß, von wem eine Lektion stammt!
+Überarbeitung der Hilfe (minimal, aber immerhin!)
+
+
+
+
+
+
+Noctua 2.21 (01.06.2005):
+--------------------------
+Fehlerbeseitigung, Kategorie 1 (Ungültiger Prozeduraufruf beim Ändern von
+Vokabeln)
+Fehlerbeseitigung, Kategorie 3 (Text im Dialog 'Sprache hinzufügen' zu lang)
+Neu: Der Vokabel-Lernen-Dialog zum Lernen von Vokabeln
+neue, komplett überarbeitete Hilfe (wird noch ausgebaut...)
+Fertigstellung des Konjugationsassistenten
+Fertigstellung des Deklinationsassistenten
+Zahlreiche kleine Verbesserungen und Neuerungen im Bereich Handling
+Überarbeitete Abfrageeinstellungen
+Neuer Statusbalken bei der Abfrage-Statistik
+
+
+
+
+
+Noctua 2.20 (22.05.05):
+-----------------------
+Der Einrichtungs-Assistent unterstützt bei der Konfiguration von Noctua
+Fertigstellung des Konjugations-Assistenten
+Das Statistik-, Zusammenfassungs- und das Abfrage-Fenster wurden
+ansprechender und übersichtlicher gestaltet
+Ausräumung zahlreicher kleinerer Fehler und Bedienungsfallen
+Das Einstellungsmenü wurde überarbeitet und noch übersichtlicher
+Neue Einstellungsmöglichkeit: Du kannst nun auswählen, ob auch schon die Eingabe
+einer Bedeutung für ein Wort mit mehreren Bedeutungen genügt.
+Optimierung des Kartei-Kasten-Systems
+Bearbeitung des Lexikons
+
+
+
+
+version 2.1:
+------------
+Behebung des cur_sprache Fehlers
+Abschaffung des Fehler-Fensters und Integration in das Abfrage-Fenster
+Abschfaffung von Bedien-Fallen
+Erstmals mit Karteikastensystem
+Neues Design und neue Farbzusammenstellung
+
+
+
+
+
+
+Version 2.02:
+-------------
+Behebung des Fehlers beim Ändern einer Sprache
+Behebung des Fehlers beim Importieren von Wörtern
+Aktualisierung des Wörterbuchs und der Konjugationen
+
+
+
+Version 2.0 final (05.02.05):
+-----------------------------
+
+Völlig neues Design und neuer Programmaufbau
+Noctua nun in 32 bit transferiert!
+Neu: Der Vokabel-Mixer. Alle Lektionen einer Sprache abfragen lassen
+Lexikon wurde ausgebaut (über 1500 Wörter)
+Sound-Ausgabe bei richtiger bzw. falscher Eingabe
+Ablösung der Dateien durch Datenbanken
+Nun ist es möglich, Wörter zum Lexikon hinzuzufügen
+Settings werden nun in der Registrierung, nicht mehr in Dateien gespeichert
+Möglichkeit zum Import und Export von Dateien
+Konjugationsassisten v. 1.0 Präsens fertig
+Konjugationsassisten v. 1.0 Perfekt fertig
+Erstmals Benutzerhilfe (wenn auch noch sehr dünn...)
+Ablösung der zwei Haupttabellen durch Treeviews
+Erstellung eines neuen Installers
+Behebung des "Hochkomma-Fehlers"!
+
+
+
+Frühere Versionen (16 bit):
+---------------------------
+
+Noctua 1.0
+
+
+Vor Noctua hieß der Vokabeltester nur "Vokabeltester".
+Von diesem sind folgende Versionen verfügbar gewesen:
+
+Vokabeltester 1.0
+Vokabeltester 1.2
+Vokabeltester 2.0
+Vokabeltester 3.0 (entsprach in etwa Noctua 1.0)
+
