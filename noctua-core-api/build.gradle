@@ -1,0 +1,12 @@
+
+dependencies {
+	compile project(':util')
+	compile project(':profiles-api')
+	compile project(':profiles-impl')
+	compile project(':instance')
+	compile 'org.hibernate:hibernate-core:3.6.10.Final'
+	compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final'
+}
+
+
+
