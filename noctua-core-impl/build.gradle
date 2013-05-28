@@ -40,11 +40,6 @@ dependencies {
 	compile 'log4j:log4j:1.2.16'
 	compile 'org.slf4j:slf4j-log4j12:1.7.5'
 
-	// Swing dependencies
-	compile 'com.l2fprod.common:l2fprod-common-shared:6.9.1'
-	compile 'com.l2fprod.common:l2fprod-common-tasks:6.9.1'
-	compile 'jgoodies:forms:1.0.5'
-
 	// OSGI dependencies
 	compile 'org.osgi:org.osgi.core:4.3.0'
 	compile 'org.osgi:org.osgi.compendium:4.3.0'
