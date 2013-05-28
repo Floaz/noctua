@@ -1,0 +1,13 @@
+
+dependencies {
+	compile project(':util')
+	compile project(':profiles-api')
+
+	compile 'log4j:log4j:1.2.16'
+
+	compile 'org.osgi:org.osgi.core:4.3.0'
+	compile 'org.osgi:org.osgi.compendium:4.3.0'
+}
+
+
+
