@@ -20,15 +20,14 @@ package net.noctuasource.noctua.core.impl.launcher;
 
 import java.io.IOException;
 import java.util.Properties;
+import javafx.application.Platform;
 import net.noctuasource.act.registry.ControllerLookupRegistry;
 import net.noctuasource.act.controller.RootContextController;
-import net.noctuasource.act.data.ApplicationControllerParams;
 import net.noctuasource.act.javafx.ExceptionHandler;
 import net.noctuasource.act.javafx.JfxPlatformExecutor;
 import net.noctuasource.act.spring.SpringAutowireControllerEventListener;
 import net.noctuasource.act.spring.SpringDefaultConstants;
 
-import net.noctuasource.noctua.core.impl.JavaFXApplication;
 import net.noctuasource.noctua.core.ui.ExceptionDialog;
 
 import org.apache.log4j.Logger;
@@ -66,19 +65,6 @@ public class NoctuaLauncher extends RootContextController {
 
 
 
-	/**
-	 * Main for starting Noctua.
-	 */
-	public static void main(String[] args) {
-		try {
-			ApplicationControllerParams params = new ApplicationControllerParams(args);
-			RootContextController.createRootController(NoctuaLauncher.class, params);
-		}
-		catch(Exception e) {
-			logger.fatal("Error while launching Noctua!", e);
-		}
-	}
-
 
 
 	/**
@@ -90,23 +76,6 @@ public class NoctuaLauncher extends RootContextController {
 		setupLogging();
 
 		loadProperties();
-
-
-		// Start JavaFX.
-        Thread launcherThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					JavaFXApplication.launch(JavaFXApplication.class, "");
-				}
-				catch(Exception e) {
-					logger.error("Error while launching java-fx-app! ", e);
-				}
-			}
-		});
-        launcherThread.setName("JavaFX-LauncherMain");
-        launcherThread.start();
-
 
 		// Set javafx platform as executor.
 		ExceptionHandler exceptionHandler = new ExceptionHandler() {
@@ -128,7 +97,6 @@ public class NoctuaLauncher extends RootContextController {
 		ControllerLookupRegistry controllerLookupRegistry = applicationContext.getBean(ControllerLookupRegistry.class);
 		addControllerLookupRegistry(controllerLookupRegistry);
 
-
 		// Start Noctua instance.
 		executeController(NoctuaInstanceController.class);
 	}
@@ -137,7 +105,7 @@ public class NoctuaLauncher extends RootContextController {
 
 	@Override
 	public void onDestroy() {
-		JavaFXApplication.quitApp();
+		Platform.exit();
 		applicationContext.close();
 	}
 

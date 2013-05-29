@@ -16,26 +16,36 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.impl;
+package net.noctuasource.noctua.core.impl.launcher;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-
+import net.noctuasource.act.controller.ContextController;
+import net.noctuasource.act.controller.RootContextController;
+import net.noctuasource.act.data.ApplicationControllerParams;
+import net.noctuasource.noctua.core.ui.Splash;
 import org.apache.log4j.Logger;
+
 
 public class JavaFXApplication extends Application {
 
-	// ***** Basic Static Members ******************************************* //
+	// -- Basic Static Members ------------------------
 
-	private static Logger logger = Logger.getLogger(JavaFXApplication.class);
+	private static Logger			logger = Logger.getLogger(JavaFXApplication.class);
 
-	// ***** Static Members ************************************************* //
 
 	// ***** Members ******************************************************** //
 
 
 	// ***** Constructor **************************************************** //
+
+	/**
+	 * Main for starting Noctua.
+	 */
+	public static void main(String[] args) {
+		JavaFXApplication.launch(args);
+	}
 
 
 
@@ -43,27 +53,25 @@ public class JavaFXApplication extends Application {
 
 
 	@Override
-	public void init() throws Exception {
-		super.init();
-	}
-
-
-	@Override
 	public void start(Stage stage) throws Exception {
-		logger.debug("Starting JavaFX App...");
-
 		Platform.setImplicitExit(false);
-	}
 
+		final Splash splashScreen = Splash.create();
 
-	@Override
-	public void stop() throws Exception {
-		logger.debug("Stopping JavaFX App...");
-		super.stop();
-	}
-
-
-	static public void quitApp() {
-		Platform.exit();
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try{
+					String[] appArgs = getParameters().getRaw().toArray(new String[0]);
+					ApplicationControllerParams params = new ApplicationControllerParams(appArgs);
+					ContextController controller = RootContextController.createRootController(NoctuaLauncher.class, params);
+					controller.getControllerData().set(splashScreen);
+				}
+				catch(Exception e) {
+					logger.fatal("Error while launching Noctua. ", e);
+					Platform.exit();
+				}
+			}
+		});
 	}
 }

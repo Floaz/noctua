@@ -2,8 +2,8 @@
 apply plugin: 'application'
 
 
-mainClass = 'net.noctuasource.noctua.core.impl.launcher.NoctuaLauncher'
-mainClassName = 'net.noctuasource.noctua.core.impl.launcher.NoctuaLauncher'
+mainClass = 'net.noctuasource.noctua.core.impl.launcher.JavaFXApplication'
+mainClassName = 'net.noctuasource.noctua.core.impl.launcher.JavaFXApplication'
 
 
 dependencies {

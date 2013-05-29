@@ -39,10 +39,10 @@ import javafx.stage.WindowEvent;
 import javax.annotation.Resource;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.act.data.ControllerParams;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceController;
 import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.ui.Splash;
 
 import org.apache.log4j.Logger;
 
@@ -118,6 +118,9 @@ public class MainWindowView extends SubContextController {
         //stage.sizeToScene();
         stage.centerOnScreen();
         stage.show();
+
+		Splash splashScreen = getControllerData().get(Splash.class);
+		splashScreen.finished();
 	}
 
 

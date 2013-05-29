@@ -52,6 +52,7 @@ import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.impl.ProfileChosenEvent;
 import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.ui.Splash;
 import net.noctuasource.noctua.core.ui.StyleConstants;
 import net.noctuasource.profiles.Observer;
 
@@ -166,6 +167,9 @@ public class ProfileChooseView extends SubContextController implements Observer 
         stage.setMinHeight(STAGE_MIN_HEIGHT);
         stage.centerOnScreen();
         stage.show();
+
+		Splash splashScreen = getControllerData().get(Splash.class);
+		splashScreen.finished();
 	}
 
 
