@@ -69,6 +69,8 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 	// -- Members -------------------------------------
 
+	private String									controllerName = null;
+
 	private ControllerState							state = ControllerState.CONSTRUCTED;
 
     private RootContextController					rootController = null;
@@ -138,6 +140,20 @@ abstract class AbstractContextController implements ContextController, ContextCo
 		return new ControllerDataTreeImpl(this);
 	}
 
+	@Override
+	public String getControllerName() {
+		if(controllerName == null) {
+			return "";
+		}
+
+		return controllerName;
+	}
+
+	@Override
+	public void setControllerName(String newName) {
+		controllerName = newName;
+	}
+
 
 
 
@@ -159,13 +175,13 @@ abstract class AbstractContextController implements ContextController, ContextCo
         // Check if this is a subcontroller or a root controller
         if (parentController != null) {
             this.parentController = (AbstractContextController) parentController;
-            this.parentController.subControllers.add(this);
+            this.parentController.addChildController(this);
         }
 
 		eventBus = new AsyncEventBus(new Executor() {
 			@Override
 			public void execute(Runnable command) {
-				getRootController().getExecutor().execute(command);
+				executeLater(command);
 			}
 		});
 
@@ -179,7 +195,14 @@ abstract class AbstractContextController implements ContextController, ContextCo
 			currentController = currentController.getParentController();
 		}
 
-		onCreate();
+		try {
+			onCreate();
+		}
+		catch(RuntimeException e) {
+			state = ControllerState.CREATED;
+			destroy();
+			throw new ControllerExecutionException("Error while creating controller!", e);
+		}
 
 		state = ControllerState.CREATED;
 
@@ -197,31 +220,7 @@ abstract class AbstractContextController implements ContextController, ContextCo
 		ControllerCreatedEvent event = new ControllerCreatedEvent(this);
 		postEvent(event);
 
-
-		// Process RunLater methods
-		final List<Method> runLaterMethods = new LinkedList<>();
-		Class<?> currentClazz = this.getClass();
-		while(currentClazz != null && currentClazz != AbstractContextController.class) {
-			for(Method method : currentClazz.getMethods()) {
-				if (method.isAnnotationPresent(RunLater.class)) {
-					runLaterMethods.add(method);
-				}
-			}
-			currentClazz = currentClazz.getSuperclass();
-		}
-
-		executeLater(new Runnable() {
-			@Override
-			public void run() {
-				for(Method method : runLaterMethods) {
-					try {
-						method.invoke(AbstractContextController.this);
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-						logger.warn("Could not invoke RunLater method.", ex);
-					}
-				}
-			}
-		});
+		executeRunLaterMethods();
     }
 
 
@@ -257,7 +256,12 @@ abstract class AbstractContextController implements ContextController, ContextCo
             subController.destroy();
         }
 
-		onDestroy();
+		try {
+			onDestroy();
+		}
+		catch(RuntimeException e) {
+			logger.error("Exception while destroying controller. ", e);
+		}
 
 		state = ControllerState.DESTROYED;
 
@@ -272,7 +276,7 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 		// Detach from parent.
         if (parentController != null) {
-            parentController.subControllers.remove(this);
+            parentController.removeControllerLookupRegistry(this);
         }
 
 		// Process events
@@ -290,6 +294,15 @@ abstract class AbstractContextController implements ContextController, ContextCo
 		return params;
 	}
 
+
+
+	private synchronized void addChildController(AbstractContextController controller) {
+		subControllers.add(controller);
+	}
+
+	private synchronized void removeControllerLookupRegistry(AbstractContextController controller) {
+		subControllers.remove(controller);
+	}
 
 	@Override
 	public void addControllerEventListener(ControllerEventListener listener) {
@@ -373,6 +386,8 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 	@Override
 	public void postEvent(Object event) {
+		logger.debug("Post event: " + event.getClass().getSimpleName());
+
 		if(event instanceof AbstractControllerEvent) {
 			((AbstractControllerEvent)event).setSourceController(this);
 		}
@@ -386,10 +401,6 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 	@Override
 	public void postEventLocal(Object event) {
-		if(event instanceof AbstractControllerEvent) {
-			((AbstractControllerEvent)event).setSourceController(this);
-		}
-
 		eventBus.post(event);
 	}
 
@@ -405,8 +416,62 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 	@Override
 	public void executeLater(Runnable runnable) {
-		getRootController().getExecutor().execute(runnable);
+		executeLater(runnable, null);
 	}
 
+	@Override
+	public void executeLater(Runnable runnable, String executorId) {
+		RootContextController currentRootController = getRootController();
+		if(currentRootController == null) {
+			return;
+		}
+
+		Executor executor = executorId == null || executorId.isEmpty()
+							? currentRootController.getDefaultExecutor()
+							: currentRootController.getExecutor(executorId);
+
+		if(executor == null) {
+			throw new IllegalArgumentException("Illegal executor id!");
+		}
+
+		executor.execute(runnable);
+	}
+
+
+	private void executeRunLaterMethods() {
+		Class<?> currentClazz = this.getClass();
+
+		while(currentClazz != null && currentClazz != AbstractContextController.class) {
+
+			for(Method method : currentClazz.getMethods()) {
+				if (method.isAnnotationPresent(RunLater.class)) {
+					executeRunLaterMethod(method);
+				}
+			}
+
+			currentClazz = currentClazz.getSuperclass();
+		}
+	}
+
+
+	private void executeRunLaterMethod(final Method method) {
+		RunLater runLaterAnnotation = method.getAnnotation(RunLater.class);
+
+		try {
+			executeLater(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						method.invoke(AbstractContextController.this);
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+						logger.warn("Could not execute RunLater method.", ex);
+					}
+				}
+			}, runLaterAnnotation.executor());
+		}
+		catch(RuntimeException e) {
+			logger.error("Error while invoke run later method. ", e);
+		}
+	}
 }
 

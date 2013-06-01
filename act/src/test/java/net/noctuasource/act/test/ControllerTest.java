@@ -4,10 +4,8 @@
  */
 package net.noctuasource.act.test;
 
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RootContextController;
 import net.noctuasource.act.events.DefaultControllerEventListener;
@@ -29,7 +27,8 @@ public class ControllerTest {
 		Integer testDataObject = new Integer(0);
 
 		final RootContextController root = RootContextController.createRootController();
-		root.setExecutor(new ScheduledThreadPoolExecutor(1));
+		root.addExecutor("default", Executors.newSingleThreadExecutor());
+		root.setDefaultExecutor("default");
 		root.getLocalControllerData().set("counter", testDataObject);
 
 		final Semaphore endLock = new Semaphore(0);

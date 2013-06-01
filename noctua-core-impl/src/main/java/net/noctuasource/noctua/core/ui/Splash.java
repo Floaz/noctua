@@ -125,9 +125,20 @@ public class Splash {
 
 		stage.show();
 
-		if(splashScreen != null) {
-			splashScreen.close();
-		}
+		// Fade in
+		FadeTransition transition = new FadeTransition(Duration.seconds(1), splashLayout);
+		transition.setFromValue(0);
+		transition.setToValue(1);
+		transition.setOnFinished(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent actionEvent) {
+				SplashScreen splashScreen = SplashScreen.getSplashScreen();
+				if(splashScreen != null) {
+					splashScreen.close();
+				}
+			}
+		});
+		transition.play();
 	}
 
 

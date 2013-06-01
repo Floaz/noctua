@@ -4,7 +4,7 @@
  */
 package net.noctuasource.act.test;
 
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.Executors;
 import net.noctuasource.act.controller.RootContextController;
 import org.junit.Test;
 
@@ -23,7 +23,8 @@ public class DataTest {
 		Integer testDataObject = new Integer(10);
 
 		RootContextController root = RootContextController.createRootController();
-		root.setExecutor(new ScheduledThreadPoolExecutor(1));
+		root.addExecutor("default", Executors.newSingleThreadExecutor());
+		root.setDefaultExecutor("default");
 		root.getLocalControllerData().set("test", testDataObject);
 
 		root.executeController(TestNode.class);

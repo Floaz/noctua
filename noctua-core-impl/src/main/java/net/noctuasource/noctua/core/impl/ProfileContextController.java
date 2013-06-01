@@ -24,9 +24,10 @@ import net.noctuasource.noctua.core.datastore.ProfilesContext;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.spring.SpringDefaultConstants;
+import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.database.DatabaseInitializationException;
 import net.noctuasource.noctua.core.database.DatabaseInitializer;
-import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.ui.other.DatastoreTooNewMessageDialog;
 import net.noctuasource.profiles.Profile;
 import org.apache.log4j.Logger;
@@ -66,7 +67,7 @@ public class ProfileContextController extends SubContextController {
 
 
 
-	@RunLater
+	@RunLater(executor=ExecutorIdentifiers.BACKGROUND_EXECUTOR)
 	public void init() {
 		try {
 			initApplicationContext();

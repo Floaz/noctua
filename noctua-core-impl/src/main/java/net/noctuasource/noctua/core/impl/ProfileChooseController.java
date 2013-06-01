@@ -23,6 +23,7 @@ import java.io.File;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
+import net.noctuasource.noctua.core.ExecutorIdentifiers;
 
 
 import org.apache.log4j.Logger;
@@ -72,7 +73,7 @@ public class ProfileChooseController extends SubContextController {
 
 
 
-	@RunLater
+	@RunLater(executor=ExecutorIdentifiers.BACKGROUND_EXECUTOR)
 	public void init() {
 		logger.debug("Run profile choose...");
 

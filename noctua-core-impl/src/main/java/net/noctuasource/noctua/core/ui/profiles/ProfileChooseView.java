@@ -49,9 +49,11 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javax.annotation.Resource;
+import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
+import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.impl.ProfileChosenEvent;
-import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.ui.Splash;
 import net.noctuasource.noctua.core.ui.StyleConstants;
 import net.noctuasource.profiles.Observer;
@@ -114,9 +116,8 @@ public class ProfileChooseView extends SubContextController implements Observer 
 
 	// ***** Constructor **************************************************** //
 
-
-	@Override
-	protected void onCreate() {
+	@RunLater(executor=ExecutorIdentifiers.JAVAFX_EXECUTOR)
+	public void createView() {
     	VBox root = new VBox();
 
     	stage = new Stage();
@@ -168,8 +169,11 @@ public class ProfileChooseView extends SubContextController implements Observer 
         stage.centerOnScreen();
         stage.show();
 
+
 		Splash splashScreen = getControllerData().get(Splash.class);
-		splashScreen.finished();
+		if(splashScreen != null) {
+			splashScreen.finished();
+		}
 	}
 
 

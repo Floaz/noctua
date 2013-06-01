@@ -16,31 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.act.events;
-
-import net.noctuasource.act.controller.ContextController;
-
+package net.noctuasource.noctua.core;
 
 
 
 /**
- * An abstract adapter class for receiving controller events.
- * The methods in this class are empty. This class exists as convenience
- * for creating listener objects.
+ * ExecutorIdentifiers.
  * @author Philipp Thomas
  */
-public abstract class DefaultControllerEventListener implements ControllerEventListener {
+public abstract class ExecutorIdentifiers {
 
-	@Override
-    public void onBeforeControllerCreated(ContextController createdController) {}
-
-	@Override
-	public void onAfterControllerCreated(ContextController createdController) {}
-
-	@Override
-    public void onBeforeControllerDestroyed(ContextController destroyedController) {}
-
-	@Override
-	public void onAfterControllerDestroyed(ContextController destroyedController) {}
+	public static final String JAVAFX_EXECUTOR = "javafx";
+	public static final String BACKGROUND_EXECUTOR = "bg";
 
 }

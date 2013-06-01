@@ -19,6 +19,8 @@
 package net.noctuasource.act.controller;
 
 import com.google.common.eventbus.Subscribe;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import net.noctuasource.act.controller.events.ControllerDestroyedEvent;
 import net.noctuasource.act.data.ControllerParams;
@@ -27,15 +29,15 @@ import net.noctuasource.act.data.ControllerParams;
 
 
 /**
- * Abstract superclass for building a context-oriented application controller tree (ACT).
- *
- * http://www.contextualprogramming.org/articles/the-controller-model-view-architecture-and-the-application-controller-tree/
+ * Root controller for building a context-oriented application controller tree (ACT).
  *
  * @author Philipp Thomas
  */
 public class RootContextController extends AbstractContextController {
 
-	private Executor	executor = new DefaultExecutor();
+	private Map<String, Executor>	executors = new HashMap<>();
+
+	private String					defaultExecutorId = "";
 
 
 
@@ -76,19 +78,32 @@ public class RootContextController extends AbstractContextController {
 	}
 
 
+    /**
+     * Constructs a new RootContextController and initializes it in the initExecutor.
+     */
+	public static void createRootController(final Class<? extends RootContextController> clazz,
+											final ControllerParams params,
+											Executor initExecutor) {
+		try {
+			final RootContextController instance = clazz.newInstance();
+
+			initExecutor.execute(new Runnable() {
+				@Override
+				public void run() {
+					instance.create(null, params);
+				}
+			});
+		} catch (InstantiationException | IllegalAccessException ex) {
+			throw new IllegalArgumentException("Could not instantiate root controller!");
+		}
+	}
+
+
 
     /**
      * Constructor.
      */
     protected RootContextController() {
-	}
-
-
-    /**
-     * Constructor.
-     */
-    protected RootContextController(Executor executer) {
-        this.executor = executer;
 	}
 
 
@@ -118,25 +133,53 @@ public class RootContextController extends AbstractContextController {
 	}
 
 
-	public synchronized Executor getExecutor() {
-		return executor;
+
+	/**
+	 * Returns default executor.
+	 */
+	public synchronized Executor getDefaultExecutor() {
+		if(defaultExecutorId.isEmpty()) {
+			return null;
+		}
+
+		return executors.get(defaultExecutorId);
 	}
 
-	public synchronized void setExecutor(Executor executor) {
-		this.executor = executor;
+	/**
+	 * Set the default executor for events.
+	 * @param defaultExecutorId id of the default executor.
+	 */
+	public void setDefaultExecutor(String defaultExecutorId) {
+		this.defaultExecutorId = defaultExecutorId;
 	}
-
 
 
 	/**
-	 * Does nothing.
+	 * Returns executor with given id.
+	 *
+	 * @param executorId id of the executor.
 	 */
-	class DefaultExecutor implements Executor {
+	public synchronized Executor getExecutor(String executorId) {
+		return executors.get(executorId);
+	}
 
-		@Override
-		public void execute(Runnable command) {
-			// Do nothing
-		}
+
+	/**
+	 * Adds a new executor.
+	 * @param executorId id of the new executor.
+	 * @param executor the executor to add.
+	 */
+	public synchronized void addExecutor(String executorId, Executor executor) {
+		executors.put(executorId, executor);
+	}
+
+
+	/**
+	 * Removes an executor.
+	 * @param executorId id of the executor.
+	 */
+	public synchronized void removeExecutor(String executorId) {
+		executors.remove(executorId);
 	}
 }
 

@@ -18,9 +18,11 @@
  */
 package net.noctuasource.noctua.core.ui.other;
 
+import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFolderView;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.ExecutorIdentifiers;
+import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 
 import org.apache.log4j.Logger;
 
@@ -37,8 +39,8 @@ public class DatastoreTooNewMessageDialog extends SubContextController implement
 
 	// ***** Constructor **************************************************** //
 
-	@Override
-	protected void onCreate() {
+	@RunLater(executor=ExecutorIdentifiers.JAVAFX_EXECUTOR)
+	public void init() {
     	String message = "Leider sind deine Noctuadaten neuer als diese Version von Noctua. " +
 							"Bitte benutze eine aktuelle Programmversion von Noctua!";
 

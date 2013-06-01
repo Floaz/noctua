@@ -16,31 +16,36 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.act.events;
+package net.noctuasource.act.controller;
 
-import net.noctuasource.act.controller.ContextController;
+
 
 
 
 
 /**
- * An abstract adapter class for receiving controller events.
- * The methods in this class are empty. This class exists as convenience
- * for creating listener objects.
+ * Exception that is thrown while execution of controller.
  * @author Philipp Thomas
  */
-public abstract class DefaultControllerEventListener implements ControllerEventListener {
+public class ControllerExecutionException extends RuntimeException {
 
-	@Override
-    public void onBeforeControllerCreated(ContextController createdController) {}
+	public ControllerExecutionException() {
+	}
 
-	@Override
-	public void onAfterControllerCreated(ContextController createdController) {}
+	public ControllerExecutionException(String message) {
+		super(message);
+	}
 
-	@Override
-    public void onBeforeControllerDestroyed(ContextController destroyedController) {}
+	public ControllerExecutionException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-	@Override
-	public void onAfterControllerDestroyed(ContextController destroyedController) {}
+	public ControllerExecutionException(Throwable cause) {
+		super(cause);
+	}
+
+	public ControllerExecutionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
 
 }

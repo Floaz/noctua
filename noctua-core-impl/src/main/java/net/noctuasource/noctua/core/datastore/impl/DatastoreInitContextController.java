@@ -26,8 +26,9 @@ import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.util.AfterDestroyRunnable;
+import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.datastore.DatastoreManager;
-import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.ui.other.DatastoreTooNewMessageDialog;
 import net.noctuasource.noctua.core.ui.other.DatastoreUpdateNewProfileDialog;
 import net.noctuasource.profiles.Profile;
@@ -66,7 +67,7 @@ public class DatastoreInitContextController extends SubContextController {
 
 
 
-	@RunLater
+	@RunLater(executor=ExecutorIdentifiers.BACKGROUND_EXECUTOR)
 	public void init() {
 		logger.debug("Init datastore...");
 

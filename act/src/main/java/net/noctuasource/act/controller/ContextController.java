@@ -50,6 +50,17 @@ public interface ContextController {
 
 
 	/**
+	 * Returns controller name or empty string, if controller has no name.
+	 */
+	String getControllerName();
+
+	/**
+	 * Sets the controller name.
+	 */
+	void setControllerName(String newName);
+
+
+	/**
 	 * Returns controller data of this controller.
 	 */
 	ControllerData getLocalControllerData();
@@ -66,8 +77,26 @@ public interface ContextController {
 	void postEventLocal(Object event);
 
 	void registerEventListener(Object listener);
+
 	void unregisterEventListener(Object listener);
 
+
+	/**
+	 * Run the specified Runnable on the default Thread at some unspecified time in the future.
+	 *
+	 * @param runnable the Runnable whose run method will be executed.
+	 */
 	void executeLater(Runnable runnable);
+
+
+	/**
+	 * Run the specified Runnable on the specified executor Thread at some unspecified time in the future.
+	 *
+	 * @param runnable the Runnable whose run method will be executed
+	 * @param executorId the Id of the executor who will be used to execut.
+	 *
+	 * @throws IllegalArgumentException when executor with id does not exist.
+	 */
+	void executeLater(Runnable runnable, String executorId);
 
 }

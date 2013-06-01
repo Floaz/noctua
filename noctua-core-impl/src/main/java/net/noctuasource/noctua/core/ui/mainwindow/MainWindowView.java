@@ -37,11 +37,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javax.annotation.Resource;
+import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.data.ControllerParamsBuilder;
-import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceController;
-import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.ExecutorIdentifiers;
+import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.ui.Splash;
 
 import org.apache.log4j.Logger;
@@ -81,8 +82,8 @@ public class MainWindowView extends SubContextController {
 
 	// ***** Constructor **************************************************** //
 
-	@Override
-	protected void onCreate() {
+	@RunLater(executor=ExecutorIdentifiers.JAVAFX_EXECUTOR)
+	public void createView() {
     	VBox root = new VBox();
 
     	stage = new Stage();
@@ -120,19 +121,20 @@ public class MainWindowView extends SubContextController {
         stage.show();
 
 		Splash splashScreen = getControllerData().get(Splash.class);
-		splashScreen.finished();
+		if(splashScreen != null) {
+			splashScreen.finished();
+		}
 	}
 
 
 	@Override
 	protected void onDestroy() {
-		stage.close();
+		if(stage != null) {
+			stage.close();
+		}
 
 		// Close noctua
-		NoctuaInstanceController instance = NoctuaInstanceUtil.getNoctuaInstance(this);
-		if(instance != null) {
-			instance.destroy();
-		}
+		NoctuaInstanceUtil.destroyNoctuaInstance(this);
 	}
 
 

@@ -35,8 +35,8 @@ public interface ControllerEventListener {
 
     void onAfterControllerCreated(ContextController createdController);
 
-    void onBeforeControllerDestroyed(ContextController createdController);
+    void onBeforeControllerDestroyed(ContextController destroyedController);
 
-    void onAfterControllerDestroyed(ContextController createdController);
+    void onAfterControllerDestroyed(ContextController destroyedController);
 
 }

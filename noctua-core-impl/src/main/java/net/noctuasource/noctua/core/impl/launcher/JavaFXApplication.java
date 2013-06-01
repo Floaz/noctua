@@ -24,6 +24,8 @@ import javafx.stage.Stage;
 import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RootContextController;
 import net.noctuasource.act.data.ApplicationControllerParams;
+import net.noctuasource.act.events.ControllerEventListener;
+import net.noctuasource.act.events.DefaultControllerEventListener;
 import net.noctuasource.noctua.core.ui.Splash;
 import org.apache.log4j.Logger;
 
@@ -58,20 +60,19 @@ public class JavaFXApplication extends Application {
 
 		final Splash splashScreen = Splash.create();
 
-		Platform.runLater(new Runnable() {
+		String[] appArgs = getParameters().getRaw().toArray(new String[0]);
+		ApplicationControllerParams params = new ApplicationControllerParams(appArgs);
+		final ContextController rootController =
+							RootContextController.createRootController(NoctuaRootContextControllerImpl.class, params);
+		rootController.getControllerData().set(splashScreen);
+		rootController.addControllerEventListener(new DefaultControllerEventListener() {
 			@Override
-			public void run() {
-				try{
-					String[] appArgs = getParameters().getRaw().toArray(new String[0]);
-					ApplicationControllerParams params = new ApplicationControllerParams(appArgs);
-					ContextController controller = RootContextController.createRootController(NoctuaLauncher.class, params);
-					controller.getControllerData().set(splashScreen);
-				}
-				catch(Exception e) {
-					logger.fatal("Error while launching Noctua. ", e);
+			public void onAfterControllerDestroyed(ContextController destroyedController) {
+				if(destroyedController == rootController) {
 					Platform.exit();
 				}
 			}
 		});
 	}
+
 }

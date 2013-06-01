@@ -40,4 +40,32 @@ public abstract class ContextTreeUtil {
 
 		targetController.destroy();
 	}
+
+
+	/**
+	 * Walk the tree up to ContextController and returns it.
+	 */
+	public static <T extends ContextController> T getFirstControllerByName(String name,
+															ContextController currentController) {
+		while(currentController != null && !currentController.getControllerName().equals(name)) {
+			currentController = currentController.getParentController();
+		}
+
+		return (T) currentController;
+	}
+
+
+	/**
+	 * Walk the tree up to specified ContextController and destroys it.
+	 */
+	public static void destroyByFirstControllerByName(String name,
+													ContextController currentController) {
+		ContextController targetController = getFirstControllerByName(name, currentController);
+
+		if(targetController == null) {
+			throw new RuntimeException("No controller with name \"" + name + "\" found!");
+		}
+
+		targetController.destroy();
+	}
 }

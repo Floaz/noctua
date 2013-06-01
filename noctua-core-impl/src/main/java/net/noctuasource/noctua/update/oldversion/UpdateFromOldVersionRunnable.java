@@ -20,19 +20,19 @@ package net.noctuasource.noctua.update.oldversion;
 
 
 
+import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.impl.GlobalPathsFactory;
 import net.noctuasource.noctua.core.GlobalPaths;
 import org.apache.log4j.Logger;
 
-import net.noctuasource.instance.Instance;
-import net.noctuasource.instance.InstanceRunnable;
 
 
 
 
 
 
-public class UpdateFromOldVersionRunnable implements InstanceRunnable {
+public class UpdateFromOldVersionRunnable extends SubContextController {
 
 	// -- Basic Static Members ------------------------
 
@@ -47,8 +47,8 @@ public class UpdateFromOldVersionRunnable implements InstanceRunnable {
 	// -- Members ------------------------------
 
 
-	@Override
-	public boolean run(Instance instance) {
+	@RunLater
+	public boolean run() {
 		GlobalPaths paths = GlobalPathsFactory.getGlobalPaths();
 		if(paths.getOldStoreDir() == null) {
 			return true;

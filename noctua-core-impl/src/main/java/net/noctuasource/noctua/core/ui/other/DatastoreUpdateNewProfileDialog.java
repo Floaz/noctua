@@ -19,7 +19,7 @@
 package net.noctuasource.noctua.core.ui.other;
 
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.impl.launcher.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 
 import org.apache.log4j.Logger;
 

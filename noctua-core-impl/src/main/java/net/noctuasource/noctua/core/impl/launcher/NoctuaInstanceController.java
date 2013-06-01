@@ -4,15 +4,23 @@ package net.noctuasource.noctua.core.impl.launcher;
 import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
 import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.data.ControllerParamsBuilder;
+import net.noctuasource.act.registry.ControllerLookupRegistry;
+import net.noctuasource.act.spring.SpringAutowireControllerEventListener;
+import net.noctuasource.act.spring.SpringDefaultConstants;
 import net.noctuasource.act.util.AfterDestroyRunnable;
+import net.noctuasource.noctua.core.ExecutorIdentifiers;
+import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.impl.ProfileChosenEvent;
 import net.noctuasource.util.ApplicationLockFile;
 import net.noctuasource.util.LockException;
 import org.apache.log4j.Logger;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
@@ -30,6 +38,8 @@ public class NoctuaInstanceController extends SubContextController {
 
 	// -- Static Members ------------------------------
 
+	private static final String		CONTEXT_FILE = "/spring/application-context.xml";
+
 	private static final String		LOCK_KEY = "Noctua4jkhk390fmlsdf904943h94";
 	private static final boolean	LOCK_SEPERATE_USERS = true;
 
@@ -39,13 +49,16 @@ public class NoctuaInstanceController extends SubContextController {
 
 	// -- Members -------------------------------------
 
-	private ApplicationLockFile		lockFile = null;
+	private ConfigurableApplicationContext		applicationContext;
+
+	private ApplicationLockFile					lockFile = null;
 
 
 
 
 	@Override
 	protected void onCreate() {
+		setControllerName(NoctuaInstanceUtil.NOCTUA_INSTANCE_CONTROLLER);
 		registerEventListener(this);
 	}
 
@@ -54,7 +67,11 @@ public class NoctuaInstanceController extends SubContextController {
 	protected void onDestroy() {
 		unregisterEventListener(this);
 
-		if(lockFile == null) {
+		if(applicationContext != null) {
+			applicationContext.close();
+		}
+
+		if(lockFile != null) {
 			try {
 				lockFile.release();
 			} catch (IOException ex) {
@@ -66,9 +83,27 @@ public class NoctuaInstanceController extends SubContextController {
 
 
 
-	@RunLater
+	@RunLater(executor=ExecutorIdentifiers.BACKGROUND_EXECUTOR)
 	public void init() {
-		lockRun();
+		if(!lockRun()) {
+			return;
+		}
+
+		// @todo Fott damit!
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException ex) {
+			java.util.logging.Logger.getLogger(NoctuaRootContextControllerImpl.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		// Load and refresh application context.
+		applicationContext = new ClassPathXmlApplicationContext(CONTEXT_FILE);
+		String contextDataKey = SpringDefaultConstants.DEFAULT_CONTEXT_DATA_KEY;
+		getControllerData().set(contextDataKey, applicationContext);
+		addControllerEventListener(new SpringAutowireControllerEventListener(contextDataKey));
+
+		ControllerLookupRegistry controllerLookupRegistry = applicationContext.getBean(ControllerLookupRegistry.class);
+		addControllerLookupRegistry(controllerLookupRegistry);
 
 
 		ContextController datastoreInitController = executeController("datastoreInit");
@@ -96,7 +131,7 @@ public class NoctuaInstanceController extends SubContextController {
 
 
 
-	protected void lockRun() {
+	protected boolean lockRun() {
 		Properties lockProps = new Properties();
 		lockProps.setProperty("pid", "0000");
 
@@ -106,10 +141,13 @@ public class NoctuaInstanceController extends SubContextController {
         	lockFile.lock(lockProps);
 
 			getControllerData().set(LOCK_FILE_DATA_KEY, lockFile);
+			return true;
         } catch(LockException e) {
         	logger.error("Lock failed! An instance of Noctua already running!");
         	//lockProps = lockFile.readProperties();
 			// Show dialog;
+			destroy();
+			return false;
         }
 	}
 

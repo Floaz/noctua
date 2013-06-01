@@ -16,31 +16,31 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.act.events;
+package net.noctuasource.noctua.core.impl.launcher;
 
-import net.noctuasource.act.controller.ContextController;
+import javafx.application.Platform;
+import net.noctuasource.act.javafx.ExceptionHandler;
+
+import net.noctuasource.noctua.core.ui.ExceptionDialog;
+
 
 
 
 
 /**
- * An abstract adapter class for receiving controller events.
- * The methods in this class are empty. This class exists as convenience
- * for creating listener objects.
+ * ExceptionHandler.
  * @author Philipp Thomas
  */
-public abstract class DefaultControllerEventListener implements ControllerEventListener {
+public class JavaFxExceptionHandler implements ExceptionHandler {
 
 	@Override
-    public void onBeforeControllerCreated(ContextController createdController) {}
-
-	@Override
-	public void onAfterControllerCreated(ContextController createdController) {}
-
-	@Override
-    public void onBeforeControllerDestroyed(ContextController destroyedController) {}
-
-	@Override
-	public void onAfterControllerDestroyed(ContextController destroyedController) {}
+	public void handleException(final Exception exception) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				ExceptionDialog.create(exception);
+			}
+		});
+	}
 
 }

@@ -1,5 +1,5 @@
 
-package net.noctuasource.noctua.core.impl.launcher;
+package net.noctuasource.noctua.core;
 
 import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.util.ContextTreeUtil;
@@ -13,12 +13,15 @@ import net.noctuasource.act.util.ContextTreeUtil;
  */
 public abstract class NoctuaInstanceUtil {
 
+	public static final String NOCTUA_INSTANCE_CONTROLLER = "NoctuaInstanceController";
+
+
 
 	/**
 	 * Walk the tree up to NoctuaInstanceController and returns it.
 	 */
-	public static NoctuaInstanceController getNoctuaInstance(ContextController currentController) {
-		return ContextTreeUtil.getFirstControllerType(NoctuaInstanceController.class, currentController);
+	public static ContextController getNoctuaInstance(ContextController currentController) {
+		return ContextTreeUtil.getFirstControllerByName(NOCTUA_INSTANCE_CONTROLLER, currentController);
 	}
 
 
@@ -26,6 +29,6 @@ public abstract class NoctuaInstanceUtil {
 	 * Walk the tree up to NoctuaInstanceController and returns it.
 	 */
 	public static void destroyNoctuaInstance(ContextController currentController) {
-		ContextTreeUtil.destroyByFirstControllerType(NoctuaInstanceController.class, currentController);
+		ContextTreeUtil.destroyByFirstControllerByName(NOCTUA_INSTANCE_CONTROLLER, currentController);
 	}
 }
