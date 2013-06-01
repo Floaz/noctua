@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.ui;
+package net.noctuasource.noctua.core.ui.loading;
 
 import java.awt.SplashScreen;
 import javafx.animation.FadeTransition;
@@ -34,7 +34,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -43,11 +42,15 @@ import org.apache.log4j.Logger;
 
 
 
-public class Splash {
+/**
+ * Splash screen, that fades in and fades out.
+ * @author Philipp Thomas
+ */
+public class SplashLoadingScreen implements LoadingScreen {
 
 	// ***** Basic Static Members ******************************************* //
 
-	private static Logger logger = Logger.getLogger(Splash.class);
+	private static Logger logger = Logger.getLogger(SplashLoadingScreen.class);
 
 
 	// ***** Static Members ************************************************* //
@@ -57,6 +60,8 @@ public class Splash {
 
 	private static final int SPLASH_WIDTH = 400;
 	private static final int SPLASH_HEIGHT = 400;
+
+	private static SplashLoadingScreen		instance = null;
 
 
 
@@ -72,12 +77,16 @@ public class Splash {
 
 	// ***** Constructor **************************************************** //
 
-	public static Splash create() {
-		return new Splash();
+	public static SplashLoadingScreen get() {
+		if(instance == null) {
+			instance = new SplashLoadingScreen();
+		}
+
+		return instance;
 	}
 
 
-	protected Splash() {
+	protected SplashLoadingScreen() {
 		Image image = new Image("/images/splash.png");
 		ImageView splash = new ImageView(image);
 
@@ -122,7 +131,17 @@ public class Splash {
 		} else {
 			stage.centerOnScreen();
 		}
+	}
 
+
+
+
+	// ***** Methods ******************************************************** //
+
+	@Override
+	public void show() {
+		stage.setIconified(false);
+		stage.toFront();
 		stage.show();
 
 		// Fade in
@@ -142,11 +161,8 @@ public class Splash {
 	}
 
 
-
-
-	// ***** Methods ******************************************************** //
-
-	public void finished() {
+	@Override
+	public void hide() {
 		if(stage.isShowing()) {
 			loadProgress.progressProperty().unbind();
 			loadProgress.setProgress(1);

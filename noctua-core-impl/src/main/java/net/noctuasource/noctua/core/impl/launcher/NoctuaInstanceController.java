@@ -16,6 +16,7 @@ import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.impl.ProfileChosenEvent;
 import net.noctuasource.noctua.core.impl.SignOffProfileEvent;
+import net.noctuasource.noctua.core.ui.loading.LoadingScreenManager;
 import net.noctuasource.util.ApplicationLockFile;
 import net.noctuasource.util.LockException;
 import org.apache.log4j.Logger;
@@ -118,6 +119,8 @@ public class NoctuaInstanceController extends SubContextController {
 
 	@Subscribe
 	public void onProfileChosen(ProfileChosenEvent event) {
+		LoadingScreenManager.get().showNormalLoadingScreen();
+
 		ControllerParamsBuilder builder = ControllerParamsBuilder.create();
 		builder.add("profile", event.getProfile());
 		executeController("profileContextController", builder.build());

@@ -54,8 +54,9 @@ import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.impl.ProfileChosenEvent;
 import net.noctuasource.noctua.core.NoctuaInstanceUtil;
-import net.noctuasource.noctua.core.ui.Splash;
+import net.noctuasource.noctua.core.ui.loading.SplashLoadingScreen;
 import net.noctuasource.noctua.core.ui.StyleConstants;
+import net.noctuasource.noctua.core.ui.loading.LoadingScreenManager;
 import net.noctuasource.profiles.Observer;
 
 import org.apache.log4j.Logger;
@@ -170,10 +171,7 @@ public class ProfileChooseView extends SubContextController implements Observer 
         stage.show();
 
 
-		Splash splashScreen = getControllerData().get(Splash.class);
-		if(splashScreen != null) {
-			splashScreen.finished();
-		}
+		LoadingScreenManager.get().hideLoadingScreen();
 	}
 
 

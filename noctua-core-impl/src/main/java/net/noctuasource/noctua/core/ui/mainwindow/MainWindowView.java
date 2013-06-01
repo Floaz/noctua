@@ -44,7 +44,7 @@ import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.impl.SignOffProfileEvent;
-import net.noctuasource.noctua.core.ui.Splash;
+import net.noctuasource.noctua.core.ui.loading.LoadingScreenManager;
 
 import org.apache.log4j.Logger;
 
@@ -123,10 +123,7 @@ public class MainWindowView extends SubContextController {
         stage.centerOnScreen();
         stage.show();
 
-		Splash splashScreen = getControllerData().get(Splash.class);
-		if(splashScreen != null) {
-			splashScreen.finished();
-		}
+		LoadingScreenManager.get().hideLoadingScreen();
 	}
 
 

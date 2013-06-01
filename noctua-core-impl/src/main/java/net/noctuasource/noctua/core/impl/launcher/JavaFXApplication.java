@@ -24,9 +24,9 @@ import javafx.stage.Stage;
 import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RootContextController;
 import net.noctuasource.act.data.ApplicationControllerParams;
-import net.noctuasource.act.events.ControllerEventListener;
 import net.noctuasource.act.events.DefaultControllerEventListener;
-import net.noctuasource.noctua.core.ui.Splash;
+import net.noctuasource.noctua.core.ui.loading.LoadingScreenManager;
+import net.noctuasource.noctua.core.ui.loading.SplashLoadingScreen;
 import org.apache.log4j.Logger;
 
 
@@ -58,13 +58,12 @@ public class JavaFXApplication extends Application {
 	public void start(Stage stage) throws Exception {
 		Platform.setImplicitExit(false);
 
-		final Splash splashScreen = Splash.create();
-
+		LoadingScreenManager.get().showSplashLoadingScreen();
+		
 		String[] appArgs = getParameters().getRaw().toArray(new String[0]);
 		ApplicationControllerParams params = new ApplicationControllerParams(appArgs);
 		final ContextController rootController =
 							RootContextController.createRootController(NoctuaRootContextControllerImpl.class, params);
-		rootController.getControllerData().set(splashScreen);
 		rootController.addControllerEventListener(new DefaultControllerEventListener() {
 			@Override
 			public void onAfterControllerDestroyed(ContextController destroyedController) {
