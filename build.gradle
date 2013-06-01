@@ -45,3 +45,7 @@ task docs(type: Javadoc) {
 	classpath = files(subprojects.collect {project -> project.sourceSets.main.compileClasspath})
 	destinationDir = new File(rootProject.buildDir, 'javadoc')
 }
+
+task run() {
+    dependsOn ':noctua-core-impl:run'
+}
