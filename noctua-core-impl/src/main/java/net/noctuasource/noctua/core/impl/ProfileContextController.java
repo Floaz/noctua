@@ -20,6 +20,7 @@ package net.noctuasource.noctua.core.impl;
 
 
 
+import com.google.common.eventbus.Subscribe;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
@@ -100,12 +101,25 @@ public class ProfileContextController extends SubContextController {
 		}
 	}
 
+	@Override
+	protected void onCreate() {
+		registerEventListener(this);
+	}
+
 
 	@Override
 	protected void onDestroy() {
 		if(context != null) {
 			context.close();
 		}
+
+		unregisterEventListener(this);
+	}
+
+
+	@Subscribe
+	public void onSignOffProfile(SignOffProfileEvent event) {
+		destroy();
 	}
 
 

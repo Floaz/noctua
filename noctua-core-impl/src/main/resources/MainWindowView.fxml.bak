@@ -89,7 +89,7 @@
               </graphic>
             </MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#handleSignOffMenuItem" text="Profil wechseln" fx:id="signOffMenuItem">
+            <MenuItem mnemonicParsing="false" onAction="#handleExitMenuItem" text="Profil wechseln" fx:id="signOffMenuItem">
               <graphic>
                 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                   <image>

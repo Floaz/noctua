@@ -43,6 +43,7 @@ import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.NoctuaInstanceUtil;
+import net.noctuasource.noctua.core.impl.SignOffProfileEvent;
 import net.noctuasource.noctua.core.ui.Splash;
 
 import org.apache.log4j.Logger;
@@ -69,6 +70,8 @@ public class MainWindowView extends SubContextController {
 	ProfilesContext						profilesContext;
 
 	private Stage						stage;
+
+	private boolean						destroyInstanceOnClose = true;
 
 
 	// ***** FXML Nodes ***************************************************** //
@@ -134,7 +137,9 @@ public class MainWindowView extends SubContextController {
 		}
 
 		// Close noctua
-		NoctuaInstanceUtil.destroyNoctuaInstance(this);
+		if(destroyInstanceOnClose) {
+			NoctuaInstanceUtil.destroyNoctuaInstance(this);
+		}
 	}
 
 
@@ -172,6 +177,16 @@ public class MainWindowView extends SubContextController {
     @FXML
     protected void handleAboutMenuItem(ActionEvent event) {
     	executeController("aboutView", ControllerParamsBuilder.create().add("stage", stage).build());
+    }
+
+
+    @FXML
+    protected void handleSignOffMenuItem(ActionEvent e) {
+		// Do not destroy instance when window was closed!
+		destroyInstanceOnClose = false;
+
+		SignOffProfileEvent event = new SignOffProfileEvent(profilesContext.getProfile());
+    	postEvent(event);
     }
 
 

@@ -4,7 +4,6 @@ package net.noctuasource.noctua.core.impl.launcher;
 import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
 import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
@@ -16,6 +15,7 @@ import net.noctuasource.act.util.AfterDestroyRunnable;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.NoctuaInstanceUtil;
 import net.noctuasource.noctua.core.impl.ProfileChosenEvent;
+import net.noctuasource.noctua.core.impl.SignOffProfileEvent;
 import net.noctuasource.util.ApplicationLockFile;
 import net.noctuasource.util.LockException;
 import org.apache.log4j.Logger;
@@ -89,12 +89,6 @@ public class NoctuaInstanceController extends SubContextController {
 			return;
 		}
 
-		// @todo Fott damit!
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException ex) {
-			java.util.logging.Logger.getLogger(NoctuaRootContextControllerImpl.class.getName()).log(Level.SEVERE, null, ex);
-		}
 
 		// Load and refresh application context.
 		applicationContext = new ClassPathXmlApplicationContext(CONTEXT_FILE);
@@ -127,6 +121,14 @@ public class NoctuaInstanceController extends SubContextController {
 		ControllerParamsBuilder builder = ControllerParamsBuilder.create();
 		builder.add("profile", event.getProfile());
 		executeController("profileContextController", builder.build());
+	}
+
+
+	@Subscribe
+	public void onSignOffProfile(SignOffProfileEvent event) {
+		ControllerParamsBuilder builder = ControllerParamsBuilder.create();
+		builder.add("resetDefaultProfile", Boolean.TRUE);
+		executeController("profileChooseController", builder.build());
 	}
 
 

@@ -52,10 +52,10 @@ public class DefaultProfileManager implements ProfileManager, Observable {
 	private File profilesDir;
 	private String profilesXmlFilename;
 
-	private List<Profile> profiles = new LinkedList<Profile>();
+	private List<Profile> profiles = new LinkedList<>();
 	private Profile defaultProfile;
 
-	private List<Observer> observers = new LinkedList<Observer>();
+	private List<Observer> observers = new LinkedList<>();
 
 
 
@@ -71,7 +71,8 @@ public class DefaultProfileManager implements ProfileManager, Observable {
 		logger.debug("Reload profiles...");
 
 		try {
-
+			profiles.clear();
+			
 			this.profilesDir = profilesDir;
 			this.profilesXmlFilename = filename;
 			String profilesXmlFullPath = profilesDir + File.separator + filename;
@@ -141,7 +142,7 @@ public class DefaultProfileManager implements ProfileManager, Observable {
 		ProfileXmlFile profileXmlFile;
 		try {
 			profileXmlFile = getProfileXmlFile();
-			profileXmlFile.setDefaultProfilePath(defaultProfile.getDir());
+			profileXmlFile.setDefaultProfilePath(defaultProfile == null ? "" : defaultProfile.getDir());
 		} catch (ProfileXmlException e) {
 			logger.warn("Exception while writing profiles xml: ", e);
 		}

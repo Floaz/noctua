@@ -81,6 +81,11 @@ public class ProfileChooseController extends SubContextController {
 		File profilesDir = new File(paths.getProfilesDir());
 		profileManager.reloadProfiles(profilesDir, PROFILES_INI_FILENAME);
 
+		Boolean resetDefaultProfile = getControllerParams().get("resetDefaultProfile", Boolean.class);
+		if(resetDefaultProfile != null && resetDefaultProfile.booleanValue()) {
+			profileManager.setDefaultProfile(null);
+		}
+
 		Profile profile = profileManager.getDefaultProfile();
 
 		if(profile == null) {
