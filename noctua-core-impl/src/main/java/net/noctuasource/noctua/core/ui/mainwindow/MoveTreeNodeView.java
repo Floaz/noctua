@@ -18,7 +18,6 @@
  */
 package net.noctuasource.noctua.core.ui.mainwindow;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 import net.noctuasource.noctua.core.ui.vocable.*;
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;

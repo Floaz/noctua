@@ -19,6 +19,9 @@
 package net.noctuasource.noctua.core.ui.mainwindow;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -129,6 +132,8 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 			nodes = currentNode.getChildren();
 		}
 
+		sortChildren(nodes);
+
 		List<TreeItem<TreeNode>> rawList = new ArrayList<>();
 
 		for(TreeNode node : nodes) {
@@ -147,6 +152,25 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 		}
 
 		super.getChildren().addAll(rawList);
+	}
+
+
+
+	private void sortChildren(List<TreeNode> nodes) {
+		Collections.sort(nodes, new Comparator<TreeNode>() {
+			@Override
+			public int compare(TreeNode o1, TreeNode o2) {
+				if(o1 instanceof Folder && !(o2 instanceof Folder)) {
+					return -1;
+				}
+				if(!(o1 instanceof Folder) && o2 instanceof Folder) {
+					return 1;
+				}
+				else {
+					return o1.getName().compareToIgnoreCase(o2.getName());
+				}
+			}
+		});
 	}
 
 
