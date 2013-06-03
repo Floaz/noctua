@@ -30,9 +30,9 @@ import net.noctuasource.noctua.core.model.FlashCard;
 import net.noctuasource.noctua.core.model.FlashCardElementType;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
 import net.noctuasource.noctua.core.test.GroupList;
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.QuestionDirection;
-import net.noctuasource.noctua.core.test.TestData;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.QuestionDirection;
+import net.noctuasource.noctua.core.test.impl.TestData;
 
 
 

@@ -31,8 +31,8 @@ import javafx.scene.layout.HBox;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.test.CheckupContext;
-import net.noctuasource.noctua.core.test.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.CheckupContext;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
 
 
 

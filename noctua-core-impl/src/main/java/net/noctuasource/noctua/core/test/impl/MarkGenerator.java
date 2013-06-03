@@ -16,12 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
-public abstract class TestTypes {
 
-	public static final String NORMAL_TEST = "normalTest";
-	public static final String MULTIPLE_CHOICE_TEST = "multipleChoiceTest";
-	public static final String SCHOOL_TEST = "schoolTest";
+
+
+
+
+/**
+ * Generates a mark as a string.
+ * @author Philipp Thomas
+ */
+public interface MarkGenerator {
+
+	/**
+	 * Generates a mark as a string from the given correctness (0-100%).
+	 * @param correctness in 0%-100%
+	 * @return mark as String.
+	 */
+	String generateMark(float correctness);
 
 }

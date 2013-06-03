@@ -20,7 +20,7 @@ package net.noctuasource.noctua.core.test.school;
 
 import java.util.List;
 
-import net.noctuasource.noctua.core.test.TestView;
+import net.noctuasource.noctua.core.test.impl.TestView;
 
 public interface SchoolTestView extends TestView {
 

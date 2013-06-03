@@ -16,14 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
-public interface TestView {
 
-	public void showQuestion();
-	
-	public void showCheckup();	
-	
-	public void dispose();
-	
+
+
+
+
+
+public interface Test {
+
+	public void next();
+
+	public void cancel();
+
+	public TestData getTestData();
+
 }

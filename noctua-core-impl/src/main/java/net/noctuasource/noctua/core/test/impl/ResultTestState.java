@@ -16,10 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
 import java.util.Date;
+import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.data.ControllerParamsBuilder;
+import net.noctuasource.act.util.AfterDestroyRunnable;
 
 import org.apache.log4j.Logger;
 
@@ -60,14 +62,21 @@ public class ResultTestState implements TestState {
 						+ " wrong=" + (count -correctCount)
 						+ " sum=" + count);
 
-		AbstractTest test = (AbstractTest) data.get(TestData.TEST_OBJECT);
-		test.cancel();
-
 		Date startTime = (Date) data.get(TestData.START_TIME);
 		Long timeElapsed = (Long) data.get(TestData.ELAPSED_TIME_COUNTER);
 		TestResultData resultData = new TestResultData(history, startTime, timeElapsed);
 
-		test.executeController(ResultView.class, ControllerParamsBuilder.create().add(resultData).build());
+		final AbstractTest test = (AbstractTest) data.get(TestData.TEST_OBJECT);
+
+		ContextController resultView = test.executeController(
+															ResultView.class,
+															ControllerParamsBuilder.create().add(resultData).build());
+		AfterDestroyRunnable.create(resultView, new Runnable() {
+			@Override
+			public void run() {
+				test.cancel();
+			}
+		});
 	}
 
 

@@ -22,10 +22,10 @@ import java.util.List;
 
 import net.noctuasource.noctua.core.model.FlashCardElement;
 import net.noctuasource.noctua.core.model.FlashCardElementType;
-import net.noctuasource.noctua.core.test.AnswerChecker;
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.QuestionDirection;
-import net.noctuasource.noctua.core.test.TestData;
+import net.noctuasource.noctua.core.test.impl.AnswerChecker;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.QuestionDirection;
+import net.noctuasource.noctua.core.test.impl.TestData;
 
 
 

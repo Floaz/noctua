@@ -47,7 +47,7 @@ import net.noctuasource.noctua.core.events.TreeNodeEvent;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
 import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.test.GroupList;
-import net.noctuasource.noctua.core.test.TestTypes;
+import net.noctuasource.noctua.core.test.impl.TestTypes;
 
 
 

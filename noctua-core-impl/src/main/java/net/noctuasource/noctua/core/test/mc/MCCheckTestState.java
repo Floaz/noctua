@@ -18,14 +18,14 @@
  */
 package net.noctuasource.noctua.core.test.mc;
 
-import net.noctuasource.noctua.core.test.AnswerChecker;
-import net.noctuasource.noctua.core.test.AnswerChecker.CheckResult;
-import net.noctuasource.noctua.core.test.CheckupContext;
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestHistory;
-import net.noctuasource.noctua.core.test.TestHistoryElement;
-import net.noctuasource.noctua.core.test.TestState;
+import net.noctuasource.noctua.core.test.impl.AnswerChecker;
+import net.noctuasource.noctua.core.test.impl.AnswerChecker.CheckResult;
+import net.noctuasource.noctua.core.test.impl.CheckupContext;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestHistory;
+import net.noctuasource.noctua.core.test.impl.TestHistoryElement;
+import net.noctuasource.noctua.core.test.impl.TestState;
 import net.noctuasource.noctua.core.ui.test.MultipleChoiceTestView;
 
 public class MCCheckTestState implements TestState {

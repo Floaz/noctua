@@ -16,26 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
-import java.util.Hashtable;
+public interface TestView {
 
-public class TestDataImpl extends Hashtable<String, Object>
-							implements TestData {
-
-	@Override
-	public Object get(String name) {
-		return super.get(name);
-	}
-
-	@Override
-	public Object put(String name, Object object) {
-		return super.put(name, object);
-	}
-
-	@Override
-	public Object remove(String name) {
-		return super.remove(name);
-	}
-
+	public void showQuestion();
+	
+	public void showCheckup();	
+	
+	public void dispose();
+	
 }

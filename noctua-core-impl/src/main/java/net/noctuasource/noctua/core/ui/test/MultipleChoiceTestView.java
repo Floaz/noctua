@@ -42,15 +42,15 @@ import net.noctuasource.act.controller.SubContextController;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.test.AnswerChecker;
-import net.noctuasource.noctua.core.test.CheckupContext;
-import net.noctuasource.noctua.core.test.FlashCardFetcher;
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.Test;
-import net.noctuasource.noctua.core.test.TestCountdown;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestHistory;
-import net.noctuasource.noctua.core.test.TestView;
+import net.noctuasource.noctua.core.test.impl.AnswerChecker;
+import net.noctuasource.noctua.core.test.impl.CheckupContext;
+import net.noctuasource.noctua.core.test.impl.FlashCardFetcher;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.Test;
+import net.noctuasource.noctua.core.test.impl.TestCountdown;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestHistory;
+import net.noctuasource.noctua.core.test.impl.TestView;
 import net.noctuasource.noctua.core.test.mc.MCAnswerContainer;
 import net.noctuasource.noctua.core.test.mc.MultipleChoiceAnswerView;
 

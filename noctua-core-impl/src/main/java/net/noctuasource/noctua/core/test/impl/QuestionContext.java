@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
 import net.noctuasource.noctua.core.model.FlashCard;
 
@@ -25,12 +25,48 @@ import net.noctuasource.noctua.core.model.FlashCard;
 
 
 
-public interface FlashCardFetcher {
 
-	public FlashCard 	getNextFlashCard();
-	
-	public boolean 		hasNextFlashCard();
-	
-	public int			getRemainingCount();
 
+public class QuestionContext {
+
+	// ***** Members ******************************************************** //
+
+	private FlashCard			flashCard;
+	
+	private QuestionDirection	direction;
+	
+	private String				question;
+
+	
+	
+	// ***** Methods ******************************************************** //
+
+	public FlashCard getFlashCard() {
+		return flashCard;
+	}
+
+	public void setFlashCard(FlashCard flashCard) {
+		this.flashCard = flashCard;
+	}
+
+	public QuestionDirection getDirection() {
+		return direction;
+	}
+
+	public void setDirection(QuestionDirection direction) {
+		this.direction = direction;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
+	
+	
+	
+	
 }

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

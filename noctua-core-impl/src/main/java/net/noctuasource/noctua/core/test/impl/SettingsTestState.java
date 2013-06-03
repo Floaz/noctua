@@ -16,30 +16,51 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test.checker;
+package net.noctuasource.noctua.core.test.impl;
 
-import net.noctuasource.noctua.core.test.impl.AnswerChecker;
-import net.noctuasource.noctua.core.test.impl.QuestionContext;
-
-
+import net.noctuasource.act.data.ControllerParamsBuilder;
+import net.noctuasource.noctua.core.ui.test.TestOptionsView;
 
 
 
 
 
-public class AlwaysCorrectAnswerCheckerImpl implements AnswerChecker {
-	
+
+
+
+public class SettingsTestState implements TestState {
+
+
+	// ***** Members ******************************************************** //
+
+
+
+
+	// ***** Constructor **************************************************** //
+
+
+
+
+
 	// ***** Methods ******************************************************** //
 
 	@Override
-	public CheckResult check(String answer) {
-		return CheckResult.CORRECT;
+	public void initialize(TestData data) {
+		buildView(data);
 	}
 
-	@Override
-	public CheckResult check(String answer, QuestionContext qc) {
-		return CheckResult.CORRECT;
+
+	public void buildView(TestData data) {
+		AbstractTest test = (AbstractTest) data.get(TestData.TEST_OBJECT);
+		test.executeController(TestOptionsView.class, ControllerParamsBuilder.create().add("testData", data).build());
 	}
+
+
+	@Override
+	public void destroy(TestData data) {
+	}
+
+
 
 
 }

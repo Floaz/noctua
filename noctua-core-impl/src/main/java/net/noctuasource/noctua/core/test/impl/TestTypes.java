@@ -16,25 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
+public abstract class TestTypes {
 
-
-
-
-
-public interface AnswerChecker {
-	
-	public enum CheckResult {
-		WRONG,
-		MAYBE,
-		CORRECT
-	}
-	
-	
-	
-	public CheckResult check(String answer);
-	
-	public CheckResult check(String answer, QuestionContext qc);
+	public static final String NORMAL_TEST = "normalTest";
+	public static final String MULTIPLE_CHOICE_TEST = "multipleChoiceTest";
+	public static final String SCHOOL_TEST = "schoolTest";
 
 }

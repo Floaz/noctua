@@ -20,11 +20,11 @@ package net.noctuasource.noctua.core.test.mc;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.test.AbstractTest;
-import net.noctuasource.noctua.core.test.ResultTestState;
-import net.noctuasource.noctua.core.test.SettingsTestState;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestState;
+import net.noctuasource.noctua.core.test.impl.AbstractTest;
+import net.noctuasource.noctua.core.test.impl.ResultTestState;
+import net.noctuasource.noctua.core.test.impl.SettingsTestState;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestState;
 
 
 

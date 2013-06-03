@@ -16,33 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
-public abstract class StartTestState implements TestState {
 
-	
-	// ***** Members ******************************************************** //
 
-	
-	
-	
-	// ***** Constructor **************************************************** //
 
-	
-	
-	
-	
-	// ***** Methods ******************************************************** //
 
-	@Override
-	public void initialize(TestData data) {
-		buildView(data);
+
+public interface AnswerChecker {
+	
+	public enum CheckResult {
+		WRONG,
+		MAYBE,
+		CORRECT
 	}
+	
+	
+	
+	public CheckResult check(String answer);
+	
+	public CheckResult check(String answer, QuestionContext qc);
 
-	
-	public abstract void buildView(TestData data);
-	
-	
-	
-	
 }

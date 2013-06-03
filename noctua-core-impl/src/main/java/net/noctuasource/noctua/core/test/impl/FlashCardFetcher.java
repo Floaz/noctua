@@ -16,18 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
+
+import net.noctuasource.noctua.core.model.FlashCard;
 
 
 
 
 
 
+public interface FlashCardFetcher {
 
-public interface TestState {
-
-	public void initialize(TestData data);
+	public FlashCard 	getNextFlashCard();
 	
-	public void destroy(TestData data);
+	public boolean 		hasNextFlashCard();
 	
+	public int			getRemainingCount();
+
 }

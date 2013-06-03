@@ -16,28 +16,34 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
 
 
 
 
-/**
- * The generator for german school mark system.
- * @author Philipp Thomas
- */
-public class SimpleGermanMarkGenerator extends DefaultMarkGenerator {
 
 
-	// ***** Constructor **************************************************** //
 
-	public SimpleGermanMarkGenerator() {
-		addStop(92, "1");
-		addStop(81, "2");
-		addStop(67, "3");
-		addStop(50, "4");
-		addStop(30, "5");
-		addStop( 0, "6");
+
+public class CheckupContext {
+
+	// ***** Members ******************************************************** //
+
+	private boolean				answerCorrect;
+
+	
+	
+	// ***** Methods ******************************************************** //
+
+	public boolean isAnswerCorrect() {
+		return answerCorrect;
 	}
 
+	public void setAnswerCorrect(boolean answerCorrect) {
+		this.answerCorrect = answerCorrect;
+	}
+
+	
+	
 }

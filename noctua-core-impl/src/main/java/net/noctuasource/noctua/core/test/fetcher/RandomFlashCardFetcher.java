@@ -24,10 +24,10 @@ import java.util.Set;
 
 import net.noctuasource.noctua.core.model.FlashCard;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
-import net.noctuasource.noctua.core.test.FlashCardFetcher;
+import net.noctuasource.noctua.core.test.impl.FlashCardFetcher;
 import net.noctuasource.noctua.core.test.GroupList;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestSettings;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestSettings;
 
 public class RandomFlashCardFetcher implements FlashCardFetcher {
 	

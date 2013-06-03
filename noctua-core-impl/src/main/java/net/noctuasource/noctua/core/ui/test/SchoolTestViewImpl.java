@@ -40,11 +40,11 @@ import net.noctuasource.act.controller.SubContextController;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.Test;
-import net.noctuasource.noctua.core.test.TestCountdown;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestView;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.Test;
+import net.noctuasource.noctua.core.test.impl.TestCountdown;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestView;
 import net.noctuasource.noctua.core.test.school.CheckupContainer;
 import net.noctuasource.noctua.core.test.school.QuestionContainer;
 import net.noctuasource.noctua.core.test.school.SchoolTestView;

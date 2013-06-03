@@ -48,15 +48,16 @@ import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.test.MarkGenerator;
-import net.noctuasource.noctua.core.test.SimpleGermanMarkGenerator;
+import net.noctuasource.noctua.core.test.impl.MarkGenerator;
+import net.noctuasource.noctua.core.test.impl.SimpleGermanMarkGenerator;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.test.TestHistory;
-import net.noctuasource.noctua.core.test.TestHistoryElement;
-import net.noctuasource.noctua.core.test.TestResultData;
+import net.noctuasource.noctua.core.test.impl.TestHistory;
+import net.noctuasource.noctua.core.test.impl.TestHistoryElement;
+import net.noctuasource.noctua.core.test.impl.TestResultData;
 import net.noctuasource.noctua.core.ui.ColorUtils;
 
 
@@ -117,8 +118,8 @@ public class ResultView extends SubContextController {
 
 	// ***** Constructor **************************************************** //
 
-	@Override
-	protected void onCreate() {
+	@RunLater
+	public void init() {
 		this.resultData = getControllerParams().get(TestResultData.class);
 		this.history = resultData.getTestHistory();
 		this.timeElapsed = resultData.getTimeElapsed();
@@ -265,7 +266,9 @@ public class ResultView extends SubContextController {
 
 	@Override
 	protected void onDestroy() {
-		stage.close();
+		if(stage != null) {
+			stage.close();
+		}
 	}
 
 

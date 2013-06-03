@@ -21,13 +21,13 @@ package net.noctuasource.noctua.core.test.normal;
 import java.util.Random;
 
 import net.noctuasource.noctua.core.model.FlashCardElementType;
-import net.noctuasource.noctua.core.test.AbstractQuestionTestState;
-import net.noctuasource.noctua.core.test.FlashCardFetcher;
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.QuestionDirection;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestSettings;
-import net.noctuasource.noctua.core.test.TestView;
+import net.noctuasource.noctua.core.test.impl.AbstractQuestionTestState;
+import net.noctuasource.noctua.core.test.impl.FlashCardFetcher;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.QuestionDirection;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestSettings;
+import net.noctuasource.noctua.core.test.impl.TestView;
 
 public class NormalQuestionTestState extends AbstractQuestionTestState {
 

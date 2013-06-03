@@ -16,34 +16,48 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
+import java.util.Date;
 
+public class TestResultData {
 
-
-
-
-
-
-
-public class CheckupContext {
+	// ***** Static Members ************************************************* //
 
 	// ***** Members ******************************************************** //
 
-	private boolean				answerCorrect;
+	private TestHistory		testHistory;
+	
+	private Date			startTime;
+	
+	private long				timeElapsed;
+	
+	
+	// ***** Constructor **************************************************** //
+
+	public TestResultData(TestHistory testHistory, Date startTime, long timeElapsed) {
+		this.testHistory = testHistory;
+		this.startTime = startTime;
+		this.timeElapsed = timeElapsed;
+	}
 
 	
 	
 	// ***** Methods ******************************************************** //
 
-	public boolean isAnswerCorrect() {
-		return answerCorrect;
+	public TestHistory getTestHistory() {
+		return testHistory;
 	}
 
-	public void setAnswerCorrect(boolean answerCorrect) {
-		this.answerCorrect = answerCorrect;
+	
+	public Date getStartTime() {
+		return startTime;
 	}
 
+
+	public long getTimeElapsed() {
+		return timeElapsed;
+	}
 	
 	
 }

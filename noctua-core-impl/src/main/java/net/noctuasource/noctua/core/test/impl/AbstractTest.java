@@ -16,9 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
+package net.noctuasource.noctua.core.test.impl;
 
 import net.noctuasource.act.controller.SubContextController;
+import net.noctuasource.noctua.core.test.GroupList;
 import org.apache.log4j.Logger;
 
 

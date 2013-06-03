@@ -20,7 +20,7 @@ package net.noctuasource.noctua.core.test.school;
 
 import java.util.ArrayList;
 
-import net.noctuasource.noctua.core.test.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
 
 
 

@@ -4,8 +4,8 @@
  */
 package net.noctuasource.noctua.test;
 
-import net.noctuasource.noctua.core.test.MarkGenerator;
-import net.noctuasource.noctua.core.test.SimpleGermanMarkGenerator;
+import net.noctuasource.noctua.core.test.impl.MarkGenerator;
+import net.noctuasource.noctua.core.test.impl.SimpleGermanMarkGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 

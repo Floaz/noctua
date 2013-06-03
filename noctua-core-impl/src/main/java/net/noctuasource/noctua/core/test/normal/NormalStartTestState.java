@@ -27,16 +27,16 @@ import net.noctuasource.act.data.ControllerParamsBuilder;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.test.AnswerChecker;
-import net.noctuasource.noctua.core.test.FlashCardFetcher;
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.StartTestState;
-import net.noctuasource.noctua.core.test.Test;
-import net.noctuasource.noctua.core.test.TestCountdown;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestHistory;
-import net.noctuasource.noctua.core.test.TestSettings;
-import net.noctuasource.noctua.core.test.TestView;
+import net.noctuasource.noctua.core.test.impl.AnswerChecker;
+import net.noctuasource.noctua.core.test.impl.FlashCardFetcher;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.StartTestState;
+import net.noctuasource.noctua.core.test.impl.Test;
+import net.noctuasource.noctua.core.test.impl.TestCountdown;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestHistory;
+import net.noctuasource.noctua.core.test.impl.TestSettings;
+import net.noctuasource.noctua.core.test.impl.TestView;
 import net.noctuasource.noctua.core.test.checker.AnswerCheckerImpl;
 import net.noctuasource.noctua.core.test.fetcher.RandomFlashCardFetcher;
 import net.noctuasource.noctua.core.ui.test.NormalTestView;

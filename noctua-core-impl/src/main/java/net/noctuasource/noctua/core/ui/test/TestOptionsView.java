@@ -42,10 +42,10 @@ import net.noctuasource.act.controller.SubContextController;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.test.QuestionDirection;
-import net.noctuasource.noctua.core.test.Test;
-import net.noctuasource.noctua.core.test.TestData;
-import net.noctuasource.noctua.core.test.TestSettings;
+import net.noctuasource.noctua.core.test.impl.QuestionDirection;
+import net.noctuasource.noctua.core.test.impl.Test;
+import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.impl.TestSettings;
 
 
 

@@ -16,51 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
-
-import net.noctuasource.act.data.ControllerParamsBuilder;
-import net.noctuasource.noctua.core.ui.test.TestOptionsView;
+package net.noctuasource.noctua.core.test.impl;
 
 
 
 
 
-
-
-
-public class SettingsTestState implements TestState {
-
-
-	// ***** Members ******************************************************** //
-
-
+/**
+ * The generator for german school mark system.
+ * @author Philipp Thomas
+ */
+public class SimpleGermanMarkGenerator extends DefaultMarkGenerator {
 
 
 	// ***** Constructor **************************************************** //
 
-
-
-
-
-	// ***** Methods ******************************************************** //
-
-	@Override
-	public void initialize(TestData data) {
-		buildView(data);
+	public SimpleGermanMarkGenerator() {
+		addStop(92, "1");
+		addStop(81, "2");
+		addStop(67, "3");
+		addStop(50, "4");
+		addStop(30, "5");
+		addStop( 0, "6");
 	}
-
-
-	public void buildView(TestData data) {
-		AbstractTest test = (AbstractTest) data.get(TestData.TEST_OBJECT);
-		test.executeController(TestOptionsView.class, ControllerParamsBuilder.create().add("testData", data).build());
-	}
-
-
-	@Override
-	public void destroy(TestData data) {
-	}
-
-
-
 
 }

@@ -21,7 +21,7 @@ package net.noctuasource.noctua.core.impl;
 
 import net.noctuasource.act.registry.DefaultControllerLookupRegistry;
 import net.noctuasource.noctua.core.datastore.impl.DatastoreInitContextController;
-import net.noctuasource.noctua.core.test.TestInitController;
+import net.noctuasource.noctua.core.test.impl.TestInitController;
 import net.noctuasource.noctua.core.ui.mainwindow.AboutView;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFlashCardGroupView;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFolderView;
@@ -34,6 +34,7 @@ import net.noctuasource.noctua.core.ui.profiles.ProfileChooseView;
 import net.noctuasource.noctua.core.ui.test.MultipleChoiceTestView;
 import net.noctuasource.noctua.core.ui.test.NormalTestView;
 import net.noctuasource.noctua.core.ui.test.SchoolTestViewImpl;
+import net.noctuasource.noctua.core.ui.test.TooFewFlashCardsMessageDialog;
 import net.noctuasource.noctua.core.ui.vocable.AddVocabularyView;
 import net.noctuasource.noctua.core.ui.vocable.DeleteVocabularyView;
 import net.noctuasource.noctua.core.ui.vocable.MoveVocabularyView;
@@ -84,6 +85,10 @@ public class ControllerLookupRegistryImpl extends DefaultControllerLookupRegistr
 		addControllerClass("editVocableView", UnitMenuView.class);
 		addControllerClass("moveVocabularyView", MoveVocabularyView.class);
 		addControllerClass("deleteVocabularyView", DeleteVocabularyView.class);
+
+		addControllerClass("tooFewFlashCardsMessageDialog", TooFewFlashCardsMessageDialog.class);
+
+
 	}
 
 }

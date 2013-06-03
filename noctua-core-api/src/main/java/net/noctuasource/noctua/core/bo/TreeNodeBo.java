@@ -22,13 +22,16 @@ package net.noctuasource.noctua.core.bo;
 import java.util.List;
 
 import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.test.GroupList;
 
 
 public interface TreeNodeBo {
 
-	public TreeNode getTreeNodeById(Long id);
+	public TreeNode			getTreeNodeById(Long id);
 
-	public List<TreeNode> getRootNodes();
+	public List<TreeNode>	getRootNodes();
+
+	public int				getNumberFlashCardsOfGroup(GroupList groupList);
 
 
 	public void addLanguage(String name, String code);

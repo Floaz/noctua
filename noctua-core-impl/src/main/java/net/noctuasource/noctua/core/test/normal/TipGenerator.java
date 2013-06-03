@@ -25,8 +25,8 @@ import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.model.FlashCardElement;
 import net.noctuasource.noctua.core.model.FlashCardElementType;
-import net.noctuasource.noctua.core.test.QuestionContext;
-import net.noctuasource.noctua.core.test.QuestionDirection;
+import net.noctuasource.noctua.core.test.impl.QuestionContext;
+import net.noctuasource.noctua.core.test.impl.QuestionDirection;
 
 public class TipGenerator {
 

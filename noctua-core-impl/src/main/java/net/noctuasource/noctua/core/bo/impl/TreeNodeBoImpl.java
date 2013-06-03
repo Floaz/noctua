@@ -21,6 +21,7 @@ package net.noctuasource.noctua.core.bo.impl;
 import net.noctuasource.noctua.core.dao.impl.SessionHolder;
 import net.noctuasource.noctua.core.dao.impl.TreeNodeDaoImpl;
 import com.google.common.eventbus.EventBus;
+import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
 
@@ -32,6 +33,7 @@ import net.noctuasource.noctua.core.model.FlashCardGroup;
 import net.noctuasource.noctua.core.model.Folder;
 import net.noctuasource.noctua.core.model.Language;
 import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.test.GroupList;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -91,6 +93,16 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
+	public int getNumberFlashCardsOfGroup(GroupList groupList) {
+		int number = 0;
+		for(FlashCardGroup group : groupList) {
+			number += group.getFlashCards().size();
+		}
+		return number;
+	}
+
+
+	@Override
 	public void addLanguage(String name, String code) {
 		Language treeNode = new Language();
 		treeNode.setName(name);
@@ -138,7 +150,7 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 	@Override
 	public void deleteTreeNode(Long id) {
 		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
-		
+
 		if(treeNode.getParent() != null) {
 			treeNode.getParent().removeChildren(treeNode);
 		}
