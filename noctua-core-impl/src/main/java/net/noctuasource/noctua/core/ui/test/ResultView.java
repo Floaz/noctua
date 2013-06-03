@@ -77,7 +77,7 @@ public class ResultView extends SubContextController {
 	// ***** Static Members ************************************************* //
 
 	private static final String	FXML_FILE = "/ResultView.fxml";
-	private static final String	CSS_FILE = "/ResultView.css";
+	private static final String	CSS_FILE = "/General.css";
 
 
 	// ***** Members ******************************************************** //

@@ -25,7 +25,7 @@ import net.noctuasource.noctua.core.test.impl.AbstractQuestionTestState;
 import net.noctuasource.noctua.core.test.impl.FlashCardFetcher;
 import net.noctuasource.noctua.core.test.impl.QuestionContext;
 import net.noctuasource.noctua.core.test.impl.QuestionDirection;
-import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.noctua.core.test.impl.TestSettings;
 import net.noctuasource.noctua.core.test.impl.TestView;
 

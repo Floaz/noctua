@@ -203,3 +203,25 @@
 	-fx-background-color: #333;
 }
 
+
+
+
+
+/* Test */
+
+.testOptions .titled-pane {
+  -fx-text-fill: #333333;
+}
+
+.testOptions .titled-pane > .title {
+  -fx-background-color: -fx-box-border, -fx-inner-border, -fx-body-color;
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-radius: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+  -fx-padding: 4 4 4 4;
+  -fx-color: #E8EFFA;
+}
+
+
+
+
+

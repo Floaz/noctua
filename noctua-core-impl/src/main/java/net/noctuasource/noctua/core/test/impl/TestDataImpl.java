@@ -18,24 +18,24 @@
  */
 package net.noctuasource.noctua.core.test.impl;
 
-import java.util.Hashtable;
+import net.noctuasource.noctua.core.test.TestData;
+import net.noctuasource.act.data.ControllerDataImpl;
 
-public class TestDataImpl extends Hashtable<String, Object>
+
+
+
+
+/**
+ * Implementation of TestData.
+ * @author Philipp Thomas
+ */
+public class TestDataImpl extends ControllerDataImpl
 							implements TestData {
 
 	@Override
-	public Object get(String name) {
-		return super.get(name);
-	}
-
-	@Override
 	public Object put(String name, Object object) {
-		return super.put(name, object);
-	}
-
-	@Override
-	public Object remove(String name) {
-		return super.remove(name);
+		set(name, object);
+		return object;
 	}
 
 }

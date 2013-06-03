@@ -19,6 +19,7 @@
 package net.noctuasource.noctua.core.ui.test;
 
 import java.io.IOException;
+import javafx.collections.FXCollections;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,20 +32,25 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.annotation.Resource;
+import jfxtras.labs.scene.control.ListSpinner;
+import jfxtras.labs.scene.control.ListSpinnerIntegerList;
 import net.noctuasource.act.controller.SubContextController;
+import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.test.GroupList;
 
 import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.test.impl.QuestionDirection;
 import net.noctuasource.noctua.core.test.impl.Test;
-import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.noctua.core.test.impl.TestSettings;
 
 
@@ -65,7 +71,7 @@ public class TestOptionsView extends SubContextController {
 	// ***** Static Members ************************************************* //
 
 	private static final String	FXML_FILE = "/TestOptionsView.fxml";
-	private static final String	CSS_FILE = "/TestOptionsView.css";
+	private static final String	CSS_FILE = "/General.css";
 
 	public static final int MIN_NUMBER_WORDS = 3;
 	public static final int DEFAULT_NUMBER_WORDS = 30;
@@ -76,6 +82,9 @@ public class TestOptionsView extends SubContextController {
 
 
 	// ***** Members ******************************************************** //
+
+	@Resource
+	TreeNodeBo treeNodeBo;
 
 	private Stage		stage;
 
@@ -102,8 +111,8 @@ public class TestOptionsView extends SubContextController {
 	@FXML private RadioButton			toForeignRadioButton;
 
 	@FXML private ChoiceBox<String>		chooseMethodBox;
-	@FXML private TextField				numberField;
-	@FXML private TextField				timeLimitField;
+	@FXML private ListSpinner<Integer>	numberSpinner;
+	@FXML private ListSpinner<Integer>	timeLimitField;
 
 	@FXML private CheckBox				affectCardBoxCheckbox;
 	@FXML private CheckBox				showImagesCheckbox;
@@ -167,7 +176,7 @@ public class TestOptionsView extends SubContextController {
     	timeTitledPane.setText("Zeitlimit");
     	directionTitledPane.setText("Abfragerichtung");
 
-    	chooseMethodDescLabel.setText("Abfragedatum:");
+    	chooseMethodDescLabel.setText("Auswahl:");
     	numberDescLabel.setText("Anzahl Fragen:");
     	timeLimitCheckbox.setText("Zeitlimit einschalten");
     	timeLimitDescLabel.setText("Anzahl Sekunden pro Frage:");
@@ -195,10 +204,18 @@ public class TestOptionsView extends SubContextController {
     	showAddInfoCheckbox.setText("Zusatzinformationen anzeigen");
     	caseSensitiveCheckbox.setText("Groß-/Kleinschreibung beachten");
 
-    	numberField.setText("30");
-    	timeLimitField.setText("10");
 
+		int maxFlashCards = treeNodeBo.getNumberFlashCardsOfGroup(testData.get(TestData.GROUP_LIST, GroupList.class));
+
+    	numberSpinner.setItems(FXCollections.observableList(new ListSpinnerIntegerList(3, maxFlashCards)));
+		numberSpinner.setValue(maxFlashCards < 30 ? maxFlashCards : 30);
+
+    	timeLimitField.setItems(FXCollections.observableList(new ListSpinnerIntegerList(1, 200)));
+		timeLimitField.setValue(15);
+
+		chooseMethodBox.getItems().clear();
     	chooseMethodBox.getItems().add("Zufallsauswahl");
+		chooseMethodBox.getSelectionModel().selectFirst();
     }
 
 
@@ -219,13 +236,13 @@ public class TestOptionsView extends SubContextController {
     private void saveSettings() {
 		TestSettings testSettings = new TestSettings();
 
-		testSettings.setNumberOfWords(Integer.parseInt(numberField.getText()));
+		testSettings.setNumberOfWords(numberSpinner.getValue());
 
 		//testSettings.setFetchMethod(FetchMethod.RANDOM);
 
 		testSettings.setTimeLimit(timeLimitCheckbox.isSelected());
 
-		testSettings.setTimeLimitSeconds(Integer.parseInt(timeLimitField.getText()));
+		testSettings.setTimeLimitSeconds(timeLimitField.getValue());
 
 		testSettings.setDirection( toForeignRadioButton.isSelected()
 									? QuestionDirection.CONTENT_TO_EXPLANATION
@@ -249,4 +266,19 @@ public class TestOptionsView extends SubContextController {
 		}
     };
 
+
+
+
+
+	class NumberKeyFilter implements EventHandler<KeyEvent> {
+		   @Override
+		   public void handle( KeyEvent t ) {
+			  char ar[] = t.getCharacter().toCharArray();
+			  char ch = ar[t.getCharacter().toCharArray().length - 1];
+			  if (!(ch >= '0' && ch <= '9')) {
+				 System.out.println("The char you entered is not a number");
+				 t.consume();
+			  }
+		   }
+		}
 }

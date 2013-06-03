@@ -46,7 +46,7 @@ public class SchoolAnswerPanel {
 	// ***** Static Members ************************************************* //
 
 	private static final String	FXML_FILE = "/SchoolTestAnswerPanel.fxml";
-	private static final String	CSS_FILE = "/Test.css";
+	private static final String	CSS_FILE = "/General.css";
 
 
 

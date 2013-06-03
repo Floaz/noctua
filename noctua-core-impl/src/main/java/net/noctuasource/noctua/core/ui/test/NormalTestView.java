@@ -47,7 +47,7 @@ import net.noctuasource.noctua.core.test.impl.FlashCardFetcher;
 import net.noctuasource.noctua.core.test.impl.QuestionContext;
 import net.noctuasource.noctua.core.test.impl.Test;
 import net.noctuasource.noctua.core.test.impl.TestCountdown;
-import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.noctua.core.test.impl.TestHistory;
 import net.noctuasource.noctua.core.test.impl.TestView;
 import net.noctuasource.noctua.core.test.normal.AnswerContainer;
@@ -66,7 +66,7 @@ public class NormalTestView extends SubContextController
 	// ***** Static Members ************************************************* //
 
 	private static final String	FXML_FILE = "/NormalTestView.fxml";
-	private static final String	CSS_FILE = "/Test.css";
+	private static final String	CSS_FILE = "/General.css";
 
 	private static final double	STAGE_MIN_WIDTH = 500;
 	private static final double	STAGE_MIN_HEIGHT = 450;

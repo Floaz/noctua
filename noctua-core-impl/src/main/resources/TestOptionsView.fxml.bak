@@ -10,14 +10,12 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import jfxtras.labs.scene.control.*?>
-<?scenebuilder-classpath-element ../../../private/scenebuilderlibs/jfxtras-labs-2.2-r4.jar?>
 <?scenebuilder-stylesheet TestOptionsView.css?>
 
-<VBox id="" fx:id="rootBox" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0" spacing="0.0" styleClass="window, testOptions" xmlns:fx="http://javafx.com/fxml">
+<VBox id="" fx:id="rootBox" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0" spacing="0.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
   <HBox fx:id="headerBox" spacing="10.0" styleClass="headerBox">
     <VBox alignment="CENTER_LEFT">
-      <Label fx:id="headerTitle" styleClass="headerTitle" text="Testoptionen...">
+      <Label fx:id="headerTitle" styleClass="headerTitle" text="Testoptionen">
         <effect>
           <InnerShadow />
         </effect>
@@ -52,18 +50,23 @@
             <HBox.margin>
               <Insets />
             </HBox.margin>
-            <TitledPane fx:id="fetchTitledPane" animated="false" collapsible="false" style="&#10;" text="Auswahl" VBox.vgrow="ALWAYS">
+            <TitledPane id="resultTitledPane" fx:id="fetchTitledPane" animated="false" collapsible="false" text="Auswahl" VBox.vgrow="ALWAYS">
               <content>
                 <VBox id="VBox" alignment="CENTER" spacing="5.0">
                   <children>
                     <GridPane id="GridPane">
                       <children>
-                        <Label fx:id="numberDescLabel" alignment="CENTER" contentDisplay="CENTER" text="Anzahl Vokabeln: " textAlignment="CENTER" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label id="resultTextLabel" fx:id="numberDescLabel" alignment="CENTER" contentDisplay="CENTER" text="Anzahl Vokabeln: " textAlignment="CENTER" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
                           <prefWidth>
                             <Long fx:value="-1" />
                           </prefWidth>
                         </Label>
-                        <ListSpinner fx:id="numberSpinner" alignment="CENTER_LEFT" prefHeight="-1.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <children>
+                            <TextField fx:id="numberField" alignment="TOP_LEFT" prefHeight="-1.0" prefWidth="60.0" promptText="10" text="30" />
+                            <Slider blockIncrement="1.0" min="3.0" showTickLabels="false" showTickMarks="false" snapToTicks="false" value="30.0" />
+                          </children>
+                        </HBox>
                         <ChoiceBox fx:id="chooseMethodBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
                           <items>
                             <FXCollections fx:factory="observableArrayList">
@@ -139,7 +142,7 @@
                               <Long fx:value="-1" />
                             </prefWidth>
                           </Label>
-                          <ListSpinner fx:id="timeLimitField" prefHeight="26.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                          <TextField fx:id="timeLimitField" prefHeight="26.0" prefWidth="60.0" promptText="10" text="15" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         </children>
                         <columnConstraints>
                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -222,13 +225,6 @@
             <Long fx:value="-1" />
           </prefWidth>
         </HBox>
-        <graphic>
-          <ImageView fitHeight="24.0" fitWidth="24.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-            <image>
-              <Image url="@images/settings.png" />
-            </image>
-          </ImageView>
-        </graphic>
       </Tab>
       <Tab fx:id="moreTab" closable="false" text="Erweitert">
         <content>
@@ -260,13 +256,6 @@
             </children>
           </VBox>
         </content>
-        <graphic>
-          <ImageView fitHeight="24.0" fitWidth="24.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-            <image>
-              <Image url="@images/Run.png" />
-            </image>
-          </ImageView>
-        </graphic>
       </Tab>
     </tabs>
     <translateX>

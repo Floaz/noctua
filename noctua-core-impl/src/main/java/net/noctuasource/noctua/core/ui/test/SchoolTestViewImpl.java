@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
 import net.noctuasource.noctua.core.test.impl.QuestionContext;
 import net.noctuasource.noctua.core.test.impl.Test;
 import net.noctuasource.noctua.core.test.impl.TestCountdown;
-import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.noctua.core.test.impl.TestView;
 import net.noctuasource.noctua.core.test.school.CheckupContainer;
 import net.noctuasource.noctua.core.test.school.QuestionContainer;
@@ -62,7 +62,7 @@ public class SchoolTestViewImpl extends SubContextController
 	// ***** Static Members ************************************************* //
 
 	private static final String	FXML_FILE = "/SchoolTestView.fxml";
-	private static final String	CSS_FILE = "/Test.css";
+	private static final String	CSS_FILE = "/General.css";
 
 	private static final double	STAGE_MIN_WIDTH = 500;
 	private static final double	STAGE_MIN_HEIGHT = 450;

@@ -18,6 +18,7 @@
  */
 package net.noctuasource.noctua.core.test.impl;
 
+import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.test.GroupList;
 import org.apache.log4j.Logger;

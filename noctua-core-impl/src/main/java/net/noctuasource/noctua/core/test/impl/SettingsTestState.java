@@ -18,6 +18,7 @@
  */
 package net.noctuasource.noctua.core.test.impl;
 
+import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.ui.test.TestOptionsView;
 

@@ -27,7 +27,7 @@ import net.noctuasource.noctua.core.test.impl.AnswerChecker;
 import net.noctuasource.noctua.core.test.impl.AnswerChecker.CheckResult;
 import net.noctuasource.noctua.core.test.impl.CheckupContext;
 import net.noctuasource.noctua.core.test.impl.QuestionContext;
-import net.noctuasource.noctua.core.test.impl.TestData;
+import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.noctua.core.test.impl.TestHistory;
 import net.noctuasource.noctua.core.test.impl.TestHistoryElement;
 import net.noctuasource.noctua.core.test.impl.TestState;

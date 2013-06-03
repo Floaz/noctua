@@ -16,7 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test.impl;
+package net.noctuasource.noctua.core.test;
+
+import net.noctuasource.act.data.ControllerData;
 
 
 
@@ -25,9 +27,9 @@ package net.noctuasource.noctua.core.test.impl;
 
 
 
-public interface TestData {
+public interface TestData extends ControllerData {
 
-	
+
 	// ***** Static Members ************************************************* //
 
 	public static final String	TEST_OBJECT = "test";
@@ -43,16 +45,13 @@ public interface TestData {
 	public static final String	MULTIPLE_CHOICE_ANSWER_SET = "multipleChoiceAnswerSet";
 	public static final String	START_TIME = "startTime";
 	public static final String	ELAPSED_TIME_COUNTER = "elapsedTimeCounter";
-	
-	
-	
+
+
+
 	// ***** Methods ******************************************************** //
 
-	public Object get(String name);
-
+	@Deprecated
 	public Object put(String name, Object object);
-
-	public Object remove(String name);
 
 
 }
