@@ -20,7 +20,7 @@
           <content>
             <VBox id="VBox" alignment="CENTER" spacing="5.0">
               <children>
-                <Button fx:id="normalTestButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNormalTestButtonAction" styleClass="sidebarButton" text="Normale Abfrage">
+                <Button fx:id="normalTestButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNormalTestButtonAction" styleClass="sidebarButton" text="Normale Abfrage">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -38,7 +38,7 @@
                     <Insets fx:id="x2" />
                   </VBox.margin>
                 </Button>
-                <Button fx:id="mcTestButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMCTestButtonAction" styleClass="sidebarButton" text="Multiple Choice">
+                <Button fx:id="mcTestButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMCTestButtonAction" styleClass="sidebarButton" text="Multiple Choice">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -53,7 +53,7 @@
                     </ImageView>
                   </graphic>
                 </Button>
-                <Button id="schoolTestButto" fx:id="schoolTestButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSchoolTestButtonAction" styleClass="sidebarButton" text="Fragebogen">
+                <Button id="schoolTestButto" fx:id="schoolTestButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSchoolTestButtonAction" styleClass="sidebarButton" text="Fragebogen">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -82,7 +82,7 @@
           <content>
             <VBox id="VBox" alignment="CENTER" spacing="5.0">
               <children>
-                <Button fx:id="newUnitButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewUnitButtonAction" styleClass="sidebarButton" text="Neue Lektion">
+                <Button fx:id="newUnitButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewUnitButtonAction" styleClass="sidebarButton" text="Neue Lektion">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -100,7 +100,7 @@
                     <Insets fx:id="x2" />
                   </VBox.margin>
                 </Button>
-                <Button id="new" fx:id="newFolderButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewFolderButtonAction" styleClass="sidebarButton" text="Neuer Ordner">
+                <Button id="new" fx:id="newFolderButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewFolderButtonAction" styleClass="sidebarButton" text="Neuer Ordner">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -115,7 +115,7 @@
                     </ImageView>
                   </graphic>
                 </Button>
-                <Button fx:id="newLanguageButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewLanguageButtonAction" styleClass="sidebarButton" text="Neue Sprache">
+                <Button fx:id="newLanguageButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewLanguageButtonAction" styleClass="sidebarButton" text="Neue Sprache">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -141,7 +141,7 @@
           <content>
             <VBox id="VBox" alignment="CENTER" spacing="5.0">
               <children>
-                <Button fx:id="renameButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRenameButtonAction" styleClass="sidebarButton" text="Umbennen">
+                <Button fx:id="renameButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRenameButtonAction" styleClass="sidebarButton" text="Umbennen">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -156,7 +156,7 @@
                     </ImageView>
                   </graphic>
                 </Button>
-                <Button fx:id="moveButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMoveButtonAction" styleClass="sidebarButton" text="Verschieben">
+                <Button fx:id="moveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMoveButtonAction" styleClass="sidebarButton" text="Verschieben">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>
@@ -171,7 +171,7 @@
                     </ImageView>
                   </graphic>
                 </Button>
-                <Button fx:id="deleteButton" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeleteButtonAction" styleClass="sidebarButton" text="Löschen">
+                <Button fx:id="deleteButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeleteButtonAction" styleClass="sidebarButton" text="Löschen">
                   <graphic>
                     <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <fitHeight>

@@ -28,6 +28,7 @@ import net.noctuasource.noctua.core.ui.mainwindow.AddFolderView;
 import net.noctuasource.noctua.core.ui.mainwindow.AddLanguageView;
 import net.noctuasource.noctua.core.ui.mainwindow.DeleteTreeNodeView;
 import net.noctuasource.noctua.core.ui.mainwindow.MainWindowView;
+import net.noctuasource.noctua.core.ui.mainwindow.MoveTreeNodeView;
 import net.noctuasource.noctua.core.ui.mainwindow.RenameTreeNodeView;
 import net.noctuasource.noctua.core.ui.mainwindow.UnitBrowserTabView;
 import net.noctuasource.noctua.core.ui.profiles.ProfileChooseView;
@@ -74,6 +75,7 @@ public class ControllerLookupRegistryImpl extends DefaultControllerLookupRegistr
 		addControllerClass("addFolderView", AddFolderView.class);
 		addControllerClass("addFlashCardGroupView", AddFlashCardGroupView.class);
 		addControllerClass("renameTreeNodeView", RenameTreeNodeView.class);
+		addControllerClass("moveTreeNodeView", MoveTreeNodeView.class);
 		addControllerClass("deleteTreeNodeView", DeleteTreeNodeView.class);
 
 		addControllerClass("normalTestView", NormalTestView.class);

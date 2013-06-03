@@ -45,6 +45,7 @@ import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
+import net.noctuasource.noctua.core.model.Language;
 import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.test.GroupList;
 import net.noctuasource.noctua.core.test.impl.TestTypes;
@@ -88,6 +89,7 @@ public class UnitBrowserTabView extends SubContextController {
 	@FXML private Button				newFolderButton;
 	@FXML private Button				newLanguageButton;
 	@FXML private Button				renameButton;
+	@FXML private Button				moveButton;
 	@FXML private Button				deleteButton;
 	@FXML private Button				openButton;
 	@FXML private CheckBox				multipleSelectionCheckbox;
@@ -122,14 +124,14 @@ public class UnitBrowserTabView extends SubContextController {
 	// ***** Methods ******************************************************** //
 
     private void initStaticFields() {
-    	normalTestButton.setAlignment(Pos.CENTER_LEFT);
-    	mcTestButton.setAlignment(Pos.CENTER_LEFT);
-    	schoolTestButton.setAlignment(Pos.CENTER_LEFT);
-    	newUnitButton.setAlignment(Pos.CENTER_LEFT);
-    	newFolderButton.setAlignment(Pos.CENTER_LEFT);
-    	newLanguageButton.setAlignment(Pos.CENTER_LEFT);
-    	renameButton.setAlignment(Pos.CENTER_LEFT);
-    	deleteButton.setAlignment(Pos.CENTER_LEFT);
+//    	normalTestButton.setAlignment(Pos.CENTER_LEFT);
+//    	mcTestButton.setAlignment(Pos.CENTER_LEFT);
+//    	schoolTestButton.setAlignment(Pos.CENTER_LEFT);
+//    	newUnitButton.setAlignment(Pos.CENTER_LEFT);
+//    	newFolderButton.setAlignment(Pos.CENTER_LEFT);
+//    	newLanguageButton.setAlignment(Pos.CENTER_LEFT);
+//    	renameButton.setAlignment(Pos.CENTER_LEFT);
+//    	deleteButton.setAlignment(Pos.CENTER_LEFT);
     }
 
 
@@ -271,6 +273,19 @@ public class UnitBrowserTabView extends SubContextController {
 
 
     @FXML
+    protected void handleMoveButtonAction(ActionEvent event) {
+    	TreeNode currentNode = getSelectedNode();
+    	if(currentNode == null) {
+    		return;
+    	}
+
+    	executeController("moveTreeNodeView", ControllerParamsBuilder.create()
+																.add("treeNodeId", currentNode.getId())
+																.add("parentWindow", null).build());
+    }
+
+
+    @FXML
     protected void handleDeleteButtonAction(ActionEvent event) {
     	TreeNode currentNode = getSelectedNode();
     	if(currentNode == null) {
@@ -322,6 +337,7 @@ public class UnitBrowserTabView extends SubContextController {
     protected void updateButtons() {
     	boolean selected = false;
     	boolean multipleSelected = false;
+    	boolean languageSelected = false;
     	boolean groupSelected = false;
 
     	List<TreeItem<TreeNode>> items = treeView.getSelectionModel().getSelectedItems();
@@ -331,13 +347,20 @@ public class UnitBrowserTabView extends SubContextController {
     		if(item != null && item.getValue() != null && item.getValue() instanceof FlashCardGroup) {
     			groupSelected = true;
     		}
+    		if(item != null && item.getValue() != null && item.getValue() instanceof Language) {
+    			languageSelected = true;
+    		}
     	} else if(!items.isEmpty()) {
     		selected = true;
     		multipleSelected = true;
+			languageSelected = true;
     		groupSelected = true;
     		for(TreeItem<TreeNode> item : items) {
         		if(!(item.getValue() instanceof FlashCardGroup)) {
         			groupSelected = false;
+        		}
+        		if(!(item.getValue() instanceof Language)) {
+        			languageSelected = false;
         		}
     		}
     	}
@@ -349,6 +372,7 @@ public class UnitBrowserTabView extends SubContextController {
     	newFolderButton.setDisable(!selected || !(!multipleSelected && !groupSelected));
     	newLanguageButton.setDisable(false);
     	renameButton.setDisable(!selected || multipleSelected);
+		moveButton.setDisable(!selected || multipleSelected || languageSelected);
     	deleteButton.setDisable(!selected || multipleSelected);
     	openButton.setDisable(!groupSelected);
     }

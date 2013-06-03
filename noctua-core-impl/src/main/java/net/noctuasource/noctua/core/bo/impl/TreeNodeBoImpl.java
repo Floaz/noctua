@@ -148,6 +148,22 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
+	public void moveTreeNode(Long id, Long newParentTreeNodeId) {
+		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
+		TreeNode newParentTreeNode = treeNodeDao.getTreeNodeById(newParentTreeNodeId);
+		TreeNode oldParentTreeNode = treeNode.getParent();
+
+		oldParentTreeNode.removeChildren(treeNode);
+		newParentTreeNode.addChildren(treeNode);
+
+		treeNodeDao.update(treeNode);
+		treeNodeDao.update(newParentTreeNode);
+
+		eventBus.post(new TreeNodeEvent(EventType.UPDATED, treeNode));
+	}
+
+
+	@Override
 	public void deleteTreeNode(Long id) {
 		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
 

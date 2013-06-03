@@ -40,6 +40,8 @@ public interface TreeNodeBo {
 
 	public void renameTreeNode(Long id, String newName);
 
+	public void moveTreeNode(Long id, Long newParentTreeNode);
+
 	public void deleteTreeNode(Long id);
 
 }

@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
 import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.ui.mainwindow.ObjectTreeViewItem.Filter;
 
 
 
@@ -61,6 +62,8 @@ public class UnitTreeView extends SubContextController {
 
 	private TreeView<TreeNode>	treeView;
 
+	private List<Filter>		filters = new LinkedList<>();
+
 
 
 	// ***** Constructor **************************************************** //
@@ -73,20 +76,17 @@ public class UnitTreeView extends SubContextController {
 	}
 
 
+	@Override
+	protected void onDestroy() {
+		eventBus.unregister(this);
+	}
+
+
 	// ***** Methods ******************************************************** //
 
     private void initTreeView() {
     	treeView = new TreeView<>();
-
     	treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-//    	treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TreeNode>>() {
-//			@Override
-//			public void changed(
-//					ObservableValue<? extends TreeItem<TreeNode>> observableValue,
-//					TreeItem<TreeNode> oldItem, TreeItem<TreeNode> newItem) {
-//				updateButtons();
-//			}
-//		});
 
     	updateTreeView();
     }
@@ -98,8 +98,11 @@ public class UnitTreeView extends SubContextController {
     }
 
 
-    private void updateTreeView() {
-    	TreeItem<TreeNode> item = new ObjectTreeViewItem(treeNodeBo);
+    public void updateTreeView() {
+    	ObjectTreeViewItem item = new ObjectTreeViewItem(treeNodeBo);
+		for(Filter filter : filters) {
+			item.addFilter(filter);
+		}
     	treeView.setRoot(item);
     	treeView.setShowRoot(false);
 
@@ -134,16 +137,19 @@ public class UnitTreeView extends SubContextController {
     }
 
 
+    public void addFilter(Filter filter) {
+    	filters.add(filter);
+    }
+
+    public void removeFilter(Filter filter) {
+    	filters.remove(filter);
+    }
+
+
 
     public TreeView getTreeView() {
     	return treeView;
     }
-
-
-	@Override
-	protected void onDestroy() {
-		eventBus.unregister(this);
-	}
 
 
 

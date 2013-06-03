@@ -19,6 +19,7 @@
 package net.noctuasource.noctua.core.ui.mainwindow;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -37,7 +38,10 @@ import net.noctuasource.noctua.core.model.TreeNode;
 
 
 
-
+/**
+ * ObjectTreeViewItem.
+ * @author Philipp Thomas
+ */
 public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 	private static final int	MAX_DEPTH = 30;
@@ -51,17 +55,21 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 	private int					depth = 0;
 
+	private RootInfo			rootInfo;
+
 
 
 	public ObjectTreeViewItem(TreeNodeBo treeNodeBo) {
 		this.treeNodeBo = treeNodeBo;
+		rootInfo = new RootInfo();
 	}
 
 
-	public ObjectTreeViewItem(TreeNodeBo treeNodeBo, TreeNode node, int depth) {
+	public ObjectTreeViewItem(TreeNodeBo treeNodeBo, TreeNode node, int depth, RootInfo rootInfo) {
 		this.treeNodeBo = treeNodeBo;
 		this.currentNode = node;
 		this.depth = depth;
+		this.rootInfo = rootInfo;
 
 		super.setValue(node);
 
@@ -124,11 +132,42 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 		List<TreeItem<TreeNode>> rawList = new ArrayList<>();
 
 		for(TreeNode node : nodes) {
-			ObjectTreeViewItem item = new ObjectTreeViewItem(treeNodeBo, node, depth+1);
-			rawList.add(item);
+			boolean filtered = false;
+			for(Filter filter : rootInfo.filters) {
+				if(filter.filter(node)) {
+					filtered = true;
+					break;
+				}
+			}
+
+			if(!filtered) {
+				ObjectTreeViewItem item = new ObjectTreeViewItem(treeNodeBo, node, depth+1, rootInfo);
+				rawList.add(item);
+			}
 		}
 
 		super.getChildren().addAll(rawList);
+	}
+
+
+	public void addFilter(Filter filter) {
+		rootInfo.filters.add(filter);
+	}
+
+	public void removeFilter(Filter filter) {
+		rootInfo.filters.remove(filter);
+	}
+
+
+
+
+	public static interface Filter {
+		boolean filter(TreeNode node);
+	}
+
+
+	class RootInfo {
+		public List<Filter>		filters = new LinkedList<>();
 	}
 
 }
