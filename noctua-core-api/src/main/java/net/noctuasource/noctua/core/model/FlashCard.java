@@ -40,53 +40,54 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
-@Table(name="flashcards")
+@Table(name="FlashCards")
 @Inheritance(strategy = InheritanceType.JOINED)
-@GenericGenerator(name="FLASH_CARD_GEN", strategy="native", parameters={})
+@GenericGenerator(name="FLASH_CARD_GEN", strategy="uuid2", parameters={})
 public class FlashCard {
-	
+
 	public static final Long FIRST_LEVEL = 1L;
-	
-	
-	
-	
+
+
+
+
     @Id
     @GeneratedValue(generator="FLASH_CARD_GEN")
     @Column(name="FlashCardId")
-	private Long id;
-	
+	private String id;
+
     @ManyToOne
     @JoinColumn(name = "TreeNodeId", nullable = false)
 	private FlashCardGroup group;
-    
+
     @Column(name = "FlashCardLevel")
 	private Long level;
-    	
-    @OneToMany(mappedBy = "flashCard", cascade = CascadeType.ALL)
-	private List<FlashCardElement> elements = new LinkedList<FlashCardElement>();
 
-	
+    @OneToMany(mappedBy = "flashCard", cascade = CascadeType.ALL)
+	private List<FlashCardElement> elements = new LinkedList<>();
+
+
 	public FlashCard() {
 	}
 
-	
-	
-	
+
+
+
     // ********************** Accessor Methods ****************************** //
 
-	
-	public Long getId() {
+
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(Long id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+
 	public Long getLevel() {
 		return level;
 	}
-	
+
 	public void setLevel(Long level) {
 		this.level = level;
 	}
@@ -101,7 +102,7 @@ public class FlashCard {
 		this.group = group;
 	}
 
-	
+
 	public List<FlashCardElement> getElements() {
 		return elements;
 	}
@@ -112,52 +113,52 @@ public class FlashCard {
 	}
 
 
-	
-	
+
+
     // ********************** Common Methods ******************************** //
 
-	
+
 	public void addElement(FlashCardElement element) {
 		element.setFlashCard(this);
 		elements.add(element);
 	}
 
-	
+
 	public void removeElement(FlashCardElement element) {
 		element.setFlashCard(null);
 		elements.remove(element);
 	}
-	
 
-	
-	
+
+
+
 	public List<FlashCardElement> getElementsOfType(FlashCardElementType type) {
 		List<FlashCardElement> e = new LinkedList<FlashCardElement>();
-		
+
 		for(FlashCardElement element : elements) {
 			if(element.getType() == type) {
 				e.add(element);
 			}
 		}
-		
+
 		return e;
 	}
-	
-	
+
+
 	public String getElementsString(FlashCardElementType type) {
 		return getElementsString(type, "; ");
 	}
-	
-	
+
+
 	public String getElementsString(FlashCardElementType type, String glue) {
 		List<String> parts = new LinkedList<String>();
-		
+
 		for(FlashCardElement element : elements) {
 			if(element.getType() == type) {
 				parts.add(element.getValue());
 			}
 		}
-		
+
 		StringBuilder builder = new StringBuilder();
 		boolean first = true;
 		for(String part : parts) {
@@ -165,15 +166,15 @@ public class FlashCard {
 			builder.append(partString);
 			first = false;
 		}
-		
+
 		return builder.toString();
 	}
-	
-	
+
+
 	@Override
 	public String toString() {
 		return getElementsString(FlashCardElementType.CONTENT);
-		
+
 	}
 
 }

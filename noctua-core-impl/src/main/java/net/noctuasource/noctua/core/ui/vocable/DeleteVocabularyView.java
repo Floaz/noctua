@@ -47,14 +47,14 @@ public class DeleteVocabularyView extends SubContextController
 	@Resource
 	private FlashCardBo 		flashCardBo;
 
-	private List<Long> 			flashCardIds;
+	private List<String> 			flashCardIds;
 
 
 	// ***** Constructor **************************************************** //
 
 	@Override
 	protected void onCreate() {
-		flashCardIds = (List<Long>) getControllerParams().getOrThrow("vocableIds");
+		flashCardIds = (List<String>) getControllerParams().getOrThrow("vocableIds");
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 

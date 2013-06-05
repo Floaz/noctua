@@ -68,7 +68,7 @@ public class MoveVocabularyView extends SubContextController {
 
 	private Stage			stage;
 
-	private List<Long>		flashCardIds;
+	private List<String>	flashCardIds;
 
 	private UnitTreeView	treeView;
 
@@ -84,7 +84,7 @@ public class MoveVocabularyView extends SubContextController {
 
 	@Override
 	protected void onCreate() {
-		this.flashCardIds = (List<Long>) getControllerParams().getOrThrow("flashCardIds");
+		this.flashCardIds = (List<String>) getControllerParams().getOrThrow("flashCardIds");
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 

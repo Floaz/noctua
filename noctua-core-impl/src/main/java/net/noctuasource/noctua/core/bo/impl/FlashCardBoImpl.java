@@ -76,7 +76,7 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 	@Override
-	public List<VocableListElement> getVocabularyOfFlashCardGroup(Long flashCardId) {
+	public List<VocableListElement> getVocabularyOfFlashCardGroup(String flashCardId) {
 		List<VocableListElement> list = new LinkedList<>();
 
 		FlashCardGroup flashCardGroup = (FlashCardGroup) sessionHolder.getCurrentSession()
@@ -98,7 +98,7 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 	@Override
-	public void addFlashCard(FlashCard flashCard, Long flashCardGroupId) {
+	public void addFlashCard(FlashCard flashCard, String flashCardGroupId) {
 		FlashCardGroup flashCardGroup = (FlashCardGroup) treeNodeDao.getTreeNodeById(flashCardGroupId);
 		flashCardGroup.addFlashCard(flashCard);
 
@@ -107,10 +107,10 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 	@Override
-	public void moveFlashCards(List<Long> flashCardIds, Long newFlashCardGroupId) {
+	public void moveFlashCards(List<String> flashCardIds, String newFlashCardGroupId) {
 		FlashCardGroup newFlashCardGroup = (FlashCardGroup) treeNodeDao.getTreeNodeById(newFlashCardGroupId);
 
-		for(Long id : flashCardIds) {
+		for(String id : flashCardIds) {
 			FlashCard flashCard = flashCardDao.getFlashCardById(id);
 			FlashCardGroup oldFlashCardGroup = flashCard.getGroup();
 			oldFlashCardGroup.removeFlashCard(flashCard);
@@ -122,8 +122,8 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 	@Override
-	public void deleteVocabulary(List<Long> ids) {
-		for(Long id : ids) {
+	public void deleteVocabulary(List<String> ids) {
+		for(String id : ids) {
 			FlashCard flashCard = flashCardDao.getFlashCardById(id);
 			flashCard.getGroup().removeFlashCard(flashCard);
 			flashCardDao.delete(flashCard);

@@ -80,7 +80,7 @@ public class UnitMenuView extends SubContextController {
 
 	private Stage			stage;
 
-	private long			flashCardGroupId;
+	private String			flashCardGroupId;
 
 
 	// ***** FXML Nodes ***************************************************** //
@@ -98,7 +98,7 @@ public class UnitMenuView extends SubContextController {
 
 	@Override
 	protected void onCreate() {
-		this.flashCardGroupId = getControllerParams().get("flashCardGroupId", Long.class);
+		this.flashCardGroupId = getControllerParams().get("flashCardGroupId", String.class);
 
     	VBox root = new VBox();
 
@@ -229,9 +229,9 @@ public class UnitMenuView extends SubContextController {
 	}
 
 
-    private List<Long> getSelectedIds() {
+    private List<String> getSelectedIds() {
 		ObservableList<VocableListElement> items = vocabularyTable.getSelectionModel().getSelectedItems();
-        List<Long> vocableIds = FXCollections.observableArrayList();
+        List<String> vocableIds = FXCollections.observableArrayList();
 
 		for(VocableListElement element : items) {
 			vocableIds.add(element.getId());
@@ -250,7 +250,7 @@ public class UnitMenuView extends SubContextController {
 
     @FXML
     protected void handleEditButtonAction(ActionEvent event) {
-    	List<Long> vocableIds = getSelectedIds();
+    	List<String> vocableIds = getSelectedIds();
     	if(vocableIds.size() != 1) {
     		return;
     	}
@@ -262,7 +262,7 @@ public class UnitMenuView extends SubContextController {
 
     @FXML
     protected void handleMoveButtonAction(ActionEvent event) {
-    	List<Long> vocableIds = getSelectedIds();
+    	List<String> vocableIds = getSelectedIds();
     	if(vocableIds.isEmpty()) {
     		return;
     	}
@@ -274,7 +274,7 @@ public class UnitMenuView extends SubContextController {
 
     @FXML
     protected void handleDeleteButtonAction(ActionEvent event) {
-    	List<Long> vocableIds = getSelectedIds();
+    	List<String> vocableIds = getSelectedIds();
     	if(vocableIds.isEmpty()) {
     		return;
     	}

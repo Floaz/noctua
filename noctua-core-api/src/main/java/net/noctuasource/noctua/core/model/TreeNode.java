@@ -44,8 +44,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
-@Table(name="treenodes")
-@GenericGenerator(name="TREE_NODE_GEN", strategy="native", parameters={})
+@Table(name="TreeNodes")
+@GenericGenerator(name="TREE_NODE_GEN", strategy="uuid2", parameters={})
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "GroupType", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class TreeNode {
@@ -53,7 +53,7 @@ public abstract class TreeNode {
     @Id
     @GeneratedValue(generator="TREE_NODE_GEN")
     @Column(name="TreeNodeId")
-    private Long id;
+    private String id;
 
     @Column(name = "TreeNodeName")
     private String name;
@@ -64,9 +64,9 @@ public abstract class TreeNode {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     @BatchSize(size = 5) // Optimizes tree navigation (expanding nodes)
-    private List<TreeNode> children = new ArrayList<TreeNode>();
+    private List<TreeNode> children = new ArrayList<>();
 
-    
+
 //    @ManyToMany(mappedBy = "vocabulary", fetch = FetchType.LAZY)
 //    private Set<Vocable> items = new HashSet<Vocable>();
 
@@ -75,21 +75,22 @@ public abstract class TreeNode {
 //    private Date created = new Date();
 
 
-	
-    
-    
-	
+
+
+
+
 	public TreeNode() {
 	}
-	
+
 
     // ********************** Accessor Methods ****************************** //
 
-	public Long getId() {
+
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(Long id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -112,8 +113,8 @@ public abstract class TreeNode {
 	public void setName(String name) {
 		this.name = name;
 	}
-    
-	
+
+
     public List<TreeNode> getChildren() {
 		return children;
 	}
@@ -134,24 +135,25 @@ public abstract class TreeNode {
 //		this.created = created;
 //	}
 
-	
-	
+
+
     // ********************** Common Methods ******************************** //
 
-	
+
 	public void addChildren(TreeNode child) {
 		child.setParent(this);
 		children.add(child);
 	}
 
-	
+
 	public void removeChildren(TreeNode child) {
 		child.setParent(null);
 		children.remove(child);
 	}
 
-	
 
+
+	@Override
 	public String toString() {
         return  getName();
     }

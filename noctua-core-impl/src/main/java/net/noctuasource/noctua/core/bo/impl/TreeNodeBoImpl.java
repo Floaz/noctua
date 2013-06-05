@@ -138,7 +138,7 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
-	public void renameTreeNode(Long id, String newName) {
+	public void renameTreeNode(String id, String newName) {
 		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
 		treeNode.setName(newName);
 		treeNodeDao.update(treeNode);
@@ -148,7 +148,7 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
-	public void moveTreeNode(Long id, Long newParentTreeNodeId) {
+	public void moveTreeNode(String id, String newParentTreeNodeId) {
 		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
 		TreeNode newParentTreeNode = treeNodeDao.getTreeNodeById(newParentTreeNodeId);
 		TreeNode oldParentTreeNode = treeNode.getParent();
@@ -164,7 +164,7 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
-	public void deleteTreeNode(Long id) {
+	public void deleteTreeNode(String id) {
 		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
 
 		if(treeNode.getParent() != null) {

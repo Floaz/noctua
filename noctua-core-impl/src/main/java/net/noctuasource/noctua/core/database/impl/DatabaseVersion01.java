@@ -29,18 +29,18 @@ import net.noctuasource.noctua.core.database.AbstractDatabaseVersion;
 public class DatabaseVersion01 extends AbstractDatabaseVersion {
 
 	private static final int VERSION_NUMBER = 1;
-	
-	
+
+
 	public DatabaseVersion01() {
 		super(VERSION_NUMBER);
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void updateDatabase(Connection conn) throws Exception {
 		Statement statement = null;
-		
+
 		try {
 			statement = conn.createStatement();
 			String cCreateLanguagesTable = "";
@@ -51,7 +51,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateLanguagesTable += ")";
 			statement.execute( cCreateLanguagesTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateTreeNodeTable = "";
 			cCreateTreeNodeTable += "CREATE TABLE treenodes (";
@@ -62,7 +62,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateTreeNodeTable += ")";
 			statement.execute( cCreateTreeNodeTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateRootTreeNodeTable = "";
 			cCreateRootTreeNodeTable += "CREATE TABLE roottreenodes (";
@@ -71,7 +71,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateRootTreeNodeTable += ")";
 			statement.execute( cCreateRootTreeNodeTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateVocGroupFoldersTable = "";
 			cCreateVocGroupFoldersTable += "CREATE TABLE vocgroupfolders (";
@@ -80,7 +80,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateVocGroupFoldersTable += ")";
 			statement.execute( cCreateVocGroupFoldersTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateVocGroupsTable = "";
 			cCreateVocGroupsTable += "CREATE TABLE vocgroups (";
@@ -90,7 +90,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateVocGroupsTable += ")";
 			statement.execute( cCreateVocGroupsTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateWordTypesTable = "";
 			cCreateWordTypesTable += "CREATE TABLE wordtypes (";
@@ -100,7 +100,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateWordTypesTable += ")";
 			statement.execute( cCreateWordTypesTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateVocablesTable = "";
 			cCreateVocablesTable += "CREATE TABLE vocabulary (";
@@ -112,7 +112,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateVocablesTable += ")";
 			statement.execute( cCreateVocablesTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cSentenceTable = "";
 			cSentenceTable += "CREATE TABLE sentences (";
@@ -122,7 +122,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cSentenceTable += ")";
 			statement.execute( cSentenceTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateAddInfoTable = "";
 			cCreateAddInfoTable += "CREATE TABLE additionalinfo (";
@@ -132,7 +132,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateAddInfoTable += ")";
 			statement.execute( cCreateAddInfoTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateWordsTable = "";
 			cCreateWordsTable += "CREATE TABLE words (";
@@ -143,7 +143,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateWordsTable += ")";
 			statement.execute( cCreateWordsTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cCreateVocableProtocolsTable = "";
 			cCreateVocableProtocolsTable += "CREATE TABLE vocableprotocols (";
@@ -154,7 +154,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cCreateVocableProtocolsTable += ")";
 			statement.execute( cCreateVocableProtocolsTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cVocableTestProtocols = "";
 			cVocableTestProtocols += "CREATE TABLE vocabletestprotocols (";
@@ -163,7 +163,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cVocableTestProtocols += ")";
 			statement.execute( cVocableTestProtocols);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cTestProtocols = "";
 			cTestProtocols += "CREATE TABLE testprotocols (";
@@ -174,7 +174,7 @@ public class DatabaseVersion01 extends AbstractDatabaseVersion {
 			cTestProtocols += ")";
 			statement.execute( cTestProtocols);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			String cTestTreeNodeTable = "";
 			cTestTreeNodeTable += "CREATE TABLE treenodetestprotocols (";

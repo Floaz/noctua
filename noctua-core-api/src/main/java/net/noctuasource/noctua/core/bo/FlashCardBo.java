@@ -27,13 +27,13 @@ import net.noctuasource.noctua.core.viewmodel.VocableListElement;
 
 public interface FlashCardBo {
 
-	List<VocableListElement> getVocabularyOfFlashCardGroup(Long flashCardId);
+	List<VocableListElement> getVocabularyOfFlashCardGroup(String flashCardId);
 
-	void addFlashCard(FlashCard flashCard, Long flashCardGroupId);
+	void addFlashCard(FlashCard flashCard, String flashCardGroupId);
 
-	void moveFlashCards(List<Long> flashCardIds, Long newFlashCardGroupId);
+	void moveFlashCards(List<String> flashCardIds, String newFlashCardGroupId);
 
-	void deleteVocabulary(List<Long> ids);
+	void deleteVocabulary(List<String> ids);
 
 }
 

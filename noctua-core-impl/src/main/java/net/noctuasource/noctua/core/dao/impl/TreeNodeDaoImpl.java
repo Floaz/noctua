@@ -51,7 +51,7 @@ public class TreeNodeDaoImpl implements TreeNodeDao {
 
 
 
-	
+
 	public void setSessionHolder(SessionHolder sessionHolder) {
 		this.sessionHolder = sessionHolder;
 	}
@@ -66,7 +66,7 @@ public class TreeNodeDaoImpl implements TreeNodeDao {
 
 
 	@Override
-	public TreeNode getTreeNodeById(Long id) {
+	public TreeNode getTreeNodeById(String id) {
 		return (TreeNode) sessionHolder.getCurrentSession().load(TreeNode.class, id);
 	}
 

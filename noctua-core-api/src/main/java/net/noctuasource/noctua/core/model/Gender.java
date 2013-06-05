@@ -18,23 +18,31 @@
  */
 package net.noctuasource.noctua.core.model;
 
+
+
+
+
+/**
+ * Gender.
+ * @author Philipp Thomas
+ */
 public enum Gender {
-	
+
 	NO_GENDER(0),
 	MASCULINE(1),
 	FEMININE(2),
 	NEUTRAL(3);
-	
-	
+
+
 	private int value;
-	
+
 	private Gender(int value) {
 		this.value = value;
 	}
-	
-	
+
+
 	public int getValue() {
 		return value;
 	}
-	
+
 }

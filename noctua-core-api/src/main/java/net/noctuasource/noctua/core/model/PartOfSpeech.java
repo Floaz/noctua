@@ -18,8 +18,13 @@
  */
 package net.noctuasource.noctua.core.model;
 
+
+/**
+ * PartOfSpeech.
+ * @author Philipp Thomas
+ */
 public enum PartOfSpeech {
-	
+
 	NO_PART_OF_SPEECH(0),
 	SUBSTANTIVE(1),
 	VERB(2),
@@ -30,17 +35,17 @@ public enum PartOfSpeech {
 	PRONOUN(7),
 	CONJUNCTION(8),
 	OTHER_SPEECH_PART(9);
-	
-	
+
+
 	private int value;
-	
+
 	private PartOfSpeech(int value) {
 		this.value = value;
 	}
-	
-	
+
+
 	public int getValue() {
 		return value;
 	}
-	
+
 }

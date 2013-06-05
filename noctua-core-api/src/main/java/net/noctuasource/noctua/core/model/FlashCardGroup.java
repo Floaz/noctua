@@ -31,19 +31,19 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="flashcardgroups")
-@DiscriminatorValue("1")
+@Table(name="FlashCardGroups")
+@DiscriminatorValue(TreeNodeTypes.FLASH_CARD_GROUP_TYPE)
 public class FlashCardGroup extends TreeNode {
-	
-	
+
+
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
 	private Set<FlashCard> flashCards = new HashSet<FlashCard>();
 
 	@Column(name = "MaxFlashCardGroups")
 	private int maxFlashCardGroups;
-	
-	
-	
+
+
+
 	public FlashCardGroup() {
 	}
 
@@ -57,7 +57,7 @@ public class FlashCardGroup extends TreeNode {
 		this.flashCards = flashCards;
 	}
 
-	
+
 	public int getMaxFlashCardGroups() {
 		return maxFlashCardGroups;
 	}
@@ -71,8 +71,8 @@ public class FlashCardGroup extends TreeNode {
 
 
 
-	
-	
+
+
     // ********************** Common Methods ******************************** //
 
 	public void addFlashCard(FlashCard flashCard) {
@@ -80,7 +80,7 @@ public class FlashCardGroup extends TreeNode {
 		flashCards.add(flashCard);
 	}
 
-	
+
 	public void removeFlashCard(FlashCard flashCard) {
 		flashCard.setGroup(null);
 		flashCards.remove(flashCard);

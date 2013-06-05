@@ -24,7 +24,7 @@ package net.noctuasource.noctua.core.viewmodel;
 
 public class VocableListElement {
 
-	private Long			id;
+	private String			id;
 
 	private String			foreignString;
 
@@ -33,19 +33,19 @@ public class VocableListElement {
 	private String			sentence;
 
 
-	
-	public VocableListElement(Long id, String foreignString, String nativeString, String sentence) {
+
+	public VocableListElement(String id, String foreignString, String nativeString, String sentence) {
 		this.id = id;
 		this.foreignString = foreignString;
 		this.nativeString = nativeString;
 		this.sentence = sentence;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

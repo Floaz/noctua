@@ -24,7 +24,7 @@ import net.noctuasource.noctua.core.model.FlashCardElement;
 
 public interface FlashCardDao {
 
-	public FlashCard getFlashCardById(Long id);
+	public FlashCard getFlashCardById(String id);
 
 	public void insert(FlashCard treeNode);
 

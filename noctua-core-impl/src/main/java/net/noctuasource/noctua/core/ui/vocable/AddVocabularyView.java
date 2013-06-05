@@ -77,7 +77,7 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 
 	private Stage			stage;
 
-	private Long			flashCardGroupId;
+	private String			flashCardGroupId;
 
 	private GenderMap		genderMap = new GenderMap();
 	private PartOfSpeechMap	partOfSpeechMap = new PartOfSpeechMap();
@@ -100,7 +100,7 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 
 	@Override
 	protected void onCreate() {
-		this.flashCardGroupId = getControllerParams().get("flashCardGroupId", Long.class);
+		this.flashCardGroupId = getControllerParams().get("flashCardGroupId", String.class);
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 

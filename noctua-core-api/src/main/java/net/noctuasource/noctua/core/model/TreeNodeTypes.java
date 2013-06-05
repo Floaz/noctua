@@ -16,27 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.dao;
+package net.noctuasource.noctua.core.model;
 
 
-import java.util.List;
-
-import net.noctuasource.noctua.core.model.TreeNode;
 
 
-public interface TreeNodeDao {
 
-	public TreeNode getTreeNodeById(String id);
 
-	public List<TreeNode> getRootNodes();
+/**
+ * TreeNodeTypes.
+ * @author Philipp Thomas
+ */
+public abstract class TreeNodeTypes {
 
-	public void insert(TreeNode treeNode);
-
-	public void update(TreeNode treeNode);
-
-	public void delete(TreeNode treeNode);
+	public static final String	FLASH_CARD_GROUP_TYPE = "1";
+	public static final String	FOLDER_TYPE = "2";
+	public static final String	LANGUAGE_TYPE = "3";
 
 }
-
-
-

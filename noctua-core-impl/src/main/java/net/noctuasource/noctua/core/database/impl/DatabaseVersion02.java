@@ -29,18 +29,18 @@ import net.noctuasource.noctua.core.database.AbstractDatabaseVersion;
 public class DatabaseVersion02 extends AbstractDatabaseVersion {
 
 	private static final int VERSION_NUMBER = 2;
-	
-	
+
+
 	public DatabaseVersion02() {
 		super(VERSION_NUMBER);
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void updateDatabase(Connection conn) throws Exception {
 		Statement statement = null;
-		
+
 		try {
 
 			statement = conn.createStatement();
@@ -121,29 +121,46 @@ public class DatabaseVersion02 extends AbstractDatabaseVersion {
 			statement.execute( cDropTable);
 			statement.close();
 
-			
-			
+			statement = conn.createStatement();
+			cDropTable = "";
+			cDropTable += "DROP TABLE treenodes;";
+			statement.execute( cDropTable);
+			statement.close();
+
+
+
 			statement = conn.createStatement();
 			String cCreateTable = "";
-			cCreateTable += "CREATE TABLE languages ( ";
-			cCreateTable += "TreeNodeId INTEGER PRIMARY KEY, ";
+			cCreateTable += "CREATE TABLE TreeNodes (";
+			cCreateTable += "TreeNodeId VARCHAR(64) PRIMARY KEY, ";
+			cCreateTable += "TreeNodeName TEXT, ";
+			cCreateTable += "TreeNodeParent INTEGER, ";
+			cCreateTable += "TreeNodeType INTEGER";
+			cCreateTable += ")";
+			statement.execute(cCreateTable);
+			statement.close();
+
+			statement = conn.createStatement();
+			cCreateTable = "";
+			cCreateTable += "CREATE TABLE Languages ( ";
+			cCreateTable += "TreeNodeId VARCHAR(64) PRIMARY KEY, ";
 			cCreateTable += "LanguageCode VARCHAR(5) )";
 			statement.execute( cCreateTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			cCreateTable = "";
-			cCreateTable += "CREATE TABLE folders (";
-			cCreateTable += "TreeNodeId INTEGER PRIMARY KEY, ";
+			cCreateTable += "CREATE TABLE Folders (";
+			cCreateTable += "TreeNodeId VARCHAR(64) PRIMARY KEY, ";
 			cCreateTable += "FolderExpanded BOOLEAN ";
 			cCreateTable += ")";
 			statement.execute( cCreateTable);
 			statement.close();
-			
+
 			statement = conn.createStatement();
 			cCreateTable = "";
-			cCreateTable += "CREATE TABLE flashcardgroups (";
-			cCreateTable += " TreeNodeId INTEGER PRIMARY KEY, ";
+			cCreateTable += "CREATE TABLE Flashcardgroups (";
+			cCreateTable += " TreeNodeId VARCHAR(64) PRIMARY KEY, ";
 			cCreateTable += " MaxFlashCardGroups INTEGER ";
 			cCreateTable += ")";
 			statement.execute( cCreateTable);
@@ -151,8 +168,8 @@ public class DatabaseVersion02 extends AbstractDatabaseVersion {
 
 			statement = conn.createStatement();
 			cCreateTable = "";
-			cCreateTable += "CREATE TABLE flashcards (";
-			cCreateTable += " FlashCardId INTEGER PRIMARY KEY, ";
+			cCreateTable += "CREATE TABLE Flashcards (";
+			cCreateTable += " FlashCardId VARCHAR(64) PRIMARY KEY, ";
 			cCreateTable += " TreeNodeId INTEGER, ";
 			cCreateTable += " FlashCardLevel INTEGER ";
 			cCreateTable += ")";
@@ -161,33 +178,33 @@ public class DatabaseVersion02 extends AbstractDatabaseVersion {
 
 			statement = conn.createStatement();
 			cCreateTable = "";
-			cCreateTable += "CREATE TABLE flashcardelements (";
-			cCreateTable += " FlashCardElementId INTEGER PRIMARY KEY, ";
+			cCreateTable += "CREATE TABLE Flashcardelements (";
+			cCreateTable += " FlashCardElementId VARCHAR(64) PRIMARY KEY, ";
 			cCreateTable += " FlashCardId INTEGER, ";
 			cCreateTable += " Type INTEGER, ";
-			cCreateTable += " Value TEXT ";			
+			cCreateTable += " Value TEXT ";
 			cCreateTable += ")";
 			statement.execute( cCreateTable);
 			statement.close();
 
 			statement = conn.createStatement();
 			cCreateTable = "";
-			cCreateTable += "CREATE TABLE vocabulary (";
-			cCreateTable += " FlashCardId INTEGER PRIMARY KEY, ";
+			cCreateTable += "CREATE TABLE Vocabulary (";
+			cCreateTable += " FlashCardId VARCHAR(64) PRIMARY KEY, ";
 			cCreateTable += " Gender INTEGER, ";
 			cCreateTable += " WordType INTEGER ";
 			cCreateTable += ")";
 			statement.execute( cCreateTable);
 			statement.close();
 
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 //			Integer languageTreeNodeType = 3;
-//			
+//
 //			statement = conn.createStatement();
 //			String cCreateLanguagesTable = "";
 //			cCreateLanguagesTable += "INSERT INTO treenodes (TreeNodeName, TreeNodeType)";
@@ -196,9 +213,9 @@ public class DatabaseVersion02 extends AbstractDatabaseVersion {
 //			statement.execute( cCreateLanguagesTable);
 //			statement.close();
 
-			
-			
-			
+
+
+
 		}
 		finally {
 			if(statement != null) {

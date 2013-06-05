@@ -32,38 +32,42 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 
+/**
+ * FlashCardElement.
+ * @author thomy
+ */
 @Entity
 @Table(name="flashcardelements")
-@GenericGenerator(name="FLASH_CARD_ELEMENT_GEN", strategy="native", parameters={})
+@GenericGenerator(name="FLASH_CARD_ELEMENT_GEN", strategy="uuid2", parameters={})
 public class FlashCardElement {
 
     @Id
     @GeneratedValue(generator="FLASH_CARD_ELEMENT_GEN")
     @Column(name="FlashCardElementId")
-	private Long 					id;
-	
+	private String 					id;
+
     @ManyToOne
     @JoinColumn(name = "FlashCardId", nullable = false)
 	private FlashCard 				flashCard;
 
     @Column(name = "Type")
 	private FlashCardElementType 	type;
-    
+
     @Column(name = "Value")
 	private String 					value;
-	
-	
-	
-	
+
+
+
+
 	public FlashCardElement() {
 	}
-	
-	
-	public Long getId() {
+
+
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(Long id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
 

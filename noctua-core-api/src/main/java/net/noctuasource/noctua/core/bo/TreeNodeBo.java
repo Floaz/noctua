@@ -38,11 +38,11 @@ public interface TreeNodeBo {
 	public void addFolder(String name, TreeNode parentTreeNode);
 	public void addFlashCardGroup(String name, TreeNode parentTreeNode);
 
-	public void renameTreeNode(Long id, String newName);
+	public void renameTreeNode(String id, String newName);
 
-	public void moveTreeNode(Long id, Long newParentTreeNode);
+	public void moveTreeNode(String id, String newParentTreeNode);
 
-	public void deleteTreeNode(Long id);
+	public void deleteTreeNode(String id);
 
 }
 

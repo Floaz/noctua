@@ -26,14 +26,14 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="folders")
-@DiscriminatorValue("2")
+@Table(name="Folders")
+@DiscriminatorValue(TreeNodeTypes.FOLDER_TYPE)
 public class Folder extends TreeNode {
 
 	@Column(name="FolderExpanded")
 	private boolean expanded = true;
-	
-	
+
+
 	public Folder() {
 	}
 

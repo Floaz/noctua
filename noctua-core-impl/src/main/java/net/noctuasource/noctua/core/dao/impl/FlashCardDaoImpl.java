@@ -63,7 +63,7 @@ public class FlashCardDaoImpl implements FlashCardDao {
 
 
 	@Override
-	public FlashCard getFlashCardById(Long id) {
+	public FlashCard getFlashCardById(String id) {
 		return (FlashCard) sessionHolder.getCurrentSession().load(FlashCard.class, id);
 	}
 

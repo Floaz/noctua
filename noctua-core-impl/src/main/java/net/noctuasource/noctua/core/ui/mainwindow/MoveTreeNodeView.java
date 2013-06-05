@@ -69,7 +69,7 @@ public class MoveTreeNodeView extends SubContextController {
 
 	private Stage			stage;
 
-	private Long			currentTreeNode;
+	private String			currentTreeNode;
 
 	private UnitTreeView	treeView;
 
@@ -85,7 +85,7 @@ public class MoveTreeNodeView extends SubContextController {
 
 	@Override
 	protected void onCreate() {
-		this.currentTreeNode = getControllerParams().getOrThrow("treeNodeId", Long.class);
+		this.currentTreeNode = getControllerParams().getOrThrow("treeNodeId", String.class);
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 
