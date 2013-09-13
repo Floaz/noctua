@@ -88,8 +88,7 @@ public class FlashCardBoImpl implements FlashCardBo {
 			VocableListElement element = new VocableListElement(
 														flashCard.getId(),
 														flashCard.getElementsString(FlashCardElementType.CONTENT),
-														flashCard.getElementsString(FlashCardElementType.EXPLANATION),
-														flashCard.getElementsString(FlashCardElementType.SENTENCE_CONTENT));
+														flashCard.getElementsString(FlashCardElementType.EXPLANATION));
 			list.add(element);
 		}
 

@@ -19,6 +19,7 @@
 package net.noctuasource.noctua.core.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -28,22 +29,24 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="vocabulary")
-public class Vocable extends FlashCard {
+@DiscriminatorValue(value="7")
+public class VocableMetaInfo extends FlashCardElement {
 
     @Column(name = "Gender", nullable=false)
-	private Gender gender;
+	private Gender			gender = Gender.NO_GENDER;
 
     @Column(name = "WordType", nullable=false)
-	private PartOfSpeech partOfSpeech;
+	private PartOfSpeech	partOfSpeech = PartOfSpeech.NO_PART_OF_SPEECH;
 
-
-	public Vocable() {
-	}
 
 
 
 
     // ********************** Accessor Methods ****************************** //
+
+	public VocableMetaInfo() {
+	}
+
 
 	public Gender getGender() {
 		return gender;

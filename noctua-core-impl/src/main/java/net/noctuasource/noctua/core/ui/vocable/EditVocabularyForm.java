@@ -34,7 +34,7 @@ import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.noctua.core.bo.FlashCardBo;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.model.Vocable;
+import net.noctuasource.noctua.core.model.FlashCard;
 
 import org.apache.log4j.Logger;
 
@@ -165,7 +165,7 @@ public class EditVocabularyForm extends SubContextController implements AddVocab
 	}
 
 	@Override
-	public Vocable getVocable() {
+	public FlashCard getVocable() {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 

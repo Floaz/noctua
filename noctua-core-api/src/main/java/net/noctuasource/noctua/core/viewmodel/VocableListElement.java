@@ -34,11 +34,11 @@ public class VocableListElement {
 
 
 
-	public VocableListElement(String id, String foreignString, String nativeString, String sentence) {
+	public VocableListElement(String id, String foreignString, String nativeString) {
 		this.id = id;
 		this.foreignString = foreignString;
 		this.nativeString = nativeString;
-		this.sentence = sentence;
+		this.sentence = "";
 	}
 
 	public String getId() {

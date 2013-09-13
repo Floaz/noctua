@@ -18,33 +18,40 @@
  */
 package net.noctuasource.noctua.core.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 
-/**
- * The types of the flash card elements.
- * @author Philipp Thomas
- */
-public enum FlashCardElementType {
-
-	ILLEGAL_TYPE(0),
-	CONTENT(1),
-	EXPLANATION(2),
-	ADDITIONAL_INFO_CONTENT(3),
-	ADDITIONAL_INFO_EXPLANATION(4),
-	TIP_CONTENT(5),
-	TIP_EXPLANATION(6),
-	VOCABLE_META_INFO(7);
 
 
-	private int value;
 
-	private FlashCardElementType(int value) {
-		this.value = value;
+@Entity
+@DiscriminatorValue(value="1")
+public class ContentFlashCardElement extends FlashCardElement {
+
+	@OneToMany(mappedBy = "vocable")
+	private List<ExampleSentence>	sentences = new ArrayList<>();
+
+
+
+
+
+    // ********************** Accessor Methods ****************************** //
+
+	public ContentFlashCardElement() {
 	}
 
 
-	public int getValue() {
-		return value;
+	public List<ExampleSentence> getSentences() {
+		return sentences;
+	}
+
+
+	public void setSentences(List<ExampleSentence> sentences) {
+		this.sentences = sentences;
 	}
 
 }

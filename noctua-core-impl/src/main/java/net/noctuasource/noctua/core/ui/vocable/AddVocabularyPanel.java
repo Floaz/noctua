@@ -18,7 +18,7 @@
  */
 package net.noctuasource.noctua.core.ui.vocable;
 
-import net.noctuasource.noctua.core.model.Vocable;
+import net.noctuasource.noctua.core.model.FlashCard;
 
 
 
@@ -26,7 +26,7 @@ public interface AddVocabularyPanel {
 
 	boolean		isValidVocable();
 
-	Vocable		getVocable();
+	FlashCard	getVocable();
 
 	void		resetPanel();
 

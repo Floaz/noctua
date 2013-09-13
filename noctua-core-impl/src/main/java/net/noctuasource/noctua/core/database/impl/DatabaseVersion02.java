@@ -189,10 +189,21 @@ public class DatabaseVersion02 extends AbstractDatabaseVersion {
 
 			statement = conn.createStatement();
 			cCreateTable = "";
-			cCreateTable += "CREATE TABLE Vocabulary (";
-			cCreateTable += " FlashCardId VARCHAR(64) PRIMARY KEY, ";
+			cCreateTable += "CREATE TABLE VocableMetaInfo (";
+			cCreateTable += " FlashCardElementId VARCHAR(64) PRIMARY KEY, ";
 			cCreateTable += " Gender INTEGER, ";
 			cCreateTable += " WordType INTEGER ";
+			cCreateTable += ")";
+			statement.execute( cCreateTable);
+			statement.close();
+
+			statement = conn.createStatement();
+			cCreateTable = "";
+			cCreateTable += "CREATE TABLE ExampleSentences (";
+			cCreateTable += " SentenceId INTEGER PRIMARY KEY, ";
+			cCreateTable += " FlashCardElementId VARCHAR(64), ";
+			cCreateTable += " SentenceText TEXT NOT NULL, ";
+			cCreateTable += " SentenceTranslation TEXT ";
 			cCreateTable += ")";
 			statement.execute( cCreateTable);
 			statement.close();

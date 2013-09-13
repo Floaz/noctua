@@ -24,7 +24,7 @@ import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.model.Language;
 import net.noctuasource.noctua.core.model.Folder;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
-import net.noctuasource.noctua.core.model.Vocable;
+import net.noctuasource.noctua.core.model.VocableMetaInfo;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -140,7 +140,7 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             configuration.addAnnotatedClass(Folder.class);
             configuration.addAnnotatedClass(FlashCardGroup.class);
             configuration.addAnnotatedClass(FlashCard.class);
-            configuration.addAnnotatedClass(Vocable.class);
+            configuration.addAnnotatedClass(VocableMetaInfo.class);
             configuration.addAnnotatedClass(FlashCardElement.class);
 
             configuration.setProperty("hibernate.dialect", SQLiteDialect.class.getName());

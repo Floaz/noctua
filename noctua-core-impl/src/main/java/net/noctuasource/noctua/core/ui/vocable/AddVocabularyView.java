@@ -46,7 +46,7 @@ import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.bo.FlashCardBo;
 import net.noctuasource.noctua.core.model.FlashCard;
-import net.noctuasource.noctua.core.model.Vocable;
+import net.noctuasource.noctua.core.model.VocableMetaInfo;
 import net.noctuasource.noctua.core.ui.mainwindow.MainWindowView;
 import net.noctuasource.noctua.core.util.VocableUtil;
 
@@ -182,7 +182,7 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 
     @FXML
     protected void handleAddButtonAction(ActionEvent event) {
-		Vocable newVocable = getVocable();
+		FlashCard newVocable = getVocable();
 		if(!VocableUtil.validateVocable(newVocable)) {
 			return;
 		}
@@ -216,22 +216,25 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 
 
 	@Override
-	public Vocable getVocable() {
+	public FlashCard getVocable() {
 		String[] foreignWords = foreignTextArea.getText().split("\n");
 		String[] nativeWords = nativeTextArea.getText().split("\n");
 		String[] sentences = foreignSentenceTextArea.getText().split("\n");
 		String[] addInfo = addInfoTextField.getText().split("\n");
 
-		Vocable vocable = new Vocable();
+		FlashCard vocable = new FlashCard();
 
 		VocableUtil.addWordsToVocable(vocable, foreignWords, nativeWords);
-		VocableUtil.addSentencesToVocable(vocable, sentences);
+		//VocableUtil.addSentencesToVocable(vocable, sentences);
 		VocableUtil.addAddInfoToVocable(vocable, addInfo);
 
-		vocable.setGender(genderMap.getGenderByString((String)genderChoiceBox.getValue()));
-		vocable.setPartOfSpeech(partOfSpeechMap.getPartOfSpeechByString((String)partOfSpeechChoiceBox.getValue()));
+		VocableMetaInfo metaInfo = new VocableMetaInfo();
+		metaInfo.setGender(genderMap.getGenderByString((String)genderChoiceBox.getValue()));
+		metaInfo.setPartOfSpeech(partOfSpeechMap.getPartOfSpeechByString((String)partOfSpeechChoiceBox.getValue()));
+		vocable.addElement(metaInfo);
 
 		vocable.setLevel(FlashCard.FIRST_LEVEL);
+
 		return vocable;
 
 	}

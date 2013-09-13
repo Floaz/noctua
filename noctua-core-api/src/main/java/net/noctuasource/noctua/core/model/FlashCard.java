@@ -66,13 +66,13 @@ public class FlashCard {
 	private List<FlashCardElement> elements = new LinkedList<>();
 
 
-	public FlashCard() {
-	}
-
 
 
 
     // ********************** Accessor Methods ****************************** //
+
+	public FlashCard() {
+	}
 
 
 	public String getId() {

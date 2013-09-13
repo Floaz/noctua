@@ -19,6 +19,7 @@
 package net.noctuasource.noctua.core.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -34,11 +35,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 /**
  * FlashCardElement.
- * @author thomy
+ * @author Philipp Thomas
  */
 @Entity
 @Table(name="flashcardelements")
 @GenericGenerator(name="FLASH_CARD_ELEMENT_GEN", strategy="uuid2", parameters={})
+@DiscriminatorColumn(name="type")
 public class FlashCardElement {
 
     @Id
@@ -53,7 +55,7 @@ public class FlashCardElement {
     @Column(name = "Type")
 	private FlashCardElementType 	type;
 
-    @Column(name = "Value")
+    @Column(name = "Value", nullable = true)
 	private String 					value;
 
 

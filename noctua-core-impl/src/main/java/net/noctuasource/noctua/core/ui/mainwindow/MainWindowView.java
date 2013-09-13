@@ -145,7 +145,7 @@ public class MainWindowView extends SubContextController {
 
     private void initStaticFields() {
     	headerTitle.setText("Noctua");
-    	superButton.setText(profilesContext.getProfile().getData().getName());
+    	//superButton.setText(profilesContext.getProfile().getData().getName());
     }
 
 

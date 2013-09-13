@@ -14,19 +14,8 @@
 
 <VBox id="" styleClass="window" xmlns:fx="http://javafx.com/fxml">
   <HBox fx:id="headerBox" spacing="10.0" styleClass="headerBox">
-    <ImageView>
-      <fitHeight>
-        <Long fx:value="64" />
-      </fitHeight>
-      <fitWidth>
-        <Long fx:value="64" />
-      </fitWidth>
-      <image>
-        <Image url="@images/noctua_owl_64.png" preserveRatio="false" smooth="false" />
-      </image>
-    </ImageView>
     <VBox alignment="CENTER_LEFT">
-      <Label fx:id="headerTitle" styleClass="headerTitle" text="Noctua">
+      <Label fx:id="headerTitle" opacity="1.0" styleClass="headerTitle" text="Noctua">
         <translateX>
           <Long fx:value="0" />
         </translateX>
@@ -40,7 +29,7 @@
     </VBox>
     <VBox id="VBox" alignment="BOTTOM_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
       <children>
-        <MenuButton fx:id="superButton" mnemonicParsing="false" styleClass="superButton" text="Noctua">
+        <MenuButton fx:id="superButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" styleClass="superButton" text="" textAlignment="LEFT">
           <effect>
             <Reflection bottomOpacity="0.007874015748031482" fraction="0.34055118110236227" topOpacity="1.0" />
           </effect>
@@ -53,7 +42,7 @@
                 <Long fx:value="24" />
               </fitWidth>
               <image>
-                <Image url="@images/User.png" preserveRatio="false" smooth="false" />
+                <Image url="@images/Menu.png" />
               </image>
             </ImageView>
           </graphic>

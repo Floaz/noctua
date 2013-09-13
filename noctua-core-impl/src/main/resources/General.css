@@ -92,8 +92,8 @@
 
 .headerTitle {
 	-fx-text-fill: #FFFFFF;
-	-fx-font-size: 24px;
-	-fx-effect: dropshadow(gaussian, #000, 10, 0,3,3 );
+	-fx-font-size: 28px;
+	-fx-effect: dropshadow(gaussian, #000, 8, 0,1,1 );
 }
 
 .testTypeText {

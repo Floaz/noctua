@@ -54,17 +54,17 @@ public class VocableUtil {
 		}
 	}
 
-	public static void addSentencesToVocable(FlashCard vocable,
-											 String[] foreignSentences) {
-		for(String wordText : foreignSentences) {
-			if(!wordText.trim().isEmpty()) {
-				FlashCardElement element = new FlashCardElement();
-				element.setValue(wordText.trim());
-				element.setType(FlashCardElementType.SENTENCE_CONTENT);
-				vocable.addElement(element);
-			}
-		}
-	}
+//	public static void addSentencesToVocable(FlashCard vocable,
+//											 String[] foreignSentences) {
+//		for(String wordText : foreignSentences) {
+//			if(!wordText.trim().isEmpty()) {
+//				FlashCardElement element = new FlashCardElement();
+//				element.setValue(wordText.trim());
+//				element.setType(FlashCardElementType.SENTENCE_CONTENT);
+//				vocable.addElement(element);
+//			}
+//		}
+//	}
 
 	public static void addAddInfoToVocable(FlashCard vocable,
 											 String[] addInfo) {
