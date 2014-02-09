@@ -65,6 +65,12 @@ public class FlashCardElement {
 	}
 
 
+	public FlashCardElement(FlashCardElementType type, String value) {
+		this.type = type;
+		this.value = value;
+	}
+
+
 	public String getId() {
 		return id;
 	}

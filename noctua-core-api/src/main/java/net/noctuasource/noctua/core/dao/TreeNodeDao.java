@@ -24,17 +24,9 @@ import java.util.List;
 import net.noctuasource.noctua.core.model.TreeNode;
 
 
-public interface TreeNodeDao {
+public interface TreeNodeDao extends GenericDAO<TreeNode, String> {
 
-	public TreeNode getTreeNodeById(String id);
-
-	public List<TreeNode> getRootNodes();
-
-	public void insert(TreeNode treeNode);
-
-	public void update(TreeNode treeNode);
-
-	public void delete(TreeNode treeNode);
+	List<TreeNode> getRootNodes();
 
 }
 

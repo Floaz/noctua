@@ -18,15 +18,13 @@
  */
 package net.noctuasource.noctua.core.dao;
 
-public interface DataEventListener<T> {
 
-	public enum EventType {
-		CREATED,
-		UPDATED,
-		DELETED
-	}
-	
-	
-	public void dataEvent(T model, EventType type);
-	
+import net.noctuasource.noctua.core.model.FlashCardElement;
+
+
+
+public interface FlashCardElementDao extends GenericDAO<FlashCardElement, String> {
 }
+
+
+

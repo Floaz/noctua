@@ -25,13 +25,22 @@ import java.util.List;
 
 public interface GenericDAO<T, ID extends Serializable> {
 
-	T findById(ID id, boolean lock);
+	T			findById(ID id);
 
-	List<T> findAll();
+	List<T>		findByKeyValue(String key, String value);
 
-	List<T> findByExample(T exampleInstance);
+	List<T>		getAll();
 
-	T makePersistent(T entity);
 
-	void makeTransient(T entity);
+	void		create(T object);
+
+	void		update(T object);
+
+	void		delete(T object);
+
+	void		save(T object);
+
+
+	Class<T>	getPersistentClass();
+
 }

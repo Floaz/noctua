@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.dao;
+package net.noctuasource.noctua.core.dataevent;
 
 public interface DataEventRegistry<T> {
 

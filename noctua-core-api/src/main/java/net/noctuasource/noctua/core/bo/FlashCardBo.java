@@ -21,7 +21,7 @@ package net.noctuasource.noctua.core.bo;
 
 import java.util.List;
 import net.noctuasource.noctua.core.model.FlashCard;
-import net.noctuasource.noctua.core.viewmodel.VocableListElement;
+import net.noctuasource.noctua.core.dto.VocableListElement;
 
 
 

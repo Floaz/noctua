@@ -42,6 +42,7 @@ public class ContentFlashCardElement extends FlashCardElement {
     // ********************** Accessor Methods ****************************** //
 
 	public ContentFlashCardElement() {
+		setType(FlashCardElementType.CONTENT);
 	}
 
 

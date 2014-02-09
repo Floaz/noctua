@@ -50,7 +50,7 @@ public class ExampleSentence {
 	private String			sentence;
 
     @Column(name = "SentenceTranslation", nullable=true)
-	private String			sentenceTranslation;
+	private String			sentenceTranslation = null;
 
 
 	// ********************** Accessor Methods ****************************** //
@@ -59,8 +59,7 @@ public class ExampleSentence {
 	}
 
 
-	public ExampleSentence(ContentFlashCardElement vocable, String sentence, String sentenceTranslation) {
-		this.vocable = vocable;
+	public ExampleSentence(String sentence, String sentenceTranslation) {
 		this.sentence = sentence;
 		this.sentenceTranslation = sentenceTranslation;
 	}

@@ -20,25 +20,10 @@ package net.noctuasource.noctua.core.dao;
 
 
 import net.noctuasource.noctua.core.model.FlashCard;
-import net.noctuasource.noctua.core.model.FlashCardElement;
-
-public interface FlashCardDao {
-
-	public FlashCard getFlashCardById(String id);
-
-	public void insert(FlashCard treeNode);
-
-	public void update(FlashCard treeNode);
-
-	public void delete(FlashCard treeNode);
 
 
-	public void insertElement(FlashCardElement element);
 
-	public void updateElement(FlashCardElement element);
-
-	public void deleteElement(FlashCardElement element);
-
+public interface FlashCardDao extends GenericDAO<FlashCard, String> {
 }
 
 
