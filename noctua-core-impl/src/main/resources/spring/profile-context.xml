@@ -9,15 +9,30 @@
 
 
 
-	<bean id="eventBus" class="com.google.common.eventbus.EventBus"/>
-
-	<bean id="treeNodeDao" class="net.noctuasource.noctua.core.dao.impl.TreeNodeDaoImpl"/>
-	<bean id="flashCardDao" class="net.noctuasource.noctua.core.dao.impl.FlashCardDaoImpl"/>
+	<!-- Business Objects -->
 
 	<bean id="treeNodeBo" class="net.noctuasource.noctua.core.bo.impl.TreeNodeBoImpl"/>
+
 	<bean id="flashCardBo" class="net.noctuasource.noctua.core.bo.impl.FlashCardBoImpl"/>
 
+
+
+	<!-- DAOs -->
+
+	<bean id="treeNodeDao" class="net.noctuasource.noctua.core.dao.impl.TreeNodeDaoImpl"/>
+
+	<bean id="flashCardDao" class="net.noctuasource.noctua.core.dao.impl.FlashCardDaoImpl"/>
+
+	<bean id="flashCardElementDao" class="net.noctuasource.noctua.core.dao.impl.FlashCardElementDaoImpl"/>
+
+
+
+	<!-- Other -->
+
+	<bean id="eventBus" class="com.google.common.eventbus.EventBus"/>
+
 	<bean id="sessionHolder" class="net.noctuasource.noctua.core.dao.impl.SessionHolder"/>
+
 	<bean id="databaseInitializer" class="net.noctuasource.noctua.core.database.impl.DatabaseInitializerImpl"/>
 
 	<bean id="databaseVersionUpdater" class="net.noctuasource.noctua.core.database.impl.DatabaseVersionUpdaterImpl">
@@ -33,6 +48,5 @@
 
 
 	<context:annotation-config />
-
 
 </beans>

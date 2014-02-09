@@ -95,8 +95,8 @@ public class LoadingScreenView implements LoadingScreen {
 
 		layout.getChildren().addAll(progressInidicator, infoLayout);
 		infoLayout.getChildren().addAll(progressText);
-		infoLayout.setStyle("-fx-padding: 5; -fx-background-color: #EEF2FF; -fx-border-width:5; -fx-border-color: linear-gradient(to bottom, #AAAACC, derive(#AAAACC, 50%));");
-		layout.setEffect(new DropShadow());
+		infoLayout.setStyle("-fx-padding: 5; -fx-background-color: #EEF2FF; -fx-border-width:5; -fx-border-color: #AAAACC;");
+		//layout.setEffect(new DropShadow());
 
 
     	stage = new Stage();

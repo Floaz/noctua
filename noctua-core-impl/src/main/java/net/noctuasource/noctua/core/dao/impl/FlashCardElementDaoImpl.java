@@ -18,29 +18,13 @@
  */
 package net.noctuasource.noctua.core.dao.impl;
 
-import java.util.List;
-
-import net.noctuasource.noctua.core.dao.TreeNodeDao;
-import net.noctuasource.noctua.core.model.Language;
-import net.noctuasource.noctua.core.model.TreeNode;
-
-import org.hibernate.Query;
+import net.noctuasource.noctua.core.dao.FlashCardElementDao;
+import net.noctuasource.noctua.core.model.FlashCardElement;
 
 
 
 
 
-
-public class TreeNodeDaoImpl extends GenericDaoImpl<TreeNode, String> implements TreeNodeDao {
-
-	@Override
-	public List<TreeNode> getRootNodes() {
-		Query query = getSession().createQuery("from " + Language.class.getName());
-
-		@SuppressWarnings("unchecked")
-		List<TreeNode> list = (List<TreeNode>) query.list();
-		return list;
-	}
-
+public class FlashCardElementDaoImpl extends GenericDaoImpl<FlashCardElement, String> implements FlashCardElementDao {
 }
 

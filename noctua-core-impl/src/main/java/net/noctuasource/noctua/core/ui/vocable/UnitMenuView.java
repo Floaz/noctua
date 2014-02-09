@@ -46,7 +46,7 @@ import net.noctuasource.noctua.core.bo.FlashCardBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.dao.FlashCardDao;
 import net.noctuasource.noctua.core.events.FlashCardEvent;
-import net.noctuasource.noctua.core.viewmodel.VocableListElement;
+import net.noctuasource.noctua.core.dto.VocableListElement;
 
 import org.apache.log4j.Logger;
 

@@ -18,7 +18,6 @@
  */
 package net.noctuasource.noctua.core.bo.impl;
 
-import net.noctuasource.noctua.core.dao.impl.SessionHolder;
 import com.google.common.eventbus.EventBus;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +32,8 @@ import net.noctuasource.noctua.core.model.FlashCard;
 import net.noctuasource.noctua.core.model.FlashCardElementType;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
 import org.apache.log4j.Logger;
-import net.noctuasource.noctua.core.viewmodel.VocableListElement;
+import net.noctuasource.noctua.core.dto.VocableListElement;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -43,10 +43,6 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 	private static Logger logger = Logger.getLogger(FlashCardBoImpl.class);
 
-
-
-	@Resource
-	private SessionHolder	sessionHolder;
 
 	@Resource
 	private TreeNodeDao		treeNodeDao;
@@ -60,10 +56,6 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 
-	public void setSessionHolder(SessionHolder sessionHolder) {
-		this.sessionHolder = sessionHolder;
-	}
-
 	public void setFlashCardDao(FlashCardDao flashCardDao) {
 		this.flashCardDao = flashCardDao;
 	}
@@ -76,11 +68,11 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 	@Override
+	@Transactional
 	public List<VocableListElement> getVocabularyOfFlashCardGroup(String flashCardId) {
 		List<VocableListElement> list = new LinkedList<>();
 
-		FlashCardGroup flashCardGroup = (FlashCardGroup) sessionHolder.getCurrentSession()
-															.get(FlashCardGroup.class, flashCardId);
+		FlashCardGroup flashCardGroup = (FlashCardGroup) treeNodeDao.findById( flashCardId);
 
 		Set<FlashCard> flashCards = flashCardGroup.getFlashCards();
 
@@ -97,20 +89,22 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 	@Override
+	@Transactional
 	public void addFlashCard(FlashCard flashCard, String flashCardGroupId) {
-		FlashCardGroup flashCardGroup = (FlashCardGroup) treeNodeDao.getTreeNodeById(flashCardGroupId);
+		FlashCardGroup flashCardGroup = (FlashCardGroup) treeNodeDao.findById(flashCardGroupId);
 		flashCardGroup.addFlashCard(flashCard);
 
-		flashCardDao.insert(flashCard);
+		flashCardDao.create(flashCard);
 	}
 
 
 	@Override
+	@Transactional
 	public void moveFlashCards(List<String> flashCardIds, String newFlashCardGroupId) {
-		FlashCardGroup newFlashCardGroup = (FlashCardGroup) treeNodeDao.getTreeNodeById(newFlashCardGroupId);
+		FlashCardGroup newFlashCardGroup = (FlashCardGroup) treeNodeDao.findById(newFlashCardGroupId);
 
 		for(String id : flashCardIds) {
-			FlashCard flashCard = flashCardDao.getFlashCardById(id);
+			FlashCard flashCard = flashCardDao.findById(id);
 			FlashCardGroup oldFlashCardGroup = flashCard.getGroup();
 			oldFlashCardGroup.removeFlashCard(flashCard);
 			newFlashCardGroup.addFlashCard(flashCard);
@@ -121,9 +115,10 @@ public class FlashCardBoImpl implements FlashCardBo {
 
 
 	@Override
+	@Transactional
 	public void deleteVocabulary(List<String> ids) {
 		for(String id : ids) {
-			FlashCard flashCard = flashCardDao.getFlashCardById(id);
+			FlashCard flashCard = flashCardDao.findById(id);
 			flashCard.getGroup().removeFlashCard(flashCard);
 			flashCardDao.delete(flashCard);
 		}

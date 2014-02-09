@@ -21,8 +21,8 @@ package net.noctuasource.noctua.core.dao.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.noctuasource.noctua.core.dao.DataEventListener;
-import net.noctuasource.noctua.core.dao.DataEventRegistry;
+import net.noctuasource.noctua.core.dataevent.DataEventListener;
+import net.noctuasource.noctua.core.dataevent.DataEventRegistry;
 
 
 public class DataEventController<T> implements DataEventRegistry<T> {

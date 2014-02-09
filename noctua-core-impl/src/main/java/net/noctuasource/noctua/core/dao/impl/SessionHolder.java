@@ -20,11 +20,15 @@ package net.noctuasource.noctua.core.dao.impl;
 
 import org.hibernate.Session;
 
+
+/*
+ * Holds the session for the daos.
+ */
 public class SessionHolder {
 
 	private Session currentSession;
-	
-	
+
+
 	public Session getCurrentSession() {
 		return currentSession;
 	}

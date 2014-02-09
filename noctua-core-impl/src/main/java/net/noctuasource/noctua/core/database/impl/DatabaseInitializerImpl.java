@@ -39,6 +39,8 @@ import net.noctuasource.noctua.core.dao.impl.SessionHolder;
 import net.noctuasource.noctua.core.database.DatabaseInitializationException;
 import net.noctuasource.noctua.core.database.DatabaseInitializer;
 import net.noctuasource.noctua.core.database.DatabaseVersionUpdater;
+import net.noctuasource.noctua.core.model.ContentFlashCardElement;
+import net.noctuasource.noctua.core.model.ExampleSentence;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -140,15 +142,17 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             configuration.addAnnotatedClass(Folder.class);
             configuration.addAnnotatedClass(FlashCardGroup.class);
             configuration.addAnnotatedClass(FlashCard.class);
-            configuration.addAnnotatedClass(VocableMetaInfo.class);
             configuration.addAnnotatedClass(FlashCardElement.class);
+            configuration.addAnnotatedClass(VocableMetaInfo.class);
+            configuration.addAnnotatedClass(ContentFlashCardElement.class);
+            configuration.addAnnotatedClass(ExampleSentence.class);
 
             configuration.setProperty("hibernate.dialect", SQLiteDialect.class.getName());
             configuration.setProperty("hibernate.connection.url",
             						"jdbc:sqlite:" + databaseFile.toString());
             configuration.setProperty("hibernate.connection.driver_class", org.sqlite.JDBC.class.getName());
-            configuration.setProperty("hibernate.connection.username", "");
-            configuration.setProperty("hibernate.connection.password", "");
+            //configuration.setProperty("hibernate.connection.username", "");
+            //configuration.setProperty("hibernate.connection.password", "");
 
             configuration.setProperty("hibernate.transaction.factory_class",
                     "org.hibernate.transaction.JDBCTransactionFactory");

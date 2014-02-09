@@ -18,10 +18,8 @@
  */
 package net.noctuasource.noctua.core.bo.impl;
 
-import net.noctuasource.noctua.core.dao.impl.SessionHolder;
 import net.noctuasource.noctua.core.dao.impl.TreeNodeDaoImpl;
 import com.google.common.eventbus.EventBus;
-import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
 
@@ -36,7 +34,7 @@ import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.test.GroupList;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -49,9 +47,6 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Resource
-	private SessionHolder	sessionHolder;
-
-	@Resource
 	private TreeNodeDao		treeNodeDao;
 
 	@Resource
@@ -60,9 +55,8 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 
-
-	public void setSessionHolder(SessionHolder sessionHolder) {
-		this.sessionHolder = sessionHolder;
+	public void setTreeNodeDao(TreeNodeDao treeNodeDao) {
+		this.treeNodeDao = treeNodeDao;
 	}
 
 	public void setEventBus(EventBus eventBus) {
@@ -75,20 +69,16 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
-	public TreeNode getTreeNodeById(Long id) {
-		return (TreeNode) sessionHolder.getCurrentSession().load(TreeNode.class, id);
+	@Transactional
+	public TreeNode getTreeNodeById(String id) {
+		return treeNodeDao.findById(id);
 	}
 
 
 	@Override
+	@Transactional
 	public List<TreeNode> getRootNodes() {
-
-		Query query = sessionHolder.getCurrentSession()
-							.createQuery("from " + Language.class.getName());
-
-		@SuppressWarnings("unchecked")
-		List<TreeNode> list = (List<TreeNode>) query.list();
-		return list;
+		return treeNodeDao.getRootNodes();
 	}
 
 
@@ -103,43 +93,50 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
+	@Transactional
 	public void addLanguage(String name, String code) {
 		Language treeNode = new Language();
 		treeNode.setName(name);
 		treeNode.setLanguageCode(code);
-		treeNodeDao.insert(treeNode);
+
+		treeNodeDao.create(treeNode);
 
 		eventBus.post(new TreeNodeEvent(EventType.CREATED, treeNode));
 	}
 
 
 	@Override
+	@Transactional
 	public void addFolder(String name, TreeNode parentNode) {
 		Folder treeNode = new Folder();
 		treeNode.setName(name);
 		treeNode.setExpanded(true);
 		parentNode.addChildren(treeNode);
-		treeNodeDao.insert(treeNode);
+
+		treeNodeDao.create(treeNode);
 
 		eventBus.post(new TreeNodeEvent(EventType.CREATED, treeNode));
 	}
 
 
 	@Override
+	@Transactional
 	public void addFlashCardGroup(String name, TreeNode parentNode) {
 		FlashCardGroup treeNode = new FlashCardGroup();
 		treeNode.setName(name);
 		parentNode.addChildren(treeNode);
 		treeNode.setMaxFlashCardGroups(6);
-		treeNodeDao.insert(treeNode);
+
+		treeNodeDao.create(treeNode);
 
 		eventBus.post(new TreeNodeEvent(EventType.CREATED, treeNode));
 	}
 
 
 	@Override
+	@Transactional
 	public void renameTreeNode(String id, String newName) {
-		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
+		TreeNode treeNode = treeNodeDao.findById(id);
 		treeNode.setName(newName);
 		treeNodeDao.update(treeNode);
 
@@ -148,9 +145,10 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
+	@Transactional
 	public void moveTreeNode(String id, String newParentTreeNodeId) {
-		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
-		TreeNode newParentTreeNode = treeNodeDao.getTreeNodeById(newParentTreeNodeId);
+		TreeNode treeNode = treeNodeDao.findById(id);
+		TreeNode newParentTreeNode = treeNodeDao.findById(newParentTreeNodeId);
 		TreeNode oldParentTreeNode = treeNode.getParent();
 
 		oldParentTreeNode.removeChildren(treeNode);
@@ -164,8 +162,9 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 
 
 	@Override
+	@Transactional
 	public void deleteTreeNode(String id) {
-		TreeNode treeNode = treeNodeDao.getTreeNodeById(id);
+		TreeNode treeNode = treeNodeDao.findById(id);
 
 		if(treeNode.getParent() != null) {
 			treeNode.getParent().removeChildren(treeNode);
@@ -174,13 +173,6 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 		treeNodeDao.delete(treeNode);
 
 		eventBus.post(new TreeNodeEvent(EventType.DELETED, treeNode));
-	}
-
-
-
-
-	public void setTreeNodeDao(TreeNodeDao treeNodeDao) {
-		this.treeNodeDao = treeNodeDao;
 	}
 
 }
