@@ -21,12 +21,9 @@ package net.noctuasource.noctua.core.business;
 
 import java.util.List;
 
-import net.noctuasource.noctua.core.model.TreeNode;
 
 
 public interface LanguageManageBo {
-
-	public TreeNode				getTreeNodeById(String id);
 
 	public List<LanguageDto>	getLanguages();
 

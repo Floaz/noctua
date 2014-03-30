@@ -30,33 +30,33 @@ import net.noctuasource.noctua.core.test.TestData;
 import net.noctuasource.noctua.core.test.impl.TestSettings;
 
 public class RandomFlashCardFetcher implements FlashCardFetcher {
-	
+
 	// ***** Members ******************************************************** //
 
 	private Set<FlashCard>	flashCards = new HashSet<FlashCard>();
-	
+
 	private int				counter = 0;
-	
-	
-	
-	
-	
+
+
+
+
+
 	// ***** Constructor **************************************************** //
 
 	public RandomFlashCardFetcher(TestData data) {
 		GroupList groups = (GroupList) data.get(TestData.GROUP_LIST);
-		
-		for(FlashCardGroup group : groups) {
-			flashCards.addAll(group.getFlashCards());
-		}
-		
+
+//		for(FlashCardGroup group : groups) {
+//			flashCards.addAll(group.getFlashCards());
+//		}
+
 		TestSettings settings = (TestSettings) data.get(TestData.TEST_SETTINGS);
 		counter = settings.getNumberOfWords();
 	}
-	
-	
-	
-	
+
+
+
+
 	// ***** Methods ******************************************************** //
 
 	@Override
@@ -82,6 +82,6 @@ public class RandomFlashCardFetcher implements FlashCardFetcher {
 	public int getRemainingCount() {
 		return Math.min(counter, flashCards.size());
 	}
-	
+
 
 }

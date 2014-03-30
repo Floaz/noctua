@@ -18,7 +18,6 @@
  */
 package net.noctuasource.noctua.core.database.impl;
 
-import com.arjuna.ats.jdbc.TransactionalDriver;
 import net.noctuasource.noctua.core.model.FlashCardElement;
 import net.noctuasource.noctua.core.model.FlashCard;
 import net.noctuasource.noctua.core.model.TreeNode;
@@ -36,6 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.transaction.TransactionManager;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
 
@@ -50,6 +50,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.sqlite.hibernate.SQLiteDialect;
 
@@ -89,11 +90,12 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 
 	@Resource
 	private DatabaseVersionUpdater	databaseVersionUpdater;
+//
+//	@Autowired
+//	private TransactionManager		txManager;
 
-	@Autowired
-	private TransactionManager		txManager;
-
-
+	@Inject
+	private TransactionManagerProxy	managerProxy;
 
 
 
@@ -111,8 +113,12 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 		this.databaseVersionUpdater = databaseVersionUpdater;
 	}
 
-	public void setTxManager(TransactionManager txManager) {
-		this.txManager = txManager;
+//	public void setTxManager(TransactionManager txManager) {
+//		this.txManager = txManager;
+//	}
+
+	public void setManagerProxy(TransactionManagerProxy managerProxy) {
+		this.managerProxy = managerProxy;
 	}
 
 
@@ -166,20 +172,28 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             configuration.setProperty("hibernate.connection.url",
             						  "jdbc:sqlite:" + databaseFile.toString());
             configuration.setProperty("hibernate.connection.driver_class", org.sqlite.JDBC.class.getName());
-            //configuration.setProperty("hibernate.connection.driver_class", TransactionalDriver.class.getName());
 
-            configuration.setProperty("hibernate.transaction.factory_class",
-									  "org.hibernate.transaction.JTATransactionFactory");
+			configuration.setProperty("hibernate.c3p0.min_size", "1");
+			configuration.setProperty("hibernate.c3p0.max_size", "3");
+			configuration.setProperty("hibernate.c3p0.timeout", "300");
+			configuration.setProperty("hibernate.c3p0.max_statements", "50");
+			configuration.setProperty("hibernate.c3p0.idle_test_period", "3000");
 
-            configuration.setProperty("hibernate.current_session_context_class", "jta");
+
+			//configuration.setProperty("hibernate.connection.driver_class", TransactionalDriver.class.getName());
+//
+//            configuration.setProperty("hibernate.transaction.factory_class",
+//									  "org.hibernate.transaction.JTATransactionFactory");
+//
+//            configuration.setProperty("hibernate.current_session_context_class", "jta");
 
 //            configuration.setProperty("hibernate.transaction.manager_lookup_class",
 //									  "org.hibernate.transaction.");
+//
+//            configuration.setProperty("transaction.jta.platform",
+//									  "org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform");
 
-            configuration.setProperty("transaction.jta.platform",
-									  "org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform");
-
-            configuration.setProperty("hibernate.connection.autocommit", "true");
+            //configuration.setProperty("hibernate.connection.autocommit", "true");
 
             configuration.setProperty("hibernate.show_sql", "true");
             configuration.setProperty("hibernate.format_sql", "true");
@@ -197,11 +211,10 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             annotatedClasses.add(ContentFlashCardElement.class);
             annotatedClasses.add(ExampleSentence.class);
 
-
 			LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 			sessionFactoryBean.setHibernateProperties(configuration.getProperties());
 			sessionFactoryBean.setAnnotatedClasses(annotatedClasses.toArray(new Class<?>[]{}));
-			sessionFactoryBean.setJtaTransactionManager(txManager);
+			//sessionFactoryBean.setJtaTransactionManager(txManager);
 			//sessionFactoryBean.setDataSource(null);
 			sessionFactoryBean.afterPropertiesSet();
 
@@ -213,6 +226,12 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 			sessionFactory = sessionFactoryBean.getObject();
             //Session session = sessionFactory.openSession();
 	    	sessionHolder.setSessionFactory(sessionFactory);
+
+
+			HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
+			transactionManager.afterPropertiesSet();
+
+			managerProxy.setManager(transactionManager);
 
 	    	return true;
 		} catch(Exception e) {
@@ -238,6 +257,8 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 
 		sessionFactory.close();
 		sessionFactory = null;
+
+		managerProxy.setManager(null);
 
 //
 //		Session session = sessionHolder.getCurrentSession();

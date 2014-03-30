@@ -21,13 +21,12 @@ package net.noctuasource.noctua.core.ui.mainwindow;
 import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.TreeNodeBo;
-
-import org.apache.log4j.Logger;
-
-import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 import net.noctuasource.noctua.core.ui.QuestionDialog;
 import net.noctuasource.noctua.core.ui.QuestionDialog.Result;
+
+import org.apache.log4j.Logger;
 
 
 
@@ -44,16 +43,16 @@ public class DeleteTreeNodeView extends SubContextController
 	// ***** Members ******************************************************** //
 
 	@Resource
-	private TreeNodeBo 		treeNodeBo;
+	private TreeNodeManagerBo	treeNodeManagerBo;
 
-	private TreeNode 		node;
+	private TreeNodeDto			node;
 
 
 	// ***** Constructor **************************************************** //
 
 	@Override
 	protected void onCreate() {
-		node = getControllerParams().getOrThrow("treeNode", TreeNode.class);
+		node = getControllerParams().getOrThrow("treeNode", TreeNodeDto.class);
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 
@@ -71,7 +70,7 @@ public class DeleteTreeNodeView extends SubContextController
 	public void finish(Result result) {
 		if(result == Result.YES) {
 			try {
-				treeNodeBo.deleteTreeNode(node.getId());
+				treeNodeManagerBo.deleteTreeNode(node);
 			} catch (Exception e) {
 				logger.warn("Could not delete tree node: ", e);
 			}
@@ -84,8 +83,8 @@ public class DeleteTreeNodeView extends SubContextController
 	protected void onDestroy() {
 	}
 
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+	public void setTreeNodeManagerBo(TreeNodeManagerBo treeNodeManagerBo) {
+		this.treeNodeManagerBo = treeNodeManagerBo;
 	}
 
 }

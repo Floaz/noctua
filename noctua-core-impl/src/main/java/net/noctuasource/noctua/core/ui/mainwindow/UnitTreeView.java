@@ -28,12 +28,12 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 
 import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
-import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.ui.mainwindow.ObjectTreeViewItem.Filter;
 
 
@@ -55,14 +55,14 @@ public class UnitTreeView extends SubContextController {
 	// ***** Members ******************************************************** //
 
 	@Resource
-	EventBus					eventBus;
+	EventBus						eventBus;
 
 	@Resource
-	TreeNodeBo					treeNodeBo;
+	TreeNodeManagerBo				treeNodeManagerBo;
 
-	private TreeView<TreeNode>	treeView;
+	private TreeView<TreeNodeDto>	treeView;
 
-	private List<Filter>		filters = new LinkedList<>();
+	private List<Filter>			filters = new LinkedList<>();
 
 
 
@@ -99,7 +99,7 @@ public class UnitTreeView extends SubContextController {
 
 
     public void updateTreeView() {
-    	ObjectTreeViewItem item = new ObjectTreeViewItem(treeNodeBo);
+    	ObjectTreeViewItem item = new ObjectTreeViewItem(treeNodeManagerBo);
 		for(Filter filter : filters) {
 			item.addFilter(filter);
 		}
@@ -110,19 +110,20 @@ public class UnitTreeView extends SubContextController {
     }
 
 
-    public List<TreeNode> getSelectedNodes() {
-    	List<TreeItem<TreeNode>> items = treeView.getSelectionModel().getSelectedItems();
-		List<TreeNode> nodes = new LinkedList<>();
+    public List<TreeNodeDto> getSelectedNodes() {
+    	List<TreeItem<TreeNodeDto>> items = treeView.getSelectionModel().getSelectedItems();
+		List<TreeNodeDto> nodes = new LinkedList<>();
 
-		for(TreeItem<TreeNode> item : items) {
+		for(TreeItem<TreeNodeDto> item : items) {
 			nodes.add(item.getValue());
 		}
 
 		return nodes;
     }
 
-    public TreeNode getSelectedNode() {
-    	TreeItem<TreeNode> item = treeView.getSelectionModel().getSelectedItem();
+
+    public TreeNodeDto getSelectedNode() {
+    	TreeItem<TreeNodeDto> item = treeView.getSelectionModel().getSelectedItem();
     	if(item != null) {
     		return item.getValue();
     	}
@@ -153,8 +154,8 @@ public class UnitTreeView extends SubContextController {
 
 
 
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+	public void setTreeNodeManagerBo(TreeNodeManagerBo treeNodeManagerBo) {
+		this.treeNodeManagerBo = treeNodeManagerBo;
 	}
 
 	public void setEventBus(EventBus eventBus) {

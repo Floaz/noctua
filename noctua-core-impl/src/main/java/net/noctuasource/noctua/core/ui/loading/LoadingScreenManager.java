@@ -18,17 +18,6 @@
  */
 package net.noctuasource.noctua.core.ui.loading;
 
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import org.apache.log4j.Logger;
 
@@ -90,7 +79,9 @@ public class LoadingScreenManager {
 
 
 	public void hideLoadingScreen() {
-		lastLoadingScreen.hide();
-		lastLoadingScreen = null;
+		if(lastLoadingScreen != null) {
+			lastLoadingScreen.hide();
+			lastLoadingScreen = null;
+		}
 	}
 }

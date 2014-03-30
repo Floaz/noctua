@@ -19,7 +19,6 @@
 package net.noctuasource.noctua.core.ui.mainwindow;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -30,11 +29,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import net.noctuasource.noctua.core.business.TreeNodeBo;
-import net.noctuasource.noctua.core.model.FlashCardGroup;
-import net.noctuasource.noctua.core.model.Folder;
-import net.noctuasource.noctua.core.model.Language;
-import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 
 
 
@@ -45,14 +41,14 @@ import net.noctuasource.noctua.core.model.TreeNode;
  * ObjectTreeViewItem.
  * @author Philipp Thomas
  */
-public class ObjectTreeViewItem extends TreeItem<TreeNode> {
+public class ObjectTreeViewItem extends TreeItem<TreeNodeDto> {
 
 	private static final int	MAX_DEPTH = 30;
 
 
-	private TreeNodeBo			treeNodeBo;
+	private TreeNodeManagerBo	treeNodeManagerBo;
 
-	private TreeNode			currentNode;
+	private TreeNodeDto			currentNode;
 
 	private boolean 			childrenLoaded = false;
 
@@ -62,14 +58,14 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 
 
-	public ObjectTreeViewItem(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+	public ObjectTreeViewItem(TreeNodeManagerBo treeNodeManagerBo) {
+		this.treeNodeManagerBo = treeNodeManagerBo;
 		rootInfo = new RootInfo();
 	}
 
 
-	public ObjectTreeViewItem(TreeNodeBo treeNodeBo, TreeNode node, int depth, RootInfo rootInfo) {
-		this.treeNodeBo = treeNodeBo;
+	private ObjectTreeViewItem(TreeNodeManagerBo treeNodeManagerBo, TreeNodeDto node, int depth, RootInfo rootInfo) {
+		this.treeNodeManagerBo = treeNodeManagerBo;
 		this.currentNode = node;
 		this.depth = depth;
 		this.rootInfo = rootInfo;
@@ -80,14 +76,18 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 		String iconFilename = "/images/Placebo.png";
 		boolean expanded = false;
 
-		if(node instanceof Language) {
-			iconFilename = "/images/World.png";
-			expanded = true;
-		} else if(node instanceof Folder) {
-			iconFilename = "/images/Folder.png";
-			expanded = ((Folder)node).isExpanded();
-		} else if(node instanceof FlashCardGroup) {
-			iconFilename = "/images/Group.png";
+		switch(node.getType()) {
+			case "Language":
+				iconFilename = "/images/World.png";
+				expanded = true;
+				break;
+			case "Folder":
+				iconFilename = "/images/Folder.png";
+				expanded = node.isExpanded();
+				break;
+			case "FlashCardGroup":
+				iconFilename = "/images/Group.png";
+				break;
 		}
 
 		super.setExpanded(expanded);
@@ -98,10 +98,10 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 
 	@Override
-	public ObservableList<TreeItem<TreeNode>> getChildren() {
-//		if(!childrenLoaded) {
-//			loadChildren();
-//		}
+	public ObservableList<TreeItem<TreeNodeDto>> getChildren() {
+		if(!childrenLoaded) {
+			loadChildren();
+		}
 
 		return super.getChildren();
 	}
@@ -109,9 +109,9 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 	@Override
 	public boolean isLeaf() {
-//		if(!childrenLoaded) {
-//			loadChildren();
-//		}
+		if(!childrenLoaded) {
+			loadChildren();
+		}
 
 		return super.getChildren().isEmpty();
 	}
@@ -125,18 +125,18 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 		childrenLoaded = true;
 
-		List<TreeNode> nodes;
+		List<TreeNodeDto> nodes;
 		if(currentNode == null) {
-			nodes = treeNodeBo.getRootNodes();
+			nodes = treeNodeManagerBo.getRootNodes();
 		} else {
-			nodes = currentNode.getChildren();
+			nodes = treeNodeManagerBo.getChildTreeNodes(currentNode);
 		}
 
 		sortChildren(nodes);
 
-		List<TreeItem<TreeNode>> rawList = new ArrayList<>();
+		List<TreeItem<TreeNodeDto>> rawList = new ArrayList<>();
 
-		for(TreeNode node : nodes) {
+		for(TreeNodeDto node : nodes) {
 			boolean filtered = false;
 			for(Filter filter : rootInfo.filters) {
 				if(filter.filter(node)) {
@@ -146,7 +146,7 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 			}
 
 			if(!filtered) {
-				ObjectTreeViewItem item = new ObjectTreeViewItem(treeNodeBo, node, depth+1, rootInfo);
+				ObjectTreeViewItem item = new ObjectTreeViewItem(treeNodeManagerBo, node, depth+1, rootInfo);
 				rawList.add(item);
 			}
 		}
@@ -156,14 +156,14 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 
 
-	private void sortChildren(List<TreeNode> nodes) {
-		Collections.sort(nodes, new Comparator<TreeNode>() {
+	private void sortChildren(List<TreeNodeDto> nodes) {
+		Collections.sort(nodes, new Comparator<TreeNodeDto>() {
 			@Override
-			public int compare(TreeNode o1, TreeNode o2) {
-				if(o1 instanceof Folder && !(o2 instanceof Folder)) {
+			public int compare(TreeNodeDto o1, TreeNodeDto o2) {
+				if(o1.getType().equals("Folder") && !(o2.getType().equals("Folder"))) {
 					return -1;
 				}
-				if(!(o1 instanceof Folder) && o2 instanceof Folder) {
+				if(!(o1.getType().equals("Folder")) && o2.getType().equals("Folder")) {
 					return 1;
 				}
 				else {
@@ -186,7 +186,7 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 
 	public static interface Filter {
-		boolean filter(TreeNode node);
+		boolean filter(TreeNodeDto node);
 	}
 
 

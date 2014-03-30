@@ -20,13 +20,13 @@ package net.noctuasource.noctua.core.test;
 
 import java.util.LinkedList;
 
-import net.noctuasource.noctua.core.model.FlashCardGroup;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
 
 
 
 
 
 
-public class GroupList extends LinkedList<FlashCardGroup> {
+public class GroupList extends LinkedList<TreeNodeDto> {
 
 }

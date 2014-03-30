@@ -34,13 +34,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.TreeNodeBo;
-import net.noctuasource.noctua.core.model.FlashCardGroup;
-import net.noctuasource.noctua.core.model.Folder;
-import net.noctuasource.noctua.core.model.Language;
-import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 
 import org.apache.log4j.Logger;
 
@@ -63,13 +60,13 @@ public class MoveTreeNodeView extends SubContextController {
 
 	// ***** Members ******************************************************** //
 
-	@Resource
-	TreeNodeBo				treeNodeBo;
+	@Inject
+	TreeNodeManagerBo		treeNodeManagerBo;
 
 
 	private Stage			stage;
 
-	private String			currentTreeNode;
+	private TreeNodeDto		currentTreeNode;
 
 	private UnitTreeView	treeView;
 
@@ -85,7 +82,7 @@ public class MoveTreeNodeView extends SubContextController {
 
 	@Override
 	protected void onCreate() {
-		this.currentTreeNode = getControllerParams().getOrThrow("treeNodeId", String.class);
+		this.currentTreeNode = getControllerParams().getOrThrow("treeNode", TreeNodeDto.class);
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 
@@ -135,21 +132,21 @@ public class MoveTreeNodeView extends SubContextController {
     	treeView = executeController(UnitTreeView.class);
 		treeView.addFilter(new ObjectTreeViewItem.Filter() {
 			@Override
-			public boolean filter(TreeNode node) {
-				return !(node instanceof Folder) && !(node instanceof Language);
+			public boolean filter(TreeNodeDto node) {
+				return !(node.getType().equals("Folder")) && !(node.getType().equals("Language"));
 			}
 		});
 		treeView.addFilter(new ObjectTreeViewItem.Filter() {
 			@Override
-			public boolean filter(TreeNode node) {
-				return node.getId().equals(currentTreeNode);
+			public boolean filter(TreeNodeDto node) {
+				return node.getId().equals(currentTreeNode.getId());
 			}
 		});
 
-    	treeView.getTreeView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TreeNode>>() {
+    	treeView.getTreeView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TreeNodeDto>>() {
 			@Override
-			public void changed(ObservableValue<? extends TreeItem<TreeNode>> observableValue,
-											TreeItem<TreeNode> oldItem, TreeItem<TreeNode> newItem) {
+			public void changed(ObservableValue<? extends TreeItem<TreeNodeDto>> observableValue,
+											TreeItem<TreeNodeDto> oldItem, TreeItem<TreeNodeDto> newItem) {
 				updateButton();
 			}
 		});
@@ -161,19 +158,19 @@ public class MoveTreeNodeView extends SubContextController {
 
 
 	protected void updateButton() {
-		TreeNode treeNode = treeView.getSelectedNode();
+		TreeNodeDto treeNode = treeView.getSelectedNode();
 		moveButton.setDisable(treeNode == null);
 	}
 
 
     @FXML
     protected void handleMoveButtonAction(ActionEvent event) {
-		TreeNode treeNode = treeView.getSelectedNode();
+		TreeNodeDto treeNode = treeView.getSelectedNode();
 		if(treeNode == null) {
 			return;
 		}
 
-		treeNodeBo.moveTreeNode(currentTreeNode, treeNode.getId());
+		treeNodeManagerBo.moveTreeNode(currentTreeNode, treeNode);
 
 		destroy();
     }
@@ -190,8 +187,8 @@ public class MoveTreeNodeView extends SubContextController {
 		stage.close();
 	}
 
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+	public void setTreeNodeManagerBo(TreeNodeManagerBo treeNodeManagerBo) {
+		this.treeNodeManagerBo = treeNodeManagerBo;
 	}
 
 }

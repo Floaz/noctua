@@ -20,12 +20,12 @@ package net.noctuasource.noctua.core.ui.mainwindow;
 
 import javafx.stage.Window;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.act.controller.SubContextController;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.ui.TextFieldDialog;
 
 
@@ -42,16 +42,16 @@ public class RenameTreeNodeView extends SubContextController implements TextFiel
 	// ***** Members ******************************************************** //
 
 	@Resource
-	private TreeNodeBo 		treeNodeBo;
+	private TreeNodeManagerBo 	treeNodeManagerBo;
 
-	private TreeNode 		node;
+	private TreeNodeDto			node;
 
 
 	// ***** Constructor **************************************************** //
 
 	@Override
 	protected void onCreate() {
-    	this.node = getControllerParams().get("treeNode", TreeNode.class);
+    	this.node = getControllerParams().get("treeNode", TreeNodeDto.class);
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 
@@ -68,7 +68,7 @@ public class RenameTreeNodeView extends SubContextController implements TextFiel
 	public boolean success(String input) {
 		if(!input.trim().isEmpty()) {
 			try {
-				treeNodeBo.renameTreeNode(node.getId(), input.trim());
+				treeNodeManagerBo.renameTreeNode(node, input.trim());
 			} catch(Exception e) {
 				logger.warn("Could not edit tree node!", e);
 			}
@@ -90,8 +90,8 @@ public class RenameTreeNodeView extends SubContextController implements TextFiel
 	protected void onDestroy() {
 	}
 
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+	public void setTreeNodeManagerBo(TreeNodeManagerBo treeNodeManagerBo) {
+		this.treeNodeManagerBo = treeNodeManagerBo;
 	}
 
 }

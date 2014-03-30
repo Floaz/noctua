@@ -339,8 +339,12 @@ public class ProfileChooseView extends SubContextController implements Observer 
 
     @FXML
     protected void handleListViewMouseClickChange(MouseEvent event) {
-    	updateEditButtons();
-    	updateStartButton();
+		if(event.getClickCount() == 2) {
+			performSelection();
+		} else {
+			updateEditButtons();
+			updateStartButton();
+		}
     }
 
 

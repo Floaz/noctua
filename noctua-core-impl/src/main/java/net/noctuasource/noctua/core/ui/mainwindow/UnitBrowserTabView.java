@@ -26,27 +26,27 @@ import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 
 import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
-import net.noctuasource.noctua.core.model.FlashCardGroup;
-import net.noctuasource.noctua.core.model.Language;
-import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.test.GroupList;
 import net.noctuasource.noctua.core.test.impl.TestTypes;
 
@@ -68,14 +68,14 @@ public class UnitBrowserTabView extends SubContextController {
 	// ***** Members ******************************************************** //
 
 	@Resource
-	EventBus					eventBus;
+	EventBus						eventBus;
 
-	@Resource
-	TreeNodeBo					treeNodeBo;
+	@Inject
+	TreeNodeManagerBo				treeNodeManagerBo;
 
-	private Node				node;
+	private Node					node;
 
-	private TreeView<TreeNode>	treeView;
+	private TreeView<TreeNodeDto>	treeView;
 
 
 
@@ -138,12 +138,19 @@ public class UnitBrowserTabView extends SubContextController {
     private void initTreeView() {
     	treeView = new TreeView<>();
 
+		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent t) {
+				handleMouseClicked(t);
+			}
+		});
+
     	treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-    	treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TreeNode>>() {
+    	treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TreeNodeDto>>() {
 			@Override
 			public void changed(
-					ObservableValue<? extends TreeItem<TreeNode>> observableValue,
-					TreeItem<TreeNode> oldItem, TreeItem<TreeNode> newItem) {
+					ObservableValue<? extends TreeItem<TreeNodeDto>> observableValue,
+					TreeItem<TreeNodeDto> oldItem, TreeItem<TreeNodeDto> newItem) {
 				updateButtons();
 			}
 		});
@@ -161,7 +168,7 @@ public class UnitBrowserTabView extends SubContextController {
 
 
     private void updateTreeView() {
-    	TreeItem<TreeNode> item = new ObjectTreeViewItem(treeNodeBo);
+    	TreeItem<TreeNodeDto> item = new ObjectTreeViewItem(treeNodeManagerBo);
     	treeView.setRoot(item);
     	treeView.setShowRoot(false);
 
@@ -170,7 +177,7 @@ public class UnitBrowserTabView extends SubContextController {
 
 
     public GroupList getSelectedFlashCardGroups() {
-    	List<TreeItem<TreeNode>> items = treeView.getSelectionModel().getSelectedItems();
+    	List<TreeItem<TreeNodeDto>> items = treeView.getSelectionModel().getSelectedItems();
 
 		if(items.size() <= 0) {
 			return null;
@@ -178,14 +185,34 @@ public class UnitBrowserTabView extends SubContextController {
 
 		GroupList groups = new GroupList();
 
-		for(TreeItem<TreeNode> item : items) {
-			TreeNode node = item.getValue();
-			if(node instanceof FlashCardGroup) {
-				groups.add((FlashCardGroup) node);
+		for(TreeItem<TreeNodeDto> item : items) {
+			TreeNodeDto node = item.getValue();
+			if(node.getType().equals("FlashCardGroup")) {
+				groups.add(node);
 			}
 		}
 
 		return groups;
+    }
+
+
+    public void performOpen() {
+		TreeNodeDto currentNode = getSelectedNode();
+		if(currentNode == null) {
+			return;
+		}
+
+		executeController("unitMenuView", ControllerParamsBuilder.create()
+																.add("treeNode", currentNode)
+																.add("parentWindow", null).build());
+    }
+
+
+
+    public void handleMouseClicked(MouseEvent event) {
+    	if(event.getClickCount() == 2) {
+			performOpen();
+		}
     }
 
 
@@ -228,7 +255,7 @@ public class UnitBrowserTabView extends SubContextController {
 
     @FXML
     protected void handleNewUnitButtonAction(ActionEvent event) {
-    	TreeNode currentNode = getSelectedNode();
+    	TreeNodeDto currentNode = getSelectedNode();
     	if(currentNode == null) {
     		return;
     	}
@@ -241,7 +268,7 @@ public class UnitBrowserTabView extends SubContextController {
 
     @FXML
     protected void handleNewFolderButtonAction(ActionEvent event) {
-    	TreeNode currentNode = getSelectedNode();
+    	TreeNodeDto currentNode = getSelectedNode();
     	if(currentNode == null) {
     		return;
     	}
@@ -261,7 +288,7 @@ public class UnitBrowserTabView extends SubContextController {
 
     @FXML
     protected void handleRenameButtonAction(ActionEvent event) {
-    	TreeNode currentNode = getSelectedNode();
+    	TreeNodeDto currentNode = getSelectedNode();
     	if(currentNode == null) {
     		return;
     	}
@@ -274,20 +301,20 @@ public class UnitBrowserTabView extends SubContextController {
 
     @FXML
     protected void handleMoveButtonAction(ActionEvent event) {
-    	TreeNode currentNode = getSelectedNode();
+    	TreeNodeDto currentNode = getSelectedNode();
     	if(currentNode == null) {
     		return;
     	}
 
     	executeController("moveTreeNodeView", ControllerParamsBuilder.create()
-																.add("treeNodeId", currentNode.getId())
+																.add("treeNode", currentNode)
 																.add("parentWindow", null).build());
     }
 
 
     @FXML
     protected void handleDeleteButtonAction(ActionEvent event) {
-    	TreeNode currentNode = getSelectedNode();
+    	TreeNodeDto currentNode = getSelectedNode();
     	if(currentNode == null) {
     		return;
     	}
@@ -300,14 +327,7 @@ public class UnitBrowserTabView extends SubContextController {
 
     @FXML
     protected void handleOpenButtonAction(ActionEvent event) {
-    	TreeNode currentNode = getSelectedNode();
-    	if(currentNode == null) {
-    		return;
-    	}
-
-    	executeController("unitMenuView", ControllerParamsBuilder.create()
-																.add("flashCardGroupId", currentNode.getId())
-																.add("parentWindow", null).build());
+    	performOpen();
     }
 
 
@@ -317,8 +337,8 @@ public class UnitBrowserTabView extends SubContextController {
     }
 
 
-    protected TreeNode getSelectedNode() {
-    	TreeItem<TreeNode> item = treeView.getSelectionModel().getSelectedItem();
+    protected TreeNodeDto getSelectedNode() {
+    	TreeItem<TreeNodeDto> item = treeView.getSelectionModel().getSelectedItem();
     	if(item != null) {
     		return item.getValue();
     	}
@@ -340,14 +360,14 @@ public class UnitBrowserTabView extends SubContextController {
     	boolean languageSelected = false;
     	boolean groupSelected = false;
 
-    	List<TreeItem<TreeNode>> items = treeView.getSelectionModel().getSelectedItems();
+    	List<TreeItem<TreeNodeDto>> items = treeView.getSelectionModel().getSelectedItems();
     	if(items.size() == 1) {
     		selected = true;
-    		TreeItem<TreeNode> item = items.iterator().next();
-    		if(item != null && item.getValue() != null && item.getValue() instanceof FlashCardGroup) {
+    		TreeItem<TreeNodeDto> item = items.iterator().next();
+    		if(item != null && item.getValue() != null && item.getValue().getType().equals("FlashCardGroup")) {
     			groupSelected = true;
     		}
-    		if(item != null && item.getValue() != null && item.getValue() instanceof Language) {
+    		if(item != null && item.getValue() != null && item.getValue().getType().equals("Language")) {
     			languageSelected = true;
     		}
     	} else if(!items.isEmpty()) {
@@ -355,11 +375,11 @@ public class UnitBrowserTabView extends SubContextController {
     		multipleSelected = true;
 			languageSelected = true;
     		groupSelected = true;
-    		for(TreeItem<TreeNode> item : items) {
-        		if(!(item.getValue() instanceof FlashCardGroup)) {
+    		for(TreeItem<TreeNodeDto> item : items) {
+        		if(!(item.getValue().getType().equals("FlashCardGroup"))) {
         			groupSelected = false;
         		}
-        		if(!(item.getValue() instanceof Language)) {
+        		if(!(item.getValue().getType().equals("Language"))) {
         			languageSelected = false;
         		}
     		}
@@ -397,8 +417,8 @@ public class UnitBrowserTabView extends SubContextController {
 		this.eventBus = eventBus;
 	}
 
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+	public void setTreeNodeManagerBo(TreeNodeManagerBo treeNodeManagerBo) {
+		this.treeNodeManagerBo = treeNodeManagerBo;
 	}
 
 }

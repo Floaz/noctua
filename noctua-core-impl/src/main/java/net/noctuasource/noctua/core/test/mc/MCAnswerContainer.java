@@ -43,79 +43,79 @@ public class MCAnswerContainer {
 
 	private static Logger logger = Logger.getLogger(MCAnswerContainer.class);
 
-	
-	
+
+
 	// ***** Static Members ************************************************* //
 
-	
-	
-	
+
+
+
 	// ***** Members ******************************************************** //
 
 	private TestData		testData;
-	
+
 	private Set<FlashCard>	flashCards = new HashSet<FlashCard>();
-	
+
 	private ArrayList<FlashCard> answers = new ArrayList<FlashCard>();
-	
-	
-	
-	
+
+
+
+
 	// ***** Constructor **************************************************** //
 
 	public MCAnswerContainer(TestData testData) {
 		this.testData = testData;
-		
+
 		GroupList groups = (GroupList) testData.get(TestData.GROUP_LIST);
-		
-		for(FlashCardGroup group : groups) {
-			flashCards.addAll(group.getFlashCards());
-		}
+
+//		for(FlashCardGroup group : groups) {
+//			flashCards.addAll(group.getFlashCards());
+//		}
 	}
-	
-	
-	
+
+
+
 	// ***** Methods ******************************************************** //
 
 	public void loadContainer(int answerCount) {
 		logger.debug("Load new multiple choice answer set.");
-		
+
 		if(answerCount > flashCards.size()) {
 			throw new IllegalArgumentException("answerCount > flashCards.size()");
 		}
-		
+
 		QuestionContext qc = (QuestionContext) testData.get(TestData.QUESTION_CONTEXT);
-		
+
 		answers.clear();
-		
+
 		answers.add(qc.getFlashCard());
-		
+
 		Random rand = new Random();
 		int i = 1;
-		
+
 		while(i < answerCount) {
 			int nextId = rand.nextInt(flashCards.size());
 			FlashCard flashCard = (FlashCard) flashCards.toArray()[nextId];
-			
+
 			if(!answers.contains(flashCard)) {
 				answers.add(flashCard);
 				++i;
 			}
 		}
-		
+
 		Collections.shuffle(answers);
 	}
 
-	
+
 	public FlashCard getAnswerFlashCard(int index) {
 		if(index < 0 || index > answers.size()) {
 			throw new IllegalArgumentException("Illegal index.");
 		}
-		
+
 		return answers.get(index);
 	}
 
-	
+
 	public String getAnswer(int index) {
 		if(index < 0 || index > answers.size()) {
 			throw new IllegalArgumentException("Illegal index.");
@@ -126,11 +126,11 @@ public class MCAnswerContainer {
 				qc.getDirection() == QuestionDirection.CONTENT_TO_EXPLANATION
 				? FlashCardElementType.EXPLANATION
 				: FlashCardElementType.CONTENT;
-		
+
 		return answers.get(index).getElementsString(type);
 	}
 
-	
+
 	public int getAnswerCount() {
 		return answers.size();
 	}

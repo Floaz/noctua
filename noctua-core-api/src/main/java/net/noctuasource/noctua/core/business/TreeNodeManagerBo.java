@@ -22,27 +22,24 @@ package net.noctuasource.noctua.core.business;
 import java.util.List;
 
 import net.noctuasource.noctua.core.model.TreeNode;
-import net.noctuasource.noctua.core.test.GroupList;
 
 
-public interface TreeNodeBo {
+public interface TreeNodeManagerBo {
 
-//	public TreeNode			getTreeNodeById(String id);
-//
-//	public List<TreeNode>	getRootNodes();
+	public TreeNodeDto			getTreeNodeById(String id);
 
-	public int				getNumberFlashCardsOfGroup(GroupList groupList);
+	public List<TreeNodeDto>	getChildTreeNodes(TreeNodeDto parent);
 
+	public List<TreeNodeDto>	getRootNodes();
 
-	public void addLanguage(String name, String code);
 	public void addFolder(String name, TreeNode parentTreeNode);
 	public void addFlashCardGroup(String name, TreeNode parentTreeNode);
 
-	public void renameTreeNode(String id, String newName);
+	public void renameTreeNode(TreeNodeDto dto, String newName);
 
-	public void moveTreeNode(String id, String newParentTreeNode);
+	public void moveTreeNode(TreeNodeDto dto, TreeNodeDto newParentTreeNode);
 
-	public void deleteTreeNode(String id);
+	public void deleteTreeNode(TreeNodeDto id);
 
 }
 

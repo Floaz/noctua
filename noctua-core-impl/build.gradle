@@ -28,7 +28,6 @@ dependencies {
 	testCompile 'org.springframework:spring-test:4.0.2.RELEASE'
 
 	// Other
-	compile 'org.codehaus.btm:btm:2.1.4'
 	compile 'com.google.guava:guava:14.0.1'
 	compile 'commons-lang:commons-lang:2.6'
 	compile 'org.jfxtras:jfxtras-labs:2.2-r4'
@@ -38,6 +37,8 @@ dependencies {
 	compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
 	compile 'javassist:javassist:3.12.1.GA'
 	compile 'org.xerial:sqlite-jdbc:3.7.2'
+	compile 'org.hibernate:hibernate-c3p0:4.3.4.Final'
+	compile 'org.codehaus.btm:btm:2.1.4'
 
 	// Log dependencies
 	compile 'log4j:log4j:1.2.16'

@@ -19,32 +19,65 @@
 package net.noctuasource.noctua.core.business;
 
 
-import java.util.List;
-
-import net.noctuasource.noctua.core.model.TreeNode;
-import net.noctuasource.noctua.core.test.GroupList;
 
 
-public interface TreeNodeBo {
 
-//	public TreeNode			getTreeNodeById(String id);
-//
-//	public List<TreeNode>	getRootNodes();
+public class TreeNodeDto {
 
-	public int				getNumberFlashCardsOfGroup(GroupList groupList);
+	private String			id;
+
+	private String			name;
+
+	private String			type;
+
+	private boolean			expanded = false;
 
 
-	public void addLanguage(String name, String code);
-	public void addFolder(String name, TreeNode parentTreeNode);
-	public void addFlashCardGroup(String name, TreeNode parentTreeNode);
 
-	public void renameTreeNode(String id, String newName);
 
-	public void moveTreeNode(String id, String newParentTreeNode);
+	public String getId() {
+		return id;
+	}
 
-	public void deleteTreeNode(String id);
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public boolean isExpanded() {
+		return expanded;
+	}
+
+
+	public void setExpanded(boolean expanded) {
+		this.expanded = expanded;
+	}
+
+
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }
-
-
-

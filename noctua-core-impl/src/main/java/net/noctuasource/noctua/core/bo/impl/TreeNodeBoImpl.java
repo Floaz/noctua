@@ -27,6 +27,8 @@ import net.noctuasource.noctua.core.business.LanguageDto;
 import net.noctuasource.noctua.core.business.LanguageManageBo;
 
 import net.noctuasource.noctua.core.business.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 import net.noctuasource.noctua.core.dao.TreeNodeDao;
 import net.noctuasource.noctua.core.events.AbstractObjectEvent.EventType;
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
@@ -44,7 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo {
+public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeManagerBo {
 
 	private static Logger logger = Logger.getLogger(TreeNodeDaoImpl.class);
 
@@ -71,24 +73,25 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo {
 
 
 
-	@Override
-	@Transactional
-	public TreeNode getTreeNodeById(String id) {
-		return treeNodeDao.findById(id);
-	}
-
-
-	@Override
-	@Transactional
-	public List<TreeNode> getRootNodes() {
-		return treeNodeDao.getRootNodes();
-	}
+//	@Override
+//	@Transactional
+//	public TreeNode getTreeNodeById(String id) {
+//		return treeNodeDao.findById(id);
+//	}
+//
+//
+//	@Override
+//	@Transactional
+//	public List<TreeNode> getRootNodes() {
+//		return treeNodeDao.getRootNodes();
+//	}
 
 
 	@Override
 	public int getNumberFlashCardsOfGroup(GroupList groupList) {
 		int number = 0;
-		for(FlashCardGroup group : groupList) {
+		for(TreeNodeDto dto : groupList) {
+			FlashCardGroup group = (FlashCardGroup) treeNodeDao.findById(dto.getId());
 			number += group.getFlashCards().size();
 		}
 		return number;
@@ -182,7 +185,7 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo {
 	@Override
 	public List<LanguageDto> getLanguages() {
 		List<LanguageDto> list = new LinkedList<>();
-		for(TreeNode node : getRootNodes()) {
+		for(TreeNode node : treeNodeDao.getRootNodes()) {
 			LanguageDto dto = new LanguageDto();
 			dto.setId(node.getId());
 			dto.setName(node.getName());
@@ -201,7 +204,7 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo {
 
 		treeNodeDao.create(treeNode);
 
-		//eventBus.post(new TreeNodeEvent(EventType.CREATED, treeNode));
+		eventBus.post(new TreeNodeEvent(EventType.CREATED, treeNode));
 	}
 
 
@@ -214,6 +217,101 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo {
 	@Override
 	public void deleteLanguage(LanguageDto newLanguage) {
 		deleteTreeNode(newLanguage.getId());
+	}
+
+
+	@Override
+	@Transactional
+	public TreeNodeDto getTreeNodeById(String id) {
+		TreeNode node = treeNodeDao.findById(id);
+		return treeNodeToDto(node);
+	}
+
+
+	@Override
+	@Transactional
+	public List<TreeNodeDto> getChildTreeNodes(TreeNodeDto parent) {
+		TreeNode node = treeNodeDao.findById(parent.getId());
+		List<TreeNodeDto> list = new LinkedList<>();
+		for(TreeNode childNode : node.getChildren()) {
+			list.add(treeNodeToDto(childNode));
+		}
+		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public List<TreeNodeDto> getRootNodes() {
+		List<TreeNodeDto> list = new LinkedList<>();
+		for(TreeNode childNode : treeNodeDao.getRootNodes()) {
+			list.add(treeNodeToDto(childNode));
+		}
+		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public void renameTreeNode(TreeNodeDto dto, String newName) {
+		TreeNode treeNode = treeNodeDao.findById(dto.getId());
+		treeNode.setName(newName);
+		treeNodeDao.update(treeNode);
+
+		dto.setName(newName);
+
+		eventBus.post(new TreeNodeEvent(EventType.UPDATED, treeNode));
+	}
+
+
+	@Override
+	@Transactional
+	public void moveTreeNode(TreeNodeDto dto, TreeNodeDto newParentTreeNode) {
+		TreeNode treeNode = treeNodeDao.findById(dto.getId());
+		TreeNode parentTreeNode = treeNodeDao.findById(newParentTreeNode.getId());
+		TreeNode oldParentTreeNode = treeNode.getParent();
+
+		oldParentTreeNode.removeChildren(treeNode);
+		parentTreeNode.addChildren(treeNode);
+
+		treeNodeDao.update(treeNode);
+		treeNodeDao.update(parentTreeNode);
+
+		eventBus.post(new TreeNodeEvent(EventType.UPDATED, treeNode));
+	}
+
+
+	@Override
+	@Transactional
+	public void deleteTreeNode(TreeNodeDto dto) {
+		TreeNode treeNode = treeNodeDao.findById(dto.getId());
+
+		if(treeNode.getParent() != null) {
+			treeNode.getParent().removeChildren(treeNode);
+		}
+
+		treeNodeDao.delete(treeNode);
+
+		eventBus.post(new TreeNodeEvent(EventType.DELETED, treeNode));
+	}
+
+
+	private TreeNodeDto treeNodeToDto(TreeNode node) {
+		TreeNodeDto dto = new TreeNodeDto();
+		dto.setId(node.getId());
+		dto.setName(node.getName());
+
+		if(node instanceof Folder) {
+			dto.setType("Folder");
+		}
+		else if(node instanceof FlashCardGroup) {
+			dto.setType("FlashCardGroup");
+		}
+		else if(node instanceof Language) {
+			dto.setType("Language");
+		}
+
+		return dto;
 	}
 
 }

@@ -37,7 +37,7 @@ import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.business.FlashCardBo;
-import net.noctuasource.noctua.core.model.FlashCardGroup;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
 import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.ui.mainwindow.UnitTreeView;
 
@@ -146,15 +146,15 @@ public class MoveVocabularyView extends SubContextController {
 
 
 	protected void updateButton() {
-		TreeNode treeNode = treeView.getSelectedNode();
-		moveButton.setDisable( (treeNode == null) || !(treeNode instanceof FlashCardGroup) );
+		TreeNodeDto treeNode = treeView.getSelectedNode();
+		moveButton.setDisable( (treeNode == null) || !(treeNode.getType().equals("FlashCardGroup")) );
 	}
 
 
     @FXML
     protected void handleMoveButtonAction(ActionEvent event) {
-		TreeNode treeNode = treeView.getSelectedNode();
-		if((treeNode == null) || !(treeNode instanceof FlashCardGroup)) {
+		TreeNodeDto treeNode = treeView.getSelectedNode();
+		if((treeNode == null) || !(treeNode.getType().equals("FlashCardGroup"))) {
 			return;
 		}
 
