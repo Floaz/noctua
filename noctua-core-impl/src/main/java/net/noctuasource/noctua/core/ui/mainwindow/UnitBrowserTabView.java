@@ -38,7 +38,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 
 import org.apache.log4j.Logger;

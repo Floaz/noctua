@@ -43,7 +43,7 @@ import javax.annotation.Resource;
 import jfxtras.labs.scene.control.ListSpinner;
 import jfxtras.labs.scene.control.ListSpinnerIntegerList;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.noctua.core.test.GroupList;
 
 import org.apache.log4j.Logger;

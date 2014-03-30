@@ -20,10 +20,13 @@ package net.noctuasource.noctua.core.bo.impl;
 
 import net.noctuasource.noctua.core.dao.impl.TreeNodeDaoImpl;
 import com.google.common.eventbus.EventBus;
+import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
+import net.noctuasource.noctua.core.business.LanguageDto;
+import net.noctuasource.noctua.core.business.LanguageManageBo;
 
-import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.noctua.core.dao.TreeNodeDao;
 import net.noctuasource.noctua.core.events.AbstractObjectEvent.EventType;
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
@@ -41,7 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-public class TreeNodeBoImpl implements TreeNodeBo {
+public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo {
 
 	private static Logger logger = Logger.getLogger(TreeNodeDaoImpl.class);
 
@@ -173,6 +176,44 @@ public class TreeNodeBoImpl implements TreeNodeBo {
 		treeNodeDao.delete(treeNode);
 
 		eventBus.post(new TreeNodeEvent(EventType.DELETED, treeNode));
+	}
+
+
+	@Override
+	public List<LanguageDto> getLanguages() {
+		List<LanguageDto> list = new LinkedList<>();
+		for(TreeNode node : getRootNodes()) {
+			LanguageDto dto = new LanguageDto();
+			dto.setId(node.getId());
+			dto.setName(node.getName());
+			dto.setCode("de");
+		}
+		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public void addLanguage(LanguageDto newLanguage) {
+		Language treeNode = new Language();
+		treeNode.setName(newLanguage.getName());
+		treeNode.setLanguageCode(newLanguage.getCode());
+
+		treeNodeDao.create(treeNode);
+
+		//eventBus.post(new TreeNodeEvent(EventType.CREATED, treeNode));
+	}
+
+
+	@Override
+	public void renameLanguage(LanguageDto newLanguage, String newName) {
+		renameTreeNode(newLanguage.getId(), newName);
+	}
+
+
+	@Override
+	public void deleteLanguage(LanguageDto newLanguage) {
+		deleteTreeNode(newLanguage.getId());
 	}
 
 }

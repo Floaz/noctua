@@ -16,35 +16,51 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.bo;
+package net.noctuasource.noctua.core.business;
 
 
-import java.util.List;
-
-import net.noctuasource.noctua.core.model.TreeNode;
-import net.noctuasource.noctua.core.test.GroupList;
 
 
-public interface TreeNodeBo {
 
-	public TreeNode			getTreeNodeById(String id);
+public class LanguageDto {
 
-	public List<TreeNode>	getRootNodes();
+	private String			id;
 
-	public int				getNumberFlashCardsOfGroup(GroupList groupList);
+	private String			name;
+
+	private String			code;
 
 
-	public void addLanguage(String name, String code);
-	public void addFolder(String name, TreeNode parentTreeNode);
-	public void addFlashCardGroup(String name, TreeNode parentTreeNode);
 
-	public void renameTreeNode(String id, String newName);
 
-	public void moveTreeNode(String id, String newParentTreeNode);
+	public String getId() {
+		return id;
+	}
 
-	public void deleteTreeNode(String id);
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getCode() {
+		return code;
+	}
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 
 }
-
-
-

@@ -48,7 +48,7 @@ public class SpringBeanInjector implements Injector, ApplicationContextAware {
 	public void inject(Object object) {
 		applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(
 																	object,
-																	AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,
+																	AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE,
 																	true);
 	}
 

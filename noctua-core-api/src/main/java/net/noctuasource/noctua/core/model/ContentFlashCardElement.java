@@ -45,6 +45,10 @@ public class ContentFlashCardElement extends FlashCardElement {
 		setType(FlashCardElementType.CONTENT);
 	}
 
+	public ContentFlashCardElement(String value) {
+		super(FlashCardElementType.CONTENT, value);
+	}
+
 
 	public List<ExampleSentence> getSentences() {
 		return sentences;

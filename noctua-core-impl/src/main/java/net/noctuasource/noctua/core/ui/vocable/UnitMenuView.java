@@ -42,7 +42,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.bo.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.dao.FlashCardDao;
 import net.noctuasource.noctua.core.events.FlashCardEvent;

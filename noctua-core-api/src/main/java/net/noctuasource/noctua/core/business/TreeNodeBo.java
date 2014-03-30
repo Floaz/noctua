@@ -16,12 +16,35 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.dataevent;
+package net.noctuasource.noctua.core.business;
 
-public interface DataEventRegistry<T> {
 
-	public void registerListener(DataEventListener<T> listeners);
+import java.util.List;
 
-	public void removeListener(DataEventListener<T> listeners);
+import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.test.GroupList;
+
+
+public interface TreeNodeBo {
+
+	public TreeNode			getTreeNodeById(String id);
+
+	public List<TreeNode>	getRootNodes();
+
+	public int				getNumberFlashCardsOfGroup(GroupList groupList);
+
+
+	public void addLanguage(String name, String code);
+	public void addFolder(String name, TreeNode parentTreeNode);
+	public void addFlashCardGroup(String name, TreeNode parentTreeNode);
+
+	public void renameTreeNode(String id, String newName);
+
+	public void moveTreeNode(String id, String newParentTreeNode);
+
+	public void deleteTreeNode(String id);
 
 }
+
+
+

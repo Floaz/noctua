@@ -19,9 +19,10 @@
 package net.noctuasource.noctua.core.ui.mainwindow;
 
 import javafx.stage.Window;
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.business.LanguageDto;
+import net.noctuasource.noctua.core.business.LanguageManageBo;
 
 import org.apache.log4j.Logger;
 
@@ -40,8 +41,8 @@ public class AddLanguageView extends SubContextController implements TextFieldDi
 
 	// ***** Members ******************************************************** //
 
-	@Resource
-	private TreeNodeBo 		treeNodeBo;
+	@Inject
+	private LanguageManageBo 		languageManageBo;
 
 
 
@@ -66,7 +67,10 @@ public class AddLanguageView extends SubContextController implements TextFieldDi
 		}
 
     	try {
-    		treeNodeBo.addLanguage(input.trim(), "de");
+			LanguageDto language = new LanguageDto();
+			language.setName(input.trim());
+			language.setCode("de");
+    		languageManageBo.addLanguage(language);
     	} catch(Exception e) {
     		logger.warn("Could not add language!", e);
     	}
@@ -81,8 +85,9 @@ public class AddLanguageView extends SubContextController implements TextFieldDi
 		destroy();
 	}
 
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+
+	public void setLanguageManageBo(LanguageManageBo languageManageBo) {
+		this.languageManageBo = languageManageBo;
 	}
 
 }

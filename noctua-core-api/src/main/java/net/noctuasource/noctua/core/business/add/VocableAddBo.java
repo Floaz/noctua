@@ -16,27 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.dao.impl;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+package net.noctuasource.noctua.core.business.add;
 
 
-/*
- * Holds the session for the daos.
- */
-public class SessionHolder {
 
-	private SessionFactory sessionFactory;
+public interface VocableAddBo {
 
-
-	public Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+	void addVocable(NewVocable newFlashCard, FlashCardGroupDto group);
 
 }
+

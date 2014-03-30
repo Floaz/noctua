@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.bo.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardBo;
 
 import org.apache.log4j.Logger;
 

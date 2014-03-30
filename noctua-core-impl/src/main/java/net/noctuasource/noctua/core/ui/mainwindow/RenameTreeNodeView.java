@@ -20,7 +20,7 @@ package net.noctuasource.noctua.core.ui.mainwindow;
 
 import javafx.stage.Window;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.act.controller.SubContextController;
 
 import org.apache.log4j.Logger;

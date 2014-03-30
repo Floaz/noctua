@@ -23,7 +23,7 @@ import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.util.AfterDestroyRunnable;
-import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.noctua.core.test.GroupList;
 import net.noctuasource.noctua.core.test.mc.MCTest;
 import net.noctuasource.noctua.core.test.normal.NormalTest;

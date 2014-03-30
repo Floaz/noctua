@@ -32,7 +32,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Window;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.bo.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardBo;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.model.FlashCard;
 

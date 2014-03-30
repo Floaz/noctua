@@ -16,26 +16,44 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.bo;
-
-
-import java.util.List;
-import net.noctuasource.noctua.core.model.FlashCard;
-import net.noctuasource.noctua.core.dto.VocableListElement;
+package net.noctuasource.noctua.core.business.add;
 
 
 
-public interface FlashCardBo {
 
-	List<VocableListElement> getVocabularyOfFlashCardGroup(String flashCardId);
 
-	void addFlashCard(FlashCard flashCard, String flashCardGroupId);
+public class FlashCardGroupDto {
 
-	void moveFlashCards(List<String> flashCardIds, String newFlashCardGroupId);
+	private String			id;
 
-	void deleteVocabulary(List<String> ids);
+	private String			name;
+
+
+
+	public FlashCardGroupDto(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 }
-
-
-

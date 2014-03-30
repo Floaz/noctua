@@ -30,6 +30,7 @@ import net.noctuasource.noctua.core.dao.GenericDAO;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 
 
@@ -112,7 +113,9 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDAO<T,
 
 	@Override
 	public void create(T c) {
-		getSession().save(c);
+		Session session = getSession();
+		session.save(c);
+		session.flush();
 	}
 
 

@@ -16,8 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.dataevent;
+package net.noctuasource.noctua.core.business;
 
-public interface DataEvent {
+
+import java.util.List;
+
+import net.noctuasource.noctua.core.model.TreeNode;
+
+
+public interface LanguageManageBo {
+
+	public TreeNode				getTreeNodeById(String id);
+
+	public List<LanguageDto>	getLanguages();
+
+
+	public void addLanguage(LanguageDto newLanguage);
+
+	public void renameLanguage(LanguageDto newLanguage, String newName);
+
+	public void deleteLanguage(LanguageDto newLanguage);
 
 }
+
+
+

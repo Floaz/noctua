@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.bo.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardBo;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
 import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.ui.mainwindow.UnitTreeView;

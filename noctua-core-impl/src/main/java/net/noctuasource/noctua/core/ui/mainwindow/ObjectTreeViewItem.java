@@ -30,7 +30,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import net.noctuasource.noctua.core.bo.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeBo;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
 import net.noctuasource.noctua.core.model.Folder;
 import net.noctuasource.noctua.core.model.Language;
@@ -99,9 +99,9 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 	@Override
 	public ObservableList<TreeItem<TreeNode>> getChildren() {
-		if(!childrenLoaded) {
-			loadChildren();
-		}
+//		if(!childrenLoaded) {
+//			loadChildren();
+//		}
 
 		return super.getChildren();
 	}
@@ -109,9 +109,9 @@ public class ObjectTreeViewItem extends TreeItem<TreeNode> {
 
 	@Override
 	public boolean isLeaf() {
-		if(!childrenLoaded) {
-			loadChildren();
-		}
+//		if(!childrenLoaded) {
+//			loadChildren();
+//		}
 
 		return super.getChildren().isEmpty();
 	}

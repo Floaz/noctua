@@ -18,6 +18,7 @@
  */
 package net.noctuasource.noctua.core.database.impl;
 
+import com.arjuna.ats.jdbc.TransactionalDriver;
 import net.noctuasource.noctua.core.model.FlashCardElement;
 import net.noctuasource.noctua.core.model.FlashCard;
 import net.noctuasource.noctua.core.model.TreeNode;
@@ -31,8 +32,11 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
+import javax.transaction.TransactionManager;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
 
 import net.noctuasource.noctua.core.dao.impl.SessionHolder;
@@ -43,9 +47,10 @@ import net.noctuasource.noctua.core.model.ContentFlashCardElement;
 import net.noctuasource.noctua.core.model.ExampleSentence;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.sqlite.hibernate.SQLiteDialect;
 
 
@@ -73,6 +78,9 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 
 	private File					databaseFile;
 
+	private SessionFactory			sessionFactory;
+
+
 	@Resource
 	private ProfilesContext			profilesContext;
 
@@ -81,6 +89,9 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 
 	@Resource
 	private DatabaseVersionUpdater	databaseVersionUpdater;
+
+	@Autowired
+	private TransactionManager		txManager;
 
 
 
@@ -98,6 +109,10 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 
 	public void setDatabaseVersionUpdater(DatabaseVersionUpdater databaseVersionUpdater) {
 		this.databaseVersionUpdater = databaseVersionUpdater;
+	}
+
+	public void setTxManager(TransactionManager txManager) {
+		this.txManager = txManager;
 	}
 
 
@@ -149,22 +164,55 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 
             configuration.setProperty("hibernate.dialect", SQLiteDialect.class.getName());
             configuration.setProperty("hibernate.connection.url",
-            						"jdbc:sqlite:" + databaseFile.toString());
+            						  "jdbc:sqlite:" + databaseFile.toString());
             configuration.setProperty("hibernate.connection.driver_class", org.sqlite.JDBC.class.getName());
-            //configuration.setProperty("hibernate.connection.username", "");
-            //configuration.setProperty("hibernate.connection.password", "");
+            //configuration.setProperty("hibernate.connection.driver_class", TransactionalDriver.class.getName());
 
             configuration.setProperty("hibernate.transaction.factory_class",
-                    "org.hibernate.transaction.JDBCTransactionFactory");
-            //configuration.setProperty("hibernate.current_session_context_class", "manage");
+									  "org.hibernate.transaction.JTATransactionFactory");
+
+            configuration.setProperty("hibernate.current_session_context_class", "jta");
+
+//            configuration.setProperty("hibernate.transaction.manager_lookup_class",
+//									  "org.hibernate.transaction.");
+
+            configuration.setProperty("transaction.jta.platform",
+									  "org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform");
+
+            configuration.setProperty("hibernate.connection.autocommit", "true");
 
             configuration.setProperty("hibernate.show_sql", "true");
             configuration.setProperty("hibernate.format_sql", "true");
 
-            SessionFactory sessionFactory = configuration.buildSessionFactory();
-            Session session = sessionFactory.openSession();
 
-	    	sessionHolder.setCurrentSession(session);
+
+			List<Class<?>> annotatedClasses = new LinkedList<>();
+            annotatedClasses.add(Language.class);
+            annotatedClasses.add(TreeNode.class);
+            annotatedClasses.add(Folder.class);
+            annotatedClasses.add(FlashCardGroup.class);
+            annotatedClasses.add(FlashCard.class);
+            annotatedClasses.add(FlashCardElement.class);
+            annotatedClasses.add(VocableMetaInfo.class);
+            annotatedClasses.add(ContentFlashCardElement.class);
+            annotatedClasses.add(ExampleSentence.class);
+
+
+			LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+			sessionFactoryBean.setHibernateProperties(configuration.getProperties());
+			sessionFactoryBean.setAnnotatedClasses(annotatedClasses.toArray(new Class<?>[]{}));
+			sessionFactoryBean.setJtaTransactionManager(txManager);
+			//sessionFactoryBean.setDataSource(null);
+			sessionFactoryBean.afterPropertiesSet();
+
+//			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+//			builder.applySettings(configuration.getProperties());
+//			ServiceRegistry serviceRegistry = builder.build();
+//            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+
+			sessionFactory = sessionFactoryBean.getObject();
+            //Session session = sessionFactory.openSession();
+	    	sessionHolder.setSessionFactory(sessionFactory);
 
 	    	return true;
 		} catch(Exception e) {
@@ -188,14 +236,18 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
 	public void closeDatabase() {
 		logger.debug("Close database...");
 
-		Session session = sessionHolder.getCurrentSession();
+		sessionFactory.close();
+		sessionFactory = null;
 
-		if(session != null) {
-			session.flush();
-			session.close();
-
-			sessionHolder.setCurrentSession(session);
-		}
+//
+//		Session session = sessionHolder.getCurrentSession();
+//
+//		if(session != null) {
+//			session.flush();
+//			session.close();
+//
+//			sessionHolder.setSessionFactory(session);
+//		}
 
 		databaseFile = null;
 	}

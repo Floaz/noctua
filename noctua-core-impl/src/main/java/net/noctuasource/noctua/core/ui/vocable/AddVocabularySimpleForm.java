@@ -168,8 +168,7 @@ public class AddVocabularySimpleForm extends SubContextController implements Add
 
 		ContentFlashCardElement vocableElement = new ContentFlashCardElement();
 		vocableElement.setValue(vocableTextField.getText().trim());
-		ExampleSentence sentence = new ExampleSentence(vocableElement,
-													   sentenceTextField.getText().trim(),
+		ExampleSentence sentence = new ExampleSentence(sentenceTextField.getText().trim(),
 													   sentenceTranslationTextField.getText().trim());
 		vocable.addElement(vocableElement);
 

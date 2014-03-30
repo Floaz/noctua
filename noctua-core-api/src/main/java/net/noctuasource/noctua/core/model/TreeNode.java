@@ -47,7 +47,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="TreeNodes")
 @GenericGenerator(name="TREE_NODE_GEN", strategy="uuid2", parameters={})
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "GroupType", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "TreeNodeType", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class TreeNode {
 
     @Id

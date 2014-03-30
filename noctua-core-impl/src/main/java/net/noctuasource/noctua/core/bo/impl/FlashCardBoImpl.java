@@ -23,7 +23,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.bo.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardBo;
+import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
+import net.noctuasource.noctua.core.business.add.NewVocable;
+import net.noctuasource.noctua.core.business.add.VocableAddBo;
 import net.noctuasource.noctua.core.dao.FlashCardDao;
 import net.noctuasource.noctua.core.dao.TreeNodeDao;
 import net.noctuasource.noctua.core.events.AbstractObjectEvent.EventType;
@@ -33,13 +36,16 @@ import net.noctuasource.noctua.core.model.FlashCardElementType;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
 import org.apache.log4j.Logger;
 import net.noctuasource.noctua.core.dto.VocableListElement;
+import net.noctuasource.noctua.core.model.ContentFlashCardElement;
+import net.noctuasource.noctua.core.model.ExampleSentence;
+import net.noctuasource.noctua.core.model.FlashCardElement;
 import org.springframework.transaction.annotation.Transactional;
 
 
 
 
 
-public class FlashCardBoImpl implements FlashCardBo {
+public class FlashCardBoImpl implements FlashCardBo, VocableAddBo {
 
 	private static Logger logger = Logger.getLogger(FlashCardBoImpl.class);
 
@@ -85,6 +91,24 @@ public class FlashCardBoImpl implements FlashCardBo {
 		}
 
 		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public void addVocable(NewVocable newFlashCard, FlashCardGroupDto group) {
+		FlashCard flashCard = new FlashCard();
+		ContentFlashCardElement contentElement = new ContentFlashCardElement(newFlashCard.getForeignString());
+		contentElement.getSentences().add(new ExampleSentence(newFlashCard.getSentence(), null));
+		flashCard.addElement(contentElement);
+		flashCard.addElement(new FlashCardElement(FlashCardElementType.EXPLANATION, newFlashCard.getNativeString()));
+
+
+		FlashCardGroup flashCardGroup = (FlashCardGroup) treeNodeDao.findById(group.getId());
+		flashCard.setGroup(flashCardGroup);
+		flashCardGroup.addFlashCard(flashCard);
+
+		flashCardDao.create(flashCard);
 	}
 
 

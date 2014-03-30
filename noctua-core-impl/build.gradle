@@ -17,22 +17,25 @@ dependencies {
 	compile project(':noctua-core-api')
 
 	// Spring dependencies
-	compile 'org.springframework:spring-core:3.2.2.RELEASE'
-	compile 'org.springframework:spring-context:3.2.2.RELEASE'
-	compile 'org.springframework:spring-context-support:3.2.2.RELEASE'
-	compile 'org.springframework:spring-tx:3.2.2.RELEASE'
-	compile 'org.springframework:spring-beans:3.2.2.RELEASE'
-	compile 'org.springframework:spring-expression:3.2.2.RELEASE'
-	testCompile 'org.springframework:spring-test:3.2.2.RELEASE'
+	compile 'javax.inject:javax.inject:1'
+	compile 'org.springframework:spring-core:4.0.2.RELEASE'
+	compile 'org.springframework:spring-context:4.0.2.RELEASE'
+	compile 'org.springframework:spring-context-support:4.0.2.RELEASE'
+	compile 'org.springframework:spring-tx:4.0.2.RELEASE'
+	compile 'org.springframework:spring-orm:4.0.2.RELEASE'
+	compile 'org.springframework:spring-beans:4.0.2.RELEASE'
+	compile 'org.springframework:spring-expression:4.0.2.RELEASE'
+	testCompile 'org.springframework:spring-test:4.0.2.RELEASE'
 
 	// Other
+	compile 'org.codehaus.btm:btm:2.1.4'
 	compile 'com.google.guava:guava:14.0.1'
 	compile 'commons-lang:commons-lang:2.6'
 	compile 'org.jfxtras:jfxtras-labs:2.2-r4'
 
 	// Database dependencies
-	compile 'org.hibernate:hibernate-core:3.6.10.Final'
-	compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final'
+	compile 'org.hibernate:hibernate-core:4.3.4.Final'
+	compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
 	compile 'javassist:javassist:3.12.1.GA'
 	compile 'org.xerial:sqlite-jdbc:3.7.2'
 
