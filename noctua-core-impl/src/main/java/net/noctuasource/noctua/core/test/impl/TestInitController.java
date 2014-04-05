@@ -23,8 +23,8 @@ import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.act.controller.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.util.AfterDestroyRunnable;
-import net.noctuasource.noctua.core.business.TreeNodeBo;
-import net.noctuasource.noctua.core.test.GroupList;
+import net.noctuasource.noctua.core.business.FlashCardGroupManagerBo;
+import net.noctuasource.noctua.core.business.GroupList;
 import net.noctuasource.noctua.core.test.mc.MCTest;
 import net.noctuasource.noctua.core.test.normal.NormalTest;
 import net.noctuasource.noctua.core.test.school.SchoolTest;
@@ -48,7 +48,7 @@ public class TestInitController extends SubContextController {
 	// ***** Members ******************************************************* //
 
 	@Resource
-	TreeNodeBo treeNodeBo;
+	FlashCardGroupManagerBo flashCardGroupManagerBo;
 
 
 
@@ -59,7 +59,7 @@ public class TestInitController extends SubContextController {
 
 		ContextController controller = null;
 
-		if(treeNodeBo.getNumberFlashCardsOfGroup(groupList) < MIN_FLASHCARDS) {
+		if(flashCardGroupManagerBo.getNumberFlashCardsOfGroup(groupList) < MIN_FLASHCARDS) {
 			controller = executeController("tooFewFlashCardsMessageDialog");
 		}
 		else {
@@ -89,12 +89,8 @@ public class TestInitController extends SubContextController {
 	}
 
 
-
-
-
-
-
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
-		this.treeNodeBo = treeNodeBo;
+	public void setFlashCardGroupManagerBo(FlashCardGroupManagerBo flashCardGroupManagerBo) {
+		this.flashCardGroupManagerBo = flashCardGroupManagerBo;
 	}
+
 }

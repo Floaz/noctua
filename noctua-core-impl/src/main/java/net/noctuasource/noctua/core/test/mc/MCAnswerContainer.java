@@ -29,7 +29,7 @@ import org.apache.log4j.Logger;
 import net.noctuasource.noctua.core.model.FlashCard;
 import net.noctuasource.noctua.core.model.FlashCardElementType;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
-import net.noctuasource.noctua.core.test.GroupList;
+import net.noctuasource.noctua.core.business.GroupList;
 import net.noctuasource.noctua.core.test.impl.QuestionContext;
 import net.noctuasource.noctua.core.test.impl.QuestionDirection;
 import net.noctuasource.noctua.core.test.TestData;

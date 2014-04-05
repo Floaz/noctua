@@ -21,11 +21,11 @@ package net.noctuasource.noctua.core.ui.mainwindow;
 import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.TreeNodeBo;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 
 import org.apache.log4j.Logger;
 
-import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.ui.TextFieldDialog;
 
 
@@ -42,16 +42,16 @@ public class AddFlashCardGroupView extends SubContextController implements TextF
 	// ***** Members ******************************************************** //
 
 	@Resource
-	private TreeNodeBo		treeNodeBo;
+	private TreeNodeManagerBo	treeNodeBo;
 
-	private TreeNode 		node;
+	private TreeNodeDto			node;
 
 
 	// ***** Constructor **************************************************** //
 
 	@Override
 	protected void onCreate() {
-		node = getControllerParams().get("treeNode", TreeNode.class);
+		node = getControllerParams().get("treeNode", TreeNodeDto.class);
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 
     	if(node == null) {
@@ -90,7 +90,7 @@ public class AddFlashCardGroupView extends SubContextController implements TextF
 	}
 
 
-	public void setTreeNodeBo(TreeNodeBo treeNodeBo) {
+	public void setTreeNodeBo(TreeNodeManagerBo treeNodeBo) {
 		this.treeNodeBo = treeNodeBo;
 	}
 

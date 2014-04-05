@@ -44,7 +44,7 @@ public class ExampleSentence {
 
     @ManyToOne
     @JoinColumn(name = "FlashCardElementId", nullable = false)
-	private ContentFlashCardElement vocable;
+	private FlashCardElement vocable;
 
     @Column(name = "SentenceText", nullable=false)
 	private String			sentence;
@@ -75,12 +75,12 @@ public class ExampleSentence {
 	}
 
 
-	public ContentFlashCardElement getVocable() {
+	public FlashCardElement getVocable() {
 		return vocable;
 	}
 
 
-	public void setVocable(ContentFlashCardElement vocable) {
+	public void setVocable(FlashCardElement vocable) {
 		this.vocable = vocable;
 	}
 

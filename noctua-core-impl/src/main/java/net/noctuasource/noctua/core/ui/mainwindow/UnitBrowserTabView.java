@@ -47,7 +47,7 @@ import net.noctuasource.noctua.core.business.TreeNodeManagerBo;
 import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
-import net.noctuasource.noctua.core.test.GroupList;
+import net.noctuasource.noctua.core.business.GroupList;
 import net.noctuasource.noctua.core.test.impl.TestTypes;
 
 
@@ -197,13 +197,15 @@ public class UnitBrowserTabView extends SubContextController {
 
 
     public void performOpen() {
-		TreeNodeDto currentNode = getSelectedNode();
-		if(currentNode == null) {
+		if(treeView.getSelectionModel().getSelectedItems().size() != 1) {
+			logger.debug("Ignore open button, count selected != 1.");
 			return;
 		}
 
+    	TreeItem<TreeNodeDto> item = treeView.getSelectionModel().getSelectedItem();
+
 		executeController("unitMenuView", ControllerParamsBuilder.create()
-																.add("treeNode", currentNode)
+																.add("treeNode", item.getValue())
 																.add("parentWindow", null).build());
     }
 

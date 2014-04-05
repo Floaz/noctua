@@ -16,18 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.ui.vocable;
+package net.noctuasource.noctua.core.business;
 
-import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
+import java.util.LinkedList;
+
+import net.noctuasource.noctua.core.business.TreeNodeDto;
 
 
 
-public interface AddVocabularyPanel {
 
-	boolean		isValidVocable();
 
-	void		save(FlashCardGroupDto group);
 
-	void		resetPanel();
+public class GroupList extends LinkedList<TreeNodeDto> {
 
 }

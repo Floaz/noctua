@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 
 import org.apache.log4j.Logger;
 
@@ -56,7 +56,7 @@ public class EditVocabularyView extends SubContextController {
 	// ***** Members ******************************************************** //
 
 	@Resource
-	FlashCardBo					flashCardBo;
+	FlashCardManagerBo					flashCardBo;
 
 
 	private Stage				stage;
@@ -154,7 +154,7 @@ public class EditVocabularyView extends SubContextController {
 	}
 
 
-	public void setFlashCardBo(FlashCardBo flashCardBo) {
+	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
 		this.flashCardBo = flashCardBo;
 	}
 }

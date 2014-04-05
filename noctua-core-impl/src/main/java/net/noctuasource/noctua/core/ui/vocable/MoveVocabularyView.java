@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.noctua.core.business.TreeNodeDto;
 import net.noctuasource.noctua.core.model.TreeNode;
 import net.noctuasource.noctua.core.ui.mainwindow.UnitTreeView;
@@ -63,7 +63,7 @@ public class MoveVocabularyView extends SubContextController {
 	// ***** Members ******************************************************** //
 
 	@Resource
-	FlashCardBo				flashCardBo;
+	FlashCardManagerBo				flashCardBo;
 
 
 	private Stage			stage;
@@ -176,7 +176,7 @@ public class MoveVocabularyView extends SubContextController {
 	}
 
 
-	public void setFlashCardBo(FlashCardBo flashCardBo) {
+	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
 		this.flashCardBo = flashCardBo;
 	}
 

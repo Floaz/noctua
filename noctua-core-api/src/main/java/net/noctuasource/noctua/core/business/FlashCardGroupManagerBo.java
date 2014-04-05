@@ -16,18 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.ui.vocable;
-
-import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
+package net.noctuasource.noctua.core.business;
 
 
+public interface FlashCardGroupManagerBo {
 
-public interface AddVocabularyPanel {
+	public int				getNumberFlashCardsOfGroup(TreeNodeDto dto);
 
-	boolean		isValidVocable();
-
-	void		save(FlashCardGroupDto group);
-
-	void		resetPanel();
+	public int				getNumberFlashCardsOfGroup(GroupList groupList);
 
 }
+
+
+

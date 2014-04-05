@@ -16,17 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.test;
-
-import java.util.LinkedList;
-
-import net.noctuasource.noctua.core.business.TreeNodeDto;
+package net.noctuasource.noctua.core.business;
 
 
-
+import java.util.List;
+import net.noctuasource.noctua.core.model.FlashCard;
+import net.noctuasource.noctua.core.dto.VocableListElement;
 
 
 
-public class GroupList extends LinkedList<TreeNodeDto> {
+public interface FlashCardManagerBo {
+
+	List<VocableListElement> getVocabularyOfFlashCardGroup(String flashCardId);
+
+	void addFlashCard(FlashCard flashCard, String flashCardGroupId);
+
+	void moveFlashCards(List<String> flashCardIds, String newFlashCardGroupId);
+
+	void deleteVocabulary(List<String> ids);
 
 }
+
+
+

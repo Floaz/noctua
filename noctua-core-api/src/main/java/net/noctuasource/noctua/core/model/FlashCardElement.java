@@ -18,13 +18,17 @@
  */
 package net.noctuasource.noctua.core.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -40,7 +44,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="flashcardelements")
 @GenericGenerator(name="FLASH_CARD_ELEMENT_GEN", strategy="uuid2", parameters={})
-@DiscriminatorColumn(name="type")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class FlashCardElement {
 
     @Id
@@ -57,6 +61,9 @@ public class FlashCardElement {
 
     @Column(name = "Value", nullable = true)
 	private String 					value;
+
+	@OneToMany(mappedBy = "vocable")
+	private List<ExampleSentence>	sentences = new ArrayList<>();
 
 
 
@@ -107,6 +114,16 @@ public class FlashCardElement {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+
+	public List<ExampleSentence> getSentences() {
+		return sentences;
+	}
+
+
+	public void setSentences(List<ExampleSentence> sentences) {
+		this.sentences = sentences;
 	}
 
 }

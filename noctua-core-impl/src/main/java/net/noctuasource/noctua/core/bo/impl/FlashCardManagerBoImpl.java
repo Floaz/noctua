@@ -23,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.business.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 import net.noctuasource.noctua.core.business.add.NewVocable;
 import net.noctuasource.noctua.core.business.add.VocableAddBo;
@@ -36,7 +36,6 @@ import net.noctuasource.noctua.core.model.FlashCardElementType;
 import net.noctuasource.noctua.core.model.FlashCardGroup;
 import org.apache.log4j.Logger;
 import net.noctuasource.noctua.core.dto.VocableListElement;
-import net.noctuasource.noctua.core.model.ContentFlashCardElement;
 import net.noctuasource.noctua.core.model.ExampleSentence;
 import net.noctuasource.noctua.core.model.FlashCardElement;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,9 +44,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-public class FlashCardBoImpl implements FlashCardBo, VocableAddBo {
+public class FlashCardManagerBoImpl implements FlashCardManagerBo, VocableAddBo {
 
-	private static Logger logger = Logger.getLogger(FlashCardBoImpl.class);
+	private static Logger logger = Logger.getLogger(FlashCardManagerBoImpl.class);
 
 
 	@Resource
@@ -98,7 +97,7 @@ public class FlashCardBoImpl implements FlashCardBo, VocableAddBo {
 	@Transactional
 	public void addVocable(NewVocable newFlashCard, FlashCardGroupDto group) {
 		FlashCard flashCard = new FlashCard();
-		ContentFlashCardElement contentElement = new ContentFlashCardElement(newFlashCard.getForeignString());
+		FlashCardElement contentElement = new FlashCardElement(FlashCardElementType.CONTENT, newFlashCard.getForeignString());
 		contentElement.getSentences().add(new ExampleSentence(newFlashCard.getSentence(), null));
 		flashCard.addElement(contentElement);
 		flashCard.addElement(new FlashCardElement(FlashCardElementType.EXPLANATION, newFlashCard.getNativeString()));
@@ -109,6 +108,8 @@ public class FlashCardBoImpl implements FlashCardBo, VocableAddBo {
 		flashCardGroup.addFlashCard(flashCard);
 
 		flashCardDao.create(flashCard);
+
+		eventBus.post(new FlashCardEvent(EventType.CREATED, flashCard));
 	}
 
 
@@ -119,6 +120,8 @@ public class FlashCardBoImpl implements FlashCardBo, VocableAddBo {
 		flashCardGroup.addFlashCard(flashCard);
 
 		flashCardDao.create(flashCard);
+
+		eventBus.post(new FlashCardEvent(EventType.CREATED, null));
 	}
 
 
@@ -135,6 +138,8 @@ public class FlashCardBoImpl implements FlashCardBo, VocableAddBo {
 
 			flashCardDao.update(flashCard);
 		}
+
+		eventBus.post(new FlashCardEvent(EventType.UPDATED, null));
 	}
 
 

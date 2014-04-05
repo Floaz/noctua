@@ -18,21 +18,19 @@
  */
 package net.noctuasource.noctua.core.ui.vocable;
 
+import com.google.common.eventbus.Subscribe;
 import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
 import com.sun.javafx.scene.control.skin.SkinBase;
 import java.io.IOException;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -42,13 +40,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.FlashCardBo;
-import net.noctuasource.noctua.core.model.FlashCard;
-import net.noctuasource.noctua.core.model.VocableMetaInfo;
+import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 import net.noctuasource.noctua.core.ui.mainwindow.MainWindowView;
-import net.noctuasource.noctua.core.util.VocableUtil;
 
 import org.apache.log4j.Logger;
 
@@ -56,7 +50,7 @@ import org.apache.log4j.Logger;
 
 
 
-public class AddVocabularyView extends SubContextController implements AddVocabularyPanel {
+public class AddVocabularyView extends SubContextController {
 
 	// ***** Basic Static Members ******************************************* //
 
@@ -71,16 +65,11 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 
 	// ***** Members ******************************************************** //
 
-	@Resource
-	FlashCardBo				flashCardBo;
+	private Stage				stage;
 
+	private FlashCardGroupDto	flashCardGroup;
 
-	private Stage			stage;
-
-	private String			flashCardGroupId;
-
-	private GenderMap		genderMap = new GenderMap();
-	private PartOfSpeechMap	partOfSpeechMap = new PartOfSpeechMap();
+	private AddVocabularyPanel	activePanel;
 
 
 
@@ -88,19 +77,12 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 
 	@FXML private TabPane						tabbedPane;
 
-	@FXML private TextArea						foreignTextArea;
-	@FXML private TextArea						nativeTextArea;
-	@FXML private TextArea						foreignSentenceTextArea;
-	@FXML private TextField						addInfoTextField;
-	@FXML private ChoiceBox						genderChoiceBox;
-	@FXML private ChoiceBox						partOfSpeechChoiceBox;
-
 
 	// ***** Constructor **************************************************** //
 
 	@Override
 	protected void onCreate() {
-		this.flashCardGroupId = getControllerParams().get("flashCardGroupId", String.class);
+		this.flashCardGroup = getControllerParams().get("flashCardGroup", FlashCardGroupDto.class);
 
 		Window parentWindow = getControllerParams().get("parentWindow", Window.class);
 
@@ -129,49 +111,43 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 		}
 
         initStaticFields();
-        //initTabs();
-		initChoiceBoxes();
+        initTabs();
 
         stage.sizeToScene();
         stage.centerOnScreen();
         stage.show();
         stage.toFront();
 
-		resetPanel();
 		updateButtons();
+
+		registerEventListener(this);
 	}
 
 
 	// ***** Methods ******************************************************** //
 
     private void initStaticFields() {
-    	//headerTitle.setText("Testergebnis");
-		foreignTextArea.addEventFilter(KeyEvent.KEY_PRESSED, new TabKeyEventHandler());
-		nativeTextArea.addEventFilter(KeyEvent.KEY_PRESSED, new TabKeyEventHandler());
-		foreignSentenceTextArea.addEventFilter(KeyEvent.KEY_PRESSED, new TabKeyEventHandler());
-    }
-
-
-    private void initChoiceBoxes() {
-    	genderChoiceBox.setItems(FXCollections.observableArrayList(genderMap.getGenderStrings()));
-    	partOfSpeechChoiceBox.setItems(FXCollections.observableArrayList(partOfSpeechMap.getPartOfSpeechStrings()));
+//		foreignTextArea.addEventFilter(KeyEvent.KEY_PRESSED, new TabKeyEventHandler());
+//		nativeTextArea.addEventFilter(KeyEvent.KEY_PRESSED, new TabKeyEventHandler());
+//		foreignSentenceTextArea.addEventFilter(KeyEvent.KEY_PRESSED, new TabKeyEventHandler());
     }
 
 
     private void initTabs() {
-    	EditVocabularyForm form = executeController(EditVocabularyForm.class);
+    	AddVocabularySimpleForm form = executeController(AddVocabularySimpleForm.class);
 
 		Tab tab = new Tab();
     	tab.setClosable(false);
-    	tab.setText("Lektionen");
+    	tab.setText("Einfach");
     	ImageView icon = new ImageView(
-    			new Image(MainWindowView.class.getResourceAsStream(
-    													"/images/Units.png")));
+    			new Image(MainWindowView.class.getResourceAsStream("/images/Units.png")));
     	icon.setFitWidth(24);
     	icon.setFitHeight(24);
     	tab.setGraphic(icon);
     	tab.setContent(form.getNode());
     	tabbedPane.getTabs().add(tab);
+
+		activePanel = form;
     }
 
 
@@ -180,17 +156,25 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 	}
 
 
-    @FXML
-    protected void handleAddButtonAction(ActionEvent event) {
-		FlashCard newVocable = getVocable();
-		if(!VocableUtil.validateVocable(newVocable)) {
+	/*
+	 * This event listener method would be called when the
+	 * panel fires a ReadyToAddEvent.
+	 */
+    @Subscribe
+    public void onReadyToAddEvent(ReadyToAddEvent event) {
+		if(!activePanel.isValidVocable()) {
 			return;
 		}
-
-		flashCardBo.addFlashCard(newVocable, flashCardGroupId);
-
-		resetPanel();
+		activePanel.save(flashCardGroup);
+		activePanel.resetPanel();
     }
+
+
+    @FXML
+    protected void handleAddButtonAction(ActionEvent event) {
+		onReadyToAddEvent(null);
+    }
+
 
     @FXML
     protected void handleCloseButtonAction(ActionEvent event) {
@@ -201,61 +185,6 @@ public class AddVocabularyView extends SubContextController implements AddVocabu
 	@Override
 	protected void onDestroy() {
 		stage.close();
-	}
-
-
-
-
-
-
-
-	@Override
-	public boolean isValidVocable() {
-		return VocableUtil.validateVocable(getVocable());
-	}
-
-
-	@Override
-	public FlashCard getVocable() {
-		String[] foreignWords = foreignTextArea.getText().split("\n");
-		String[] nativeWords = nativeTextArea.getText().split("\n");
-		String[] sentences = foreignSentenceTextArea.getText().split("\n");
-		String[] addInfo = addInfoTextField.getText().split("\n");
-
-		FlashCard vocable = new FlashCard();
-
-		VocableUtil.addWordsToVocable(vocable, foreignWords, nativeWords);
-		//VocableUtil.addSentencesToVocable(vocable, sentences);
-		VocableUtil.addAddInfoToVocable(vocable, addInfo);
-
-		VocableMetaInfo metaInfo = new VocableMetaInfo();
-		metaInfo.setGender(genderMap.getGenderByString((String)genderChoiceBox.getValue()));
-		metaInfo.setPartOfSpeech(partOfSpeechMap.getPartOfSpeechByString((String)partOfSpeechChoiceBox.getValue()));
-		vocable.addElement(metaInfo);
-
-		vocable.setLevel(FlashCard.FIRST_LEVEL);
-
-		return vocable;
-
-	}
-
-
-	@Override
-	public void resetPanel() {
-		foreignTextArea.setText("");
-		nativeTextArea.setText("");
-		foreignSentenceTextArea.setText("");
-		addInfoTextField.setText("");
-		genderChoiceBox.getSelectionModel().selectFirst();
-		partOfSpeechChoiceBox.getSelectionModel().selectFirst();
-
-		foreignTextArea.requestFocus();
-	}
-
-
-
-	public void setFlashCardBo(FlashCardBo flashCardBo) {
-		this.flashCardBo = flashCardBo;
 	}
 
 

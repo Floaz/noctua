@@ -36,20 +36,17 @@ import java.util.List;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.transaction.TransactionManager;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
 
 import net.noctuasource.noctua.core.dao.impl.SessionHolder;
 import net.noctuasource.noctua.core.database.DatabaseInitializationException;
 import net.noctuasource.noctua.core.database.DatabaseInitializer;
 import net.noctuasource.noctua.core.database.DatabaseVersionUpdater;
-import net.noctuasource.noctua.core.model.ContentFlashCardElement;
 import net.noctuasource.noctua.core.model.ExampleSentence;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.sqlite.hibernate.SQLiteDialect;
@@ -165,7 +162,6 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             configuration.addAnnotatedClass(FlashCard.class);
             configuration.addAnnotatedClass(FlashCardElement.class);
             configuration.addAnnotatedClass(VocableMetaInfo.class);
-            configuration.addAnnotatedClass(ContentFlashCardElement.class);
             configuration.addAnnotatedClass(ExampleSentence.class);
 
             configuration.setProperty("hibernate.dialect", SQLiteDialect.class.getName());
@@ -208,7 +204,6 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             annotatedClasses.add(FlashCard.class);
             annotatedClasses.add(FlashCardElement.class);
             annotatedClasses.add(VocableMetaInfo.class);
-            annotatedClasses.add(ContentFlashCardElement.class);
             annotatedClasses.add(ExampleSentence.class);
 
 			LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();

@@ -13,92 +13,33 @@
 <?scenebuilder-stylesheet ResultView.css?>
 
 <VBox id="" fx:id="rootBox" prefHeight="458.0" prefWidth="700.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <VBox id="VBox" alignment="TOP_LEFT" spacing="5.0" style="-fx-background-color: rgba(0,0,0,0.1);&#10;-fx-padding: 6px;&#10;-fx-background-radius: 10;&#10;">
+    <children>
+      <Label text="Vokabel:">
+        <font>
+          <Font name="System Bold" size="13.0" fx:id="x2" />
+        </font>
+      </Label>
+      <TextField fx:id="vocableTextField" onAction="#onVocableTextFieldAction" prefHeight="-1.0" prefWidth="-1.0" promptText="to eat" />
+      <Region minHeight="-1.0" minWidth="-1.0" prefHeight="20.0" prefWidth="-1.0" VBox.vgrow="NEVER" />
+      <Label font="$x2" text="Übersetzung 1:" />
+      <TextField fx:id="translation1TextField" onAction="#onTranslation1TextFieldAction" prefWidth="-1.0" promptText="essen" />
+      <Label font="$x2" text="Übersetzung 2: (Optional)" />
+      <TextField fx:id="translation2TextField" onAction="#onTranslation2TextFieldAction" prefWidth="-1.0" />
+      <Label font="$x2" text="Übersetzung 3: (Optional)" />
+      <TextField fx:id="translation3TextField" onAction="#onTranslation3TextFieldAction" prefWidth="-1.0" />
+      <Region minHeight="-1.0" minWidth="-1.0" prefHeight="20.0" prefWidth="-1.0" VBox.vgrow="NEVER" />
+      <Label font="$x2" text="Beispielsatz: (Optional)" />
+      <TextField fx:id="sentenceTextField" prefWidth="-1.0" />
+    </children>
+    <padding>
+      <Insets fx:id="x1" />
+    </padding>
+  </VBox>
+  <padding>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+  </padding>
   <stylesheets>
     <URL value="@General.css" />
   </stylesheets>
-  <VBox id="VBox" alignment="TOP_LEFT" spacing="5.0" VBox.vgrow="ALWAYS">
-    <children>
-      <HBox id="HBox" alignment="CENTER_LEFT" spacing="10.0">
-        <children>
-          <VBox id="VBox" alignment="TOP_LEFT" spacing="5.0" style="-fx-background-color: rgba(0,0,0,0.1);&#10;-fx-padding: 6px;&#10;-fx-background-radius: 10;&#10;" HBox.hgrow="ALWAYS">
-            <children>
-              <Label text="Vokabel*:">
-                <font>
-                  <Font name="System Bold" size="13.0" fx:id="x2" />
-                </font>
-              </Label>
-              <TextField fx:id="vocableTextField" onAction="#onVocableTextFieldAction" prefHeight="-1.0" prefWidth="-1.0" promptText="to eat" />
-              <Region prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="SOMETIMES" />
-              <Label font="$x2" text="Übersetzung 1*:" />
-              <TextField fx:id="translation1TextField" onAction="#onTranslation1TextFieldAction" prefWidth="-1.0" promptText="essen" />
-              <Label font="$x2" text="Übersetzung 2:" />
-              <TextField fx:id="translation2TextField" onAction="#onTranslation2TextFieldAction" prefWidth="-1.0" />
-              <Label font="$x2" text="Übersetzung 3:" />
-              <TextField fx:id="translation3TextField" onAction="#onTranslation3TextFieldAction" prefWidth="-1.0" />
-            </children>
-            <padding>
-              <Insets fx:id="x1" />
-            </padding>
-          </VBox>
-          <Separator orientation="VERTICAL" prefHeight="200.0" />
-          <VBox id="VBox" alignment="TOP_LEFT" padding="$x1" spacing="5.0" style="" HBox.hgrow="ALWAYS">
-            <children>
-              <Label font="$x2" text="Beispielsatz:" />
-              <TextField fx:id="sentenceTextField" prefWidth="-1.0" />
-              <Label font="$x2" text="Beispielsatz Übersetzung:" />
-              <TextField fx:id="sentenceTranslationTextField" prefWidth="-1.0" />
-              <Region prefHeight="-1.0" prefWidth="-1.0" />
-              <Label font="$x2" text="Zusatzinfo:" />
-              <TextField fx:id="addInfoTextField" prefWidth="-1.0" />
-              <Label font="$x2" text="Tipp für Abfrage:" />
-              <TextField fx:id="tipTextField" prefWidth="-1.0" />
-              <GridPane gridLinesVisible="false" hgap="6.0">
-                <children>
-                  <Label font="$x2" text="Geschlecht:" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <labelFor>
-                      <ChoiceBox fx:id="genderChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                        <items>
-                          <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Item 1" />
-                            <String fx:value="Item 2" />
-                            <String fx:value="Item 3" />
-                          </FXCollections>
-                        </items>
-                      </ChoiceBox>
-                    </labelFor>
-                  </Label>
-                  <Label font="$x2" text="Wortart:" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <labelFor>
-                      <ChoiceBox id="speechTypeChoiceBox" fx:id="partOfSpeechChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <items>
-                          <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Item 1" />
-                            <String fx:value="Item 2" />
-                            <String fx:value="Item 3" />
-                          </FXCollections>
-                        </items>
-                      </ChoiceBox>
-                    </labelFor>
-                  </Label>
-                  <fx:reference source="genderChoiceBox" />
-                  <fx:reference source="partOfSpeechChoiceBox" />
-                </children>
-                <columnConstraints>
-                  <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                </columnConstraints>
-                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-              </GridPane>
-            </children>
-          </VBox>
-        </children>
-      </HBox>
-    </children>
-    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
-  </VBox>
 </VBox>

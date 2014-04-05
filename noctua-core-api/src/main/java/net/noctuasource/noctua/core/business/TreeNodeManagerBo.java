@@ -21,7 +21,6 @@ package net.noctuasource.noctua.core.business;
 
 import java.util.List;
 
-import net.noctuasource.noctua.core.model.TreeNode;
 
 
 public interface TreeNodeManagerBo {
@@ -32,8 +31,8 @@ public interface TreeNodeManagerBo {
 
 	public List<TreeNodeDto>	getRootNodes();
 
-	public void addFolder(String name, TreeNode parentTreeNode);
-	public void addFlashCardGroup(String name, TreeNode parentTreeNode);
+	public void addFolder(String name, TreeNodeDto parentTreeNode);
+	public void addFlashCardGroup(String name, TreeNodeDto parentTreeNode);
 
 	public void renameTreeNode(TreeNodeDto dto, String newName);
 

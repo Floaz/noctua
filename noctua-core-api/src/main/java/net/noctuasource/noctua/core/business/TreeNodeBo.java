@@ -19,12 +19,6 @@
 package net.noctuasource.noctua.core.business;
 
 
-import java.util.List;
-
-import net.noctuasource.noctua.core.model.TreeNode;
-import net.noctuasource.noctua.core.test.GroupList;
-
-
 public interface TreeNodeBo {
 
 //	public TreeNode			getTreeNodeById(String id);
@@ -35,8 +29,6 @@ public interface TreeNodeBo {
 
 
 	public void addLanguage(String name, String code);
-	public void addFolder(String name, TreeNode parentTreeNode);
-	public void addFlashCardGroup(String name, TreeNode parentTreeNode);
 
 	public void renameTreeNode(String id, String newName);
 

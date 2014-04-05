@@ -38,7 +38,6 @@ dependencies {
 	compile 'javassist:javassist:3.12.1.GA'
 	compile 'org.xerial:sqlite-jdbc:3.7.2'
 	compile 'org.hibernate:hibernate-c3p0:4.3.4.Final'
-	compile 'org.codehaus.btm:btm:2.1.4'
 
 	// Log dependencies
 	compile 'log4j:log4j:1.2.16'

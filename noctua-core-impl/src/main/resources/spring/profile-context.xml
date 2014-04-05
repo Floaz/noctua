@@ -15,7 +15,7 @@
 
 	<bean id="treeNodeBo" class="net.noctuasource.noctua.core.bo.impl.TreeNodeBoImpl"/>
 
-	<bean id="flashCardBo" class="net.noctuasource.noctua.core.bo.impl.FlashCardBoImpl"/>
+	<bean id="flashCardManagerBo" class="net.noctuasource.noctua.core.bo.impl.FlashCardManagerBoImpl"/>
 
 
 

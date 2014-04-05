@@ -22,7 +22,7 @@ import net.noctuasource.noctua.core.ui.mainwindow.DeleteTreeNodeView;
 import java.util.List;
 import javafx.stage.Window;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.business.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.act.controller.SubContextController;
 
 import org.apache.log4j.Logger;
@@ -45,7 +45,7 @@ public class DeleteVocabularyView extends SubContextController
 	// ***** Members ******************************************************** //
 
 	@Resource
-	private FlashCardBo 		flashCardBo;
+	private FlashCardManagerBo 		flashCardBo;
 
 	private List<String> 			flashCardIds;
 
@@ -89,7 +89,7 @@ public class DeleteVocabularyView extends SubContextController
 
 
 
-	public void setFlashCardBo(FlashCardBo flashCardBo) {
+	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
 		this.flashCardBo = flashCardBo;
 	}
 

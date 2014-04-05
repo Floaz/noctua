@@ -16,26 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.business;
-
-
-import java.util.List;
-import net.noctuasource.noctua.core.model.FlashCard;
-import net.noctuasource.noctua.core.dto.VocableListElement;
+package net.noctuasource.noctua.core.ui.vocable;
 
 
 
-public interface FlashCardBo {
 
-	List<VocableListElement> getVocabularyOfFlashCardGroup(String flashCardId);
-
-	void addFlashCard(FlashCard flashCard, String flashCardGroupId);
-
-	void moveFlashCards(List<String> flashCardIds, String newFlashCardGroupId);
-
-	void deleteVocabulary(List<String> ids);
+/*
+ * Event that is fired from AddVocabularyPanels to perform
+ * a save call.
+ */
+public class ReadyToAddEvent {
 
 }
-
-
-

@@ -42,9 +42,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
-import net.noctuasource.noctua.core.dao.FlashCardDao;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 import net.noctuasource.noctua.core.events.FlashCardEvent;
 import net.noctuasource.noctua.core.dto.VocableListElement;
 
@@ -70,17 +71,14 @@ public class UnitMenuView extends SubContextController {
 	// ***** Members ******************************************************** //
 
 	@Resource
-	FlashCardBo				flashCardBo;
+	FlashCardManagerBo			flashCardBo;
 
 	@Resource
-	FlashCardDao			flashCardDao;
+	EventBus					eventBus;
 
-	@Resource
-	EventBus				eventBus;
+	private Stage				stage;
 
-	private Stage			stage;
-
-	private String			flashCardGroupId;
+	private FlashCardGroupDto	flashCardGroup;
 
 
 	// ***** FXML Nodes ***************************************************** //
@@ -98,7 +96,10 @@ public class UnitMenuView extends SubContextController {
 
 	@Override
 	protected void onCreate() {
-		this.flashCardGroupId = getControllerParams().get("flashCardGroupId", String.class);
+		TreeNodeDto treeNode = getControllerParams().get("treeNode", TreeNodeDto.class);
+		flashCardGroup = new FlashCardGroupDto();
+		flashCardGroup.setId(treeNode.getId());
+		flashCardGroup.setName(treeNode.getName());
 
     	VBox root = new VBox();
 
@@ -214,7 +215,7 @@ public class UnitMenuView extends SubContextController {
 
     private void updateVocabularyTable() {
         ObservableList<VocableListElement> data = FXCollections.observableArrayList();
-        data.addAll(flashCardBo.getVocabularyOfFlashCardGroup(flashCardGroupId));
+        data.addAll(flashCardBo.getVocabularyOfFlashCardGroup(flashCardGroup.getId()));
     	vocabularyTable.setItems(data);
 	}
 
@@ -244,8 +245,8 @@ public class UnitMenuView extends SubContextController {
     @FXML
     protected void handleAddButtonAction(ActionEvent event) {
     	executeController("addVocabularyView", ControllerParamsBuilder.create()
-																.add("flashCardGroupId", flashCardGroupId)
-																.add("parentWindow", null).build());
+																.add("flashCardGroup", flashCardGroup)
+																.add("parentWindow", stage).build());
     }
 
     @FXML
@@ -257,7 +258,7 @@ public class UnitMenuView extends SubContextController {
 
     	executeController("editVocableView", ControllerParamsBuilder.create()
 																.add("vocableId", vocableIds.iterator().next())
-																.add("parentWindow", null).build());
+																.add("parentWindow", stage).build());
     }
 
     @FXML
@@ -269,7 +270,7 @@ public class UnitMenuView extends SubContextController {
 
     	executeController("moveVocabularyView", ControllerParamsBuilder.create()
 																.add("flashCardIds", vocableIds)
-																.add("parentWindow", null).build());
+																.add("parentWindow", stage).build());
     }
 
     @FXML
@@ -281,7 +282,7 @@ public class UnitMenuView extends SubContextController {
 
     	executeController("deleteVocabularyView", ControllerParamsBuilder.create()
 																.add("vocableIds", vocableIds)
-																.add("parentWindow", null).build());
+																.add("parentWindow", stage).build());
     }
 
     @FXML
@@ -301,13 +302,7 @@ public class UnitMenuView extends SubContextController {
 
 
 
-
-
-	public void setFlashCardDao(FlashCardDao flashCardDao) {
-		this.flashCardDao = flashCardDao;
-	}
-
-	public void setFlashCardBo(FlashCardBo flashCardBo) {
+	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
 		this.flashCardBo = flashCardBo;
 	}
 

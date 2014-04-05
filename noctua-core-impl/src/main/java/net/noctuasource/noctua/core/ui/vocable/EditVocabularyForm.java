@@ -32,9 +32,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Window;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.business.FlashCardBo;
+import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.model.FlashCard;
+import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 
 import org.apache.log4j.Logger;
 
@@ -58,7 +58,7 @@ public class EditVocabularyForm extends SubContextController implements AddVocab
 	// ***** Members ******************************************************** //
 
 	@Resource
-	FlashCardBo				flashCardBo;
+	FlashCardManagerBo				flashCardBo;
 
 
 	private Node			node;
@@ -164,9 +164,10 @@ public class EditVocabularyForm extends SubContextController implements AddVocab
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
+
 	@Override
-	public FlashCard getVocable() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	public void save(FlashCardGroupDto group) {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
@@ -177,7 +178,7 @@ public class EditVocabularyForm extends SubContextController implements AddVocab
 
 
 
-	public void setFlashCardBo(FlashCardBo flashCardBo) {
+	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
 		this.flashCardBo = flashCardBo;
 	}
 

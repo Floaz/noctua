@@ -23,6 +23,7 @@ import com.google.common.eventbus.EventBus;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
+import net.noctuasource.noctua.core.business.FlashCardGroupManagerBo;
 import net.noctuasource.noctua.core.business.LanguageDto;
 import net.noctuasource.noctua.core.business.LanguageManageBo;
 
@@ -36,7 +37,7 @@ import net.noctuasource.noctua.core.model.FlashCardGroup;
 import net.noctuasource.noctua.core.model.Folder;
 import net.noctuasource.noctua.core.model.Language;
 import net.noctuasource.noctua.core.model.TreeNode;
-import net.noctuasource.noctua.core.test.GroupList;
+import net.noctuasource.noctua.core.business.GroupList;
 
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeManagerBo {
+public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeManagerBo, FlashCardGroupManagerBo {
 
 	private static Logger logger = Logger.getLogger(TreeNodeDaoImpl.class);
 
@@ -88,6 +89,14 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeMan
 
 
 	@Override
+	public int getNumberFlashCardsOfGroup(TreeNodeDto dto) {
+		FlashCardGroup group = (FlashCardGroup) treeNodeDao.findById(dto.getId());
+		return group.getFlashCards().size();
+	}
+
+
+	@Override
+    @Transactional
 	public int getNumberFlashCardsOfGroup(GroupList groupList) {
 		int number = 0;
 		for(TreeNodeDto dto : groupList) {
@@ -113,7 +122,9 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeMan
 
 	@Override
 	@Transactional
-	public void addFolder(String name, TreeNode parentNode) {
+	public void addFolder(String name, TreeNodeDto parentNodeDto) {
+		TreeNode parentNode = treeNodeDao.findById(parentNodeDto.getId());
+
 		Folder treeNode = new Folder();
 		treeNode.setName(name);
 		treeNode.setExpanded(true);
@@ -127,7 +138,9 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeMan
 
 	@Override
 	@Transactional
-	public void addFlashCardGroup(String name, TreeNode parentNode) {
+	public void addFlashCardGroup(String name, TreeNodeDto parentNodeDto) {
+		TreeNode parentNode = treeNodeDao.findById(parentNodeDto.getId());
+
 		FlashCardGroup treeNode = new FlashCardGroup();
 		treeNode.setName(name);
 		parentNode.addChildren(treeNode);
@@ -303,6 +316,7 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeMan
 
 		if(node instanceof Folder) {
 			dto.setType("Folder");
+			dto.setExpanded(((Folder)node).isExpanded());
 		}
 		else if(node instanceof FlashCardGroup) {
 			dto.setType("FlashCardGroup");
