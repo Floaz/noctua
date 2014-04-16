@@ -244,7 +244,7 @@ public class UnitMenuView extends SubContextController {
 
     @FXML
     protected void handleAddButtonAction(ActionEvent event) {
-    	executeController("addVocabularyView", ControllerParamsBuilder.create()
+    	createController("addVocabularyView", ControllerParamsBuilder.create()
 																.add("flashCardGroup", flashCardGroup)
 																.add("parentWindow", stage).build());
     }
@@ -256,7 +256,7 @@ public class UnitMenuView extends SubContextController {
     		return;
     	}
 
-    	executeController("editVocableView", ControllerParamsBuilder.create()
+    	createController("editVocableView", ControllerParamsBuilder.create()
 																.add("vocableId", vocableIds.iterator().next())
 																.add("parentWindow", stage).build());
     }
@@ -268,7 +268,7 @@ public class UnitMenuView extends SubContextController {
     		return;
     	}
 
-    	executeController("moveVocabularyView", ControllerParamsBuilder.create()
+    	createController("moveVocabularyView", ControllerParamsBuilder.create()
 																.add("flashCardIds", vocableIds)
 																.add("parentWindow", stage).build());
     }
@@ -280,7 +280,7 @@ public class UnitMenuView extends SubContextController {
     		return;
     	}
 
-    	executeController("deleteVocabularyView", ControllerParamsBuilder.create()
+    	createController("deleteVocabularyView", ControllerParamsBuilder.create()
 																.add("vocableIds", vocableIds)
 																.add("parentWindow", stage).build());
     }

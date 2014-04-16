@@ -22,7 +22,7 @@ package net.noctuasource.noctua.update.oldversion;
 
 import net.noctuasource.noctua.core.impl.GlobalPathsFactory;
 import java.io.File;
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.GlobalPaths;
 import net.noctuasource.noctua.core.ui.MessageDialog;

@@ -18,7 +18,7 @@
  */
 package net.noctuasource.noctua.core.ui.other;
 
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFolderView;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;

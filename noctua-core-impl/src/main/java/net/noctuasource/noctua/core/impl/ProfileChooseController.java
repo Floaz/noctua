@@ -21,7 +21,7 @@ package net.noctuasource.noctua.core.impl;
 import com.google.common.eventbus.Subscribe;
 import java.io.File;
 import javax.annotation.Resource;
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
 
@@ -89,7 +89,7 @@ public class ProfileChooseController extends SubContextController {
 		Profile profile = profileManager.getDefaultProfile();
 
 		if(profile == null) {
-			executeController("profileChooseView");
+			createController("profileChooseView");
 		} else {
 			postEvent(new ProfileChosenEvent(profile));
 		}

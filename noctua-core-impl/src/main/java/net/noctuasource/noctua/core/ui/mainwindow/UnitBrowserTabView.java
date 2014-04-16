@@ -204,7 +204,7 @@ public class UnitBrowserTabView extends SubContextController {
 
     	TreeItem<TreeNodeDto> item = treeView.getSelectionModel().getSelectedItem();
 
-		executeController("unitMenuView", ControllerParamsBuilder.create()
+		createController("unitMenuView", ControllerParamsBuilder.create()
 																.add("treeNode", item.getValue())
 																.add("parentWindow", null).build());
     }
@@ -225,7 +225,7 @@ public class UnitBrowserTabView extends SubContextController {
 			return;
 		}
 
-    	executeController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.NORMAL_TEST)
+    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.NORMAL_TEST)
 																.add("groupList", groups)
 																.add("parentWindow", null).build());
     }
@@ -237,7 +237,7 @@ public class UnitBrowserTabView extends SubContextController {
 			return;
 		}
 
-    	executeController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.MULTIPLE_CHOICE_TEST)
+    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.MULTIPLE_CHOICE_TEST)
 																.add("groupList", groups)
 																.add("parentWindow", null).build());
     }
@@ -249,7 +249,7 @@ public class UnitBrowserTabView extends SubContextController {
 			return;
 		}
 
-    	executeController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.SCHOOL_TEST)
+    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.SCHOOL_TEST)
 																.add("groupList", groups)
 																.add("parentWindow", null).build());
     }
@@ -262,7 +262,7 @@ public class UnitBrowserTabView extends SubContextController {
     		return;
     	}
 
-    	executeController("addFlashCardGroupView", ControllerParamsBuilder.create()
+    	createController("addFlashCardGroupView", ControllerParamsBuilder.create()
 																.add("treeNode", currentNode)
 																.add("parentWindow", null).build());
     }
@@ -275,7 +275,7 @@ public class UnitBrowserTabView extends SubContextController {
     		return;
     	}
 
-    	executeController("addFolderView", ControllerParamsBuilder.create()
+    	createController("addFolderView", ControllerParamsBuilder.create()
 																.add("treeNode", currentNode)
 																.add("parentWindow", null).build());
     }
@@ -283,7 +283,7 @@ public class UnitBrowserTabView extends SubContextController {
 
     @FXML
     protected void handleNewLanguageButtonAction(ActionEvent event) {
-    	executeController("addLanguageView", ControllerParamsBuilder.create()
+    	createController("addLanguageView", ControllerParamsBuilder.create()
 																.add("parentWindow", null).build());
     }
 
@@ -295,7 +295,7 @@ public class UnitBrowserTabView extends SubContextController {
     		return;
     	}
 
-    	executeController("renameTreeNodeView", ControllerParamsBuilder.create()
+    	createController("renameTreeNodeView", ControllerParamsBuilder.create()
 																.add("treeNode", currentNode)
 																.add("parentWindow", null).build());
     }
@@ -308,7 +308,7 @@ public class UnitBrowserTabView extends SubContextController {
     		return;
     	}
 
-    	executeController("moveTreeNodeView", ControllerParamsBuilder.create()
+    	createController("moveTreeNodeView", ControllerParamsBuilder.create()
 																.add("treeNode", currentNode)
 																.add("parentWindow", null).build());
     }
@@ -321,7 +321,7 @@ public class UnitBrowserTabView extends SubContextController {
     		return;
     	}
 
-    	executeController("deleteTreeNodeView", ControllerParamsBuilder.create()
+    	createController("deleteTreeNodeView", ControllerParamsBuilder.create()
 																.add("treeNode", currentNode)
 																.add("parentWindow", null).build());
     }

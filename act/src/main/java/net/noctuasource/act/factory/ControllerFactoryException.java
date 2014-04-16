@@ -16,20 +16,36 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.act.registry;
-
-import net.noctuasource.act.controller.ContextController;
+package net.noctuasource.act.factory;
 
 
 
 
-/*
- * Controller lookup registries have a collection of controller classes
- * that are returned by the lookup method with the given key.
- * Implementations must be thread safe!
+
+
+/**
+ * Exception that could be thrown by an ControllerFactories.
+ * @author Philipp Thomas
  */
-public interface ControllerLookupRegistry {
+public class ControllerFactoryException extends RuntimeException {
 
-	Class<? extends ContextController> lookup(String controllerKey);
+	public ControllerFactoryException() {
+	}
+
+	public ControllerFactoryException(String message) {
+		super(message);
+	}
+
+	public ControllerFactoryException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public ControllerFactoryException(Throwable cause) {
+		super(cause);
+	}
+
+	public ControllerFactoryException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
 
 }

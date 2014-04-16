@@ -131,7 +131,7 @@ public class MoveVocabularyView extends SubContextController {
 
 
     private void initTree() {
-    	treeView = executeController(UnitTreeView.class);
+    	treeView = (UnitTreeView) createController(UnitTreeView.class).getController();
 
     	treeView.getTreeView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TreeNode>>() {
 			@Override

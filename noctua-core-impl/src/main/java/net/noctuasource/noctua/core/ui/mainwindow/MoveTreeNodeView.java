@@ -129,7 +129,7 @@ public class MoveTreeNodeView extends SubContextController {
 
 
     private void initTree() {
-    	treeView = executeController(UnitTreeView.class);
+    	treeView = (UnitTreeView) createController(UnitTreeView.class).getController();
 		treeView.addFilter(new ObjectTreeViewItem.Filter() {
 			@Override
 			public boolean filter(TreeNodeDto node) {

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.act.registry;
+package net.noctuasource.act.factory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,23 +27,27 @@ import net.noctuasource.act.controller.ContextController;
  *
  * @author Philipp Thomas
  */
-public class DefaultControllerLookupRegistry implements ControllerLookupRegistry {
+public class DefaultControllerLookupRegistry implements ControllerFactoryRegistry {
 
 
 	// -- Members -------------------------------------
 
-	private Map<String, Class<? extends ContextController>> mapping = new HashMap<>();
+	private Map<String, ControllerFactory> mapping = new HashMap<>();
 
 
 
 	@Override
-	public synchronized Class<? extends ContextController> lookup(String controllerKey) {
+	public synchronized ControllerFactory lookup(String controllerKey) {
 		return mapping.get(controllerKey);
 	}
 
 
 	public synchronized void addControllerClass(String controllerKey, Class<? extends ContextController> controllerClass) {
-		mapping.put(controllerKey, controllerClass);
+		mapping.put(controllerKey, new DefaultControllerFactory(controllerClass));
+	}
+
+	public synchronized void addControllerClass(String controllerKey, String controllerClassName) {
+		mapping.put(controllerKey, new DefaultControllerFactory(controllerClassName));
 	}
 
 	public synchronized void removeControllerClass(String controllerKey) {

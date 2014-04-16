@@ -69,7 +69,7 @@ public abstract class SequenceContextController extends SubContextController {
 			currentSubController = null;
 			destroy();
 		} else {
-			currentSubController = executeController(clazz);
+			//currentSubController = createController(clazz);
 		}
 	}
 

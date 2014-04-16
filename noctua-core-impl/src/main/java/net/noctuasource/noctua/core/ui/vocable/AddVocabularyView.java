@@ -134,7 +134,7 @@ public class AddVocabularyView extends SubContextController {
 
 
     private void initTabs() {
-    	AddVocabularySimpleForm form = executeController(AddVocabularySimpleForm.class);
+    	AddVocabularySimpleForm form = (AddVocabularySimpleForm) createController(AddVocabularySimpleForm.class).getController();
 
 		Tab tab = new Tab();
     	tab.setClosable(false);

@@ -78,7 +78,7 @@ public class NoctuaRootContextControllerImpl extends RootContextController {
 		});
 
 		// Start Noctua instance.
-		executeController(NoctuaInstanceController.class);
+		createController(NoctuaInstanceController.class);
 	}
 
 

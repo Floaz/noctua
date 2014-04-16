@@ -69,7 +69,7 @@ public class ResultTestState implements TestState {
 
 		final AbstractTest test = (AbstractTest) data.get(TestData.TEST_OBJECT);
 
-		ContextController resultView = test.executeController(
+		ContextController resultView = test.createController(
 															ResultView.class,
 															ControllerParamsBuilder.create().add(resultData).build());
 		AfterDestroyRunnable.create(resultView, new Runnable() {

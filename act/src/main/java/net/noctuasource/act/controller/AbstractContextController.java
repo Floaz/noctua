@@ -18,12 +18,13 @@
  */
 package net.noctuasource.act.controller;
 
+import net.noctuasource.act.annotation.RunLater;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import net.noctuasource.act.registry.ControllerLookupRegistry;
+import net.noctuasource.act.factory.ControllerFactoryRegistry;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +38,9 @@ import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.act.data.ReadonlyControllerParams;
 import net.noctuasource.act.events.AbstractControllerEvent;
 import net.noctuasource.act.events.ControllerEventListener;
+import net.noctuasource.act.factory.ControllerFactory;
+import net.noctuasource.act.factory.DefaultControllerFactory;
+import net.noctuasource.act.util.AnnotationRunUtils;
 
 import org.apache.log4j.Logger;
 
@@ -48,7 +52,7 @@ import org.apache.log4j.Logger;
  *
  * @author Philipp Thomas
  */
-abstract class AbstractContextController implements ContextController, ContextControllerExecuter {
+abstract class AbstractContextController implements ContextController, ControllerExecutor {
 
 	// -- Enum ----------------------------------------
 
@@ -77,15 +81,15 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
     private AbstractContextController				parentController;
 
-    private Set<ContextController>					subControllers = new HashSet<>();
+    private final Set<ContextController>			subControllers = new HashSet<>();
 
-	private Set<ControllerEventListener>			controllerEventListeners = new HashSet<>();
+	private final Set<ControllerEventListener>		controllerEventListeners = new HashSet<>();
 
-	private List<ControllerLookupRegistry>			lookupRegistries = new LinkedList<>();
+	private final List<ControllerFactoryRegistry>	lookupRegistries = new LinkedList<>();
 
 	private ReadonlyControllerParams				params;
 
-	private ControllerData							data = new ControllerDataImpl();
+	private final ControllerData					data = new ControllerDataImpl();
 
 	private EventBus								eventBus;
 
@@ -197,10 +201,11 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 		try {
 			onCreate();
+			AnnotationRunUtils.runPostConstructMethods(getController());
 		}
 		catch(RuntimeException e) {
 			state = ControllerState.CREATED;
-			destroy();
+			//destroy();
 			throw new ControllerExecutionException("Error while creating controller!", e);
 		}
 
@@ -257,6 +262,7 @@ abstract class AbstractContextController implements ContextController, ContextCo
         }
 
 		try {
+			AnnotationRunUtils.runPreDestroyMethods(getController());
 			onDestroy();
 		}
 		catch(RuntimeException e) {
@@ -276,7 +282,7 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 		// Detach from parent.
         if (parentController != null) {
-            parentController.removeControllerLookupRegistry(this);
+            parentController.removeChildController(this);
         }
 
 		// Process events
@@ -300,7 +306,7 @@ abstract class AbstractContextController implements ContextController, ContextCo
 		subControllers.add(controller);
 	}
 
-	private synchronized void removeControllerLookupRegistry(AbstractContextController controller) {
+	private synchronized void removeChildController(AbstractContextController controller) {
 		subControllers.remove(controller);
 	}
 
@@ -315,25 +321,25 @@ abstract class AbstractContextController implements ContextController, ContextCo
 	}
 
 	@Override
-	public synchronized void addControllerLookupRegistry(ControllerLookupRegistry registry) {
+	public synchronized void addControllerLookupRegistry(ControllerFactoryRegistry registry) {
 		lookupRegistries.add(registry);
 	}
 
 	@Override
-	public synchronized void removeControllerLookupRegistry(ControllerLookupRegistry registry) {
+	public synchronized void removeControllerLookupRegistry(ControllerFactoryRegistry registry) {
 		lookupRegistries.remove(registry);
 	}
 
 
 
 
-	protected Class<? extends ContextController> lookupController(String lookupName) {
+	protected ControllerFactory lookupControllerFactory(String lookupName) {
 		AbstractContextController currentController = this;
 		while(currentController != null) {
-			for(ControllerLookupRegistry registry : currentController.lookupRegistries) {
-				Class<? extends ContextController> foundControllerClass = registry.lookup(lookupName);
-				if(foundControllerClass != null) {
-					return foundControllerClass;
+			for(ControllerFactoryRegistry registry : currentController.lookupRegistries) {
+				ControllerFactory foundControllerFactory = registry.lookup(lookupName);
+				if(foundControllerFactory != null) {
+					return foundControllerFactory;
 				}
 			}
 
@@ -345,23 +351,28 @@ abstract class AbstractContextController implements ContextController, ContextCo
 
 
 	@Override
-	public ContextController executeController(String lookupName) {
-		return executeController(lookupName, null);
+	public ContextController createController(String lookupName) {
+		return createController(lookupName, null);
 	}
 
 	@Override
-	public ContextController executeController(String lookupName, ReadonlyControllerParams params) {
-		Class<? extends ContextController> clazz = lookupController(lookupName);
-		return executeController(clazz, params);
+	public ContextController createController(String lookupName, ReadonlyControllerParams params) {
+		ControllerFactory factory = lookupControllerFactory(lookupName);
+		return createController(factory, params);
 	}
 
 	@Override
-	public <T extends ContextController> T executeController(Class<T> clazz) {
-		return executeController(clazz, null);
+	public  ContextController createController(Class<?> clazz) {
+		return createController(clazz, null);
 	}
 
 	@Override
-	public <T extends ContextController> T executeController(Class<T> clazz, ReadonlyControllerParams params) {
+	public ContextController createController(Class<?> clazz, ReadonlyControllerParams params) {
+		return createController(new DefaultControllerFactory(clazz), params);
+	}
+
+
+	public ContextController createController(ControllerFactory factory, ReadonlyControllerParams params) {
 		if(state != ControllerState.CREATING && state != ControllerState.CREATED) {
 			throw new IllegalStateException("Controller can not be executed.");
 		}
@@ -371,15 +382,16 @@ abstract class AbstractContextController implements ContextController, ContextCo
 		}
 
 
-		ContextController controller = null;
-		try {
-			controller = clazz.newInstance();
-		} catch (InstantiationException | IllegalAccessException ex) {
-			logger.error("Could not intantiate controller.", ex);
-			throw new RuntimeException("Could not intantiate controller.", ex);
+		Object controller = factory.create(params);
+		ContextController contextController = null;
+		if(controller instanceof AbstractContextController) {
+			contextController = (ContextController) controller;
+		} else {
+			contextController = new SubContextProxyController(controller);
 		}
-		controller.create(this, params);
-		return (T) controller;
+
+		contextController.create(this, params);
+		return contextController;
 	}
 
 
@@ -438,8 +450,16 @@ abstract class AbstractContextController implements ContextController, ContextCo
 	}
 
 
+	@Override
+	public Object getController() {
+		return this;
+	}
+
+
+
+
 	private void executeRunLaterMethods() {
-		Class<?> currentClazz = this.getClass();
+		Class<?> currentClazz = getController().getClass();
 
 		while(currentClazz != null && currentClazz != AbstractContextController.class) {
 
@@ -462,7 +482,7 @@ abstract class AbstractContextController implements ContextController, ContextCo
 				@Override
 				public void run() {
 					try {
-						method.invoke(AbstractContextController.this);
+						method.invoke(getController());
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
 						logger.warn("Could not execute RunLater method.", ex);
 					}

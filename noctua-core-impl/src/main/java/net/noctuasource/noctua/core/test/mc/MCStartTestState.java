@@ -102,7 +102,7 @@ public class MCStartTestState extends StartTestState {
 	@Override
 	public void buildView(TestData data) {
 		MCTest test = (MCTest) data.get(TestData.TEST_OBJECT);
-		TestView view = test.executeController(MultipleChoiceTestView.class, ControllerParamsBuilder.create()
+		TestView view = (TestView) test.createController(MultipleChoiceTestView.class, ControllerParamsBuilder.create()
 																					.add("testData", data).build());
 		data.put(TestData.TEST_VIEW, view);
 	}

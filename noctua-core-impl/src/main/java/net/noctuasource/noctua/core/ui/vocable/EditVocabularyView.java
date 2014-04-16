@@ -119,7 +119,7 @@ public class EditVocabularyView extends SubContextController {
 	// ***** Methods ******************************************************** //
 
     private void initForm() {
-    	form = executeController(EditVocabularyForm.class);
+    	form = (EditVocabularyForm) createController(EditVocabularyForm.class).getController();
     	formBox.getChildren().add(form.getNode());
     }
 

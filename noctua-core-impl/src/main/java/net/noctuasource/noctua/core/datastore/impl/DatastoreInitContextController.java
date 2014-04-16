@@ -23,7 +23,7 @@ package net.noctuasource.noctua.core.datastore.impl;
 import java.io.File;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.ContextController;
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.util.AfterDestroyRunnable;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
@@ -100,7 +100,7 @@ public class DatastoreInitContextController extends SubContextController {
 
 
 	private void doCopyOldData() {
-		ContextController copyOldDataController = executeController("copyOldData");
+		ContextController copyOldDataController = createController("copyOldData");
 
 		AfterDestroyRunnable.create(copyOldDataController, new Runnable() {
 			@Override
@@ -112,7 +112,7 @@ public class DatastoreInitContextController extends SubContextController {
 
 
 	private void showTooNewMessage() {
-		executeController(DatastoreTooNewMessageDialog.class);
+		createController(DatastoreTooNewMessageDialog.class);
 	}
 
 
@@ -126,8 +126,8 @@ public class DatastoreInitContextController extends SubContextController {
 		}
 
 
-		final DatastoreUpdateNewProfileDialog datastoreUpdateNewProfileDialog =
-												executeController(DatastoreUpdateNewProfileDialog.class);
+		final DatastoreUpdateNewProfileDialog datastoreUpdateNewProfileDialog = (DatastoreUpdateNewProfileDialog)
+												createController(DatastoreUpdateNewProfileDialog.class);
 
 		AfterDestroyRunnable.create(datastoreUpdateNewProfileDialog, new Runnable() {
 			@Override

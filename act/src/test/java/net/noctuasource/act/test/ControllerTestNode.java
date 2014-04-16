@@ -1,7 +1,7 @@
 
 package net.noctuasource.act.test;
 
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 
 

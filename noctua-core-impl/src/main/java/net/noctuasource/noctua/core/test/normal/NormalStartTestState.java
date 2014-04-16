@@ -109,7 +109,7 @@ public class NormalStartTestState extends StartTestState {
 	@Override
 	public void buildView(TestData data) {
 		NormalTest test = (NormalTest) data.get(TestData.TEST_OBJECT);
-		TestView view = test.executeController(NormalTestView.class, ControllerParamsBuilder.create()
+		TestView view = (TestView) test.createController(NormalTestView.class, ControllerParamsBuilder.create()
 																					.add("testData", data).build());
 		data.put(TestData.TEST_VIEW, view);
 	}

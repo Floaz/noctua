@@ -20,7 +20,7 @@ package net.noctuasource.noctua.core.test.impl;
 
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.ContextController;
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.util.AfterDestroyRunnable;
 import net.noctuasource.noctua.core.business.FlashCardGroupManagerBo;
@@ -60,18 +60,18 @@ public class TestInitController extends SubContextController {
 		ContextController controller = null;
 
 		if(flashCardGroupManagerBo.getNumberFlashCardsOfGroup(groupList) < MIN_FLASHCARDS) {
-			controller = executeController("tooFewFlashCardsMessageDialog");
+			controller = createController("tooFewFlashCardsMessageDialog");
 		}
 		else {
 			switch(testType) {
 				case TestTypes.NORMAL_TEST:
-					controller = executeController(NormalTest.class, getControllerParams());
+					controller = createController(NormalTest.class, getControllerParams());
 					break;
 				case TestTypes.MULTIPLE_CHOICE_TEST:
-					controller = executeController(MCTest.class, getControllerParams());
+					controller = createController(MCTest.class, getControllerParams());
 					break;
 				case TestTypes.SCHOOL_TEST:
-					controller = executeController(SchoolTest.class, getControllerParams());
+					controller = createController(SchoolTest.class, getControllerParams());
 					break;
 				default:
 					logger.error("Illegal test type!");

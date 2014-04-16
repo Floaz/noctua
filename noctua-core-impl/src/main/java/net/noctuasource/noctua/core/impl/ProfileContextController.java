@@ -22,7 +22,7 @@ package net.noctuasource.noctua.core.impl;
 
 import com.google.common.eventbus.Subscribe;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.spring.SpringDefaultConstants;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
@@ -162,7 +162,7 @@ public class ProfileContextController extends SubContextController {
 	 * Starts main window.
 	 */
 	private void startMainWindow() {
-		executeController("mainWindowView");
+		createController("mainWindowView");
 	}
 
 
@@ -170,7 +170,7 @@ public class ProfileContextController extends SubContextController {
 	 * Show too new message.
 	 */
 	private void showTooNewMessage() {
-		executeController(DatastoreTooNewMessageDialog.class);
+		createController(DatastoreTooNewMessageDialog.class);
 	}
 
 }

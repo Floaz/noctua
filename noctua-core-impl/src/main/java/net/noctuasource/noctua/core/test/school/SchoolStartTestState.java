@@ -105,7 +105,7 @@ public class SchoolStartTestState extends StartTestState {
 	@Override
 	public void buildView(TestData data) {
 		SchoolTest test = (SchoolTest) data.get(TestData.TEST_OBJECT);
-		TestView view = test.executeController(SchoolTestViewImpl.class, ControllerParamsBuilder.create()
+		TestView view = (TestView) test.createController(SchoolTestViewImpl.class, ControllerParamsBuilder.create()
 																				.add("testData", data).build());
 		data.put(TestData.TEST_VIEW, view);
 	}

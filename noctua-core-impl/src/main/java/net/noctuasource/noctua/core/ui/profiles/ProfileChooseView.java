@@ -49,7 +49,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javax.annotation.Resource;
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.noctua.core.ExecutorIdentifiers;
 import net.noctuasource.noctua.core.impl.ProfileChosenEvent;

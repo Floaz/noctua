@@ -53,7 +53,7 @@ public class SettingsTestState implements TestState {
 
 	public void buildView(TestData data) {
 		AbstractTest test = (AbstractTest) data.get(TestData.TEST_OBJECT);
-		test.executeController(TestOptionsView.class, ControllerParamsBuilder.create().add("testData", data).build());
+		test.createController(TestOptionsView.class, ControllerParamsBuilder.create().add("testData", data).build());
 	}
 
 

@@ -27,6 +27,6 @@ public class DataTest {
 		root.setDefaultExecutor("default");
 		root.getLocalControllerData().set("test", testDataObject);
 
-		root.executeController(TestNode.class);
+		root.createController(TestNode.class);
 	}
 }

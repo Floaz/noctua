@@ -19,7 +19,7 @@
 package net.noctuasource.noctua.core.impl;
 
 
-import net.noctuasource.act.registry.DefaultControllerLookupRegistry;
+import net.noctuasource.act.factory.DefaultControllerLookupRegistry;
 import net.noctuasource.noctua.core.datastore.impl.DatastoreInitContextController;
 import net.noctuasource.noctua.core.test.impl.TestInitController;
 import net.noctuasource.noctua.core.ui.mainwindow.AboutView;

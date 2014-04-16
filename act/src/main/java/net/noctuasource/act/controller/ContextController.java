@@ -18,7 +18,7 @@
  */
 package net.noctuasource.act.controller;
 
-import net.noctuasource.act.registry.ControllerLookupRegistry;
+import net.noctuasource.act.factory.ControllerFactoryRegistry;
 import net.noctuasource.act.data.ControllerData;
 import net.noctuasource.act.data.ReadonlyControllerParams;
 import net.noctuasource.act.events.ControllerEventListener;
@@ -29,7 +29,7 @@ import net.noctuasource.act.events.ControllerEventListener;
 /*
  * Context controller.
  */
-public interface ContextController {
+public interface ContextController extends ControllerExecutor {
 
 	void						create(ContextController parentController, ReadonlyControllerParams params);
 
@@ -45,8 +45,8 @@ public interface ContextController {
 	void addControllerEventListener(ControllerEventListener listener);
 	void removeControllerEventListener(ControllerEventListener listener);
 
-	void addControllerLookupRegistry(ControllerLookupRegistry registry);
-	void removeControllerLookupRegistry(ControllerLookupRegistry registry);
+	void addControllerLookupRegistry(ControllerFactoryRegistry registry);
+	void removeControllerLookupRegistry(ControllerFactoryRegistry registry);
 
 
 	/**
@@ -98,5 +98,9 @@ public interface ContextController {
 	 * @throws IllegalArgumentException when executor with id does not exist.
 	 */
 	void executeLater(Runnable runnable, String executorId);
+
+
+
+	Object getController();
 
 }

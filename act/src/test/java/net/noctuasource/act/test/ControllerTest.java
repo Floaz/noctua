@@ -41,7 +41,7 @@ public class ControllerTest {
 			}
 		});
 
-		root.executeController(TestSequenceController.class);
+		root.createController(TestSequenceController.class);
 
 		WholeControllerTreePrinter printer = new WholeControllerTreePrinter(root, true);
 		printer.printToConsole();

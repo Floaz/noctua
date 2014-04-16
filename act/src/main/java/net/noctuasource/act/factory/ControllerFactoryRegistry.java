@@ -16,22 +16,18 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.act.controller;
-
-import net.noctuasource.act.data.ReadonlyControllerParams;
+package net.noctuasource.act.factory;
 
 
 
 
-/**
- * Context controller manager.
+/*
+ * Controller lookup registries have a collection of controller factories
+ * that are returned by the lookup method with the given key.
+ * Implementations must be thread safe!
  */
-public interface ContextControllerExecuter {
+public interface ControllerFactoryRegistry {
 
-	<T extends ContextController> T  executeController(Class<T> clazz);
-	<T extends ContextController> T  executeController(Class<T> clazz, ReadonlyControllerParams params);
-
-	ContextController executeController(String lookupName);
-	ContextController executeController(String lookupName, ReadonlyControllerParams params);
+	ControllerFactory lookup(String controllerKey);
 
 }

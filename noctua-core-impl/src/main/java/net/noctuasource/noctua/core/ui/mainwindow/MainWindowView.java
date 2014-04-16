@@ -37,7 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javax.annotation.Resource;
-import net.noctuasource.act.controller.RunLater;
+import net.noctuasource.act.annotation.RunLater;
 import net.noctuasource.noctua.core.datastore.ProfilesContext;
 import net.noctuasource.act.controller.SubContextController;
 import net.noctuasource.act.data.ControllerParamsBuilder;
@@ -150,7 +150,7 @@ public class MainWindowView extends SubContextController {
 
 
     private void createUnitTab() {
-    	UnitBrowserTabView tabView = executeController(UnitBrowserTabView.class);
+    	UnitBrowserTabView tabView = (UnitBrowserTabView) createController(UnitBrowserTabView.class);
     	Tab tab = new Tab();
     	tab.setClosable(false);
     	tab.setText("Lektionen");
@@ -173,7 +173,7 @@ public class MainWindowView extends SubContextController {
 
     @FXML
     protected void handleAboutMenuItem(ActionEvent event) {
-    	executeController("aboutView", ControllerParamsBuilder.create().add("stage", stage).build());
+    	createController("aboutView", ControllerParamsBuilder.create().add("stage", stage).build());
     }
 
 
