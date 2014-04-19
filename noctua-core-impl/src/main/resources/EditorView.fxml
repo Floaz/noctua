@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet ResultView.css?>
+
+<VBox id="" fx:id="rootBox" prefHeight="458.0" prefWidth="700.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <TabPane VBox.vgrow="ALWAYS">
+    <rotationAxis>
+      <Point3D x="1.0" z="1.0" />
+    </rotationAxis>
+    <tabs>
+      <Tab fx:id="answersTab" closable="false" text="Vokabeln">
+        <content>
+          <VBox id="VBox" alignment="CENTER" spacing="5.0">
+            <children>
+              <VBox id="VBox" fx:id="tableEditorBox" alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
+                <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+              </VBox>
+              <HBox>
+                <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Hinzufügen">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/Add.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                  <Region HBox.hgrow="ALWAYS">
+                    <prefHeight>
+                      <Long fx:value="-1" />
+                    </prefHeight>
+                    <prefWidth>
+                      <Long fx:value="-1" />
+                    </prefWidth>
+                  </Region>
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonAction" text="Editieren">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/edit.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                  <Button fx:id="moveButton" mnemonicParsing="false" onAction="#handleMoveButtonAction" text="Verschieben">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/move.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Löschen">
+                    <graphic>
+                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                        <fitHeight>
+                          <Long fx:value="16" />
+                        </fitHeight>
+                        <fitWidth>
+                          <Long fx:value="16" />
+                        </fitWidth>
+                        <image>
+                          <Image url="@images/delete.png" preserveRatio="false" smooth="false" />
+                        </image>
+                      </ImageView>
+                    </graphic>
+                  </Button>
+                </children>
+                <prefHeight>
+                  <Long fx:value="-1" />
+                </prefHeight>
+                <prefWidth>
+                  <Long fx:value="-1" />
+                </prefWidth>
+                <spacing>
+                  <Long fx:value="6" />
+                </spacing>
+                <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+                </VBox.margin>
+              </HBox>
+            </children>
+          </VBox>
+        </content>
+      </Tab>
+    </tabs>
+    <translateX>
+      <Long fx:value="0" />
+    </translateX>
+    <translateY>
+      <Long fx:value="0" />
+    </translateY>
+    <translateZ>
+      <Long fx:value="0" />
+    </translateZ>
+    <VBox.margin>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </VBox.margin>
+  </TabPane>
+  <HBox alignment="BOTTOM_LEFT" styleClass="bottomButtonBar">
+    <spacing>
+      <Long fx:value="10" />
+    </spacing>
+    <Button cancelButton="true" onAction="#handleCloseButtonAction" style="&#10;" text="Schließen">
+      <effect>
+        <Reflection />
+      </effect>
+      <font>
+        <Font name="System Bold" size="12.0" />
+      </font>
+      <graphic>
+        <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+          <fitHeight>
+            <Long fx:value="24" />
+          </fitHeight>
+          <fitWidth>
+            <Long fx:value="24" />
+          </fitWidth>
+          <image>
+            <Image url="@images/cancel.png" />
+          </image>
+        </ImageView>
+      </graphic>
+      <graphicTextGap>
+        <Long fx:value="2" />
+      </graphicTextGap>
+      <HBox.margin>
+        <Insets />
+      </HBox.margin>
+    </Button>
+  </HBox>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+</VBox>

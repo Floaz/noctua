@@ -22,6 +22,7 @@ package net.noctuasource.noctua.core.impl;
 import net.noctuasource.act.factory.DefaultControllerLookupRegistry;
 import net.noctuasource.noctua.core.datastore.impl.DatastoreInitContextController;
 import net.noctuasource.noctua.core.test.impl.TestInitController;
+import net.noctuasource.noctua.core.ui.editor.EditorView;
 import net.noctuasource.noctua.core.ui.mainwindow.AboutView;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFlashCardGroupView;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFolderView;
@@ -82,7 +83,7 @@ public class ControllerLookupRegistryImpl extends DefaultControllerLookupRegistr
 		addControllerClass("multipleChoiceTestView", MultipleChoiceTestView.class);
 		addControllerClass("schoolTestView", SchoolTestViewImpl.class);
 
-		addControllerClass("unitMenuView", UnitMenuView.class);
+		addControllerClass("unitMenuView", EditorView.class);
 		addControllerClass("addVocabularyView", AddVocabularyView.class);
 		addControllerClass("editVocableView", UnitMenuView.class);
 		addControllerClass("moveVocabularyView", MoveVocabularyView.class);

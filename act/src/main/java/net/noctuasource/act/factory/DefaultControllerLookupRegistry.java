@@ -42,7 +42,7 @@ public class DefaultControllerLookupRegistry implements ControllerFactoryRegistr
 	}
 
 
-	public synchronized void addControllerClass(String controllerKey, Class<? extends ContextController> controllerClass) {
+	public synchronized void addControllerClass(String controllerKey, Class<?> controllerClass) {
 		mapping.put(controllerKey, new DefaultControllerFactory(controllerClass));
 	}
 

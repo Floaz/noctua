@@ -296,7 +296,8 @@ abstract class AbstractContextController implements ContextController, Controlle
 	protected void onDestroy() {}
 
 
-	protected ReadonlyControllerParams getControllerParams() {
+	@Override
+	public ReadonlyControllerParams getControllerParams() {
 		return params;
 	}
 

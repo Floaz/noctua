@@ -72,6 +72,12 @@ public interface ContextController extends ControllerExecutor {
 	ControllerData getControllerData();
 
 
+	/**
+	 * Returns controller params.
+	 */
+	ReadonlyControllerParams getControllerParams();
+
+
 	void postEvent(Object event);
 
 	void postEventLocal(Object event);
