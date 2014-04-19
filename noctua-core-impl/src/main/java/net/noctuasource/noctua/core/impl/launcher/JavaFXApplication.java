@@ -56,6 +56,8 @@ public class JavaFXApplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		setUserAgentStylesheet(STYLESHEET_CASPIAN);
+		
 		Platform.setImplicitExit(false);
 
 		LoadingScreenManager.get().showSplashLoadingScreen();

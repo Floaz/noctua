@@ -191,13 +191,13 @@
       </Tab>
     </tabs>
     <translateX>
-      <Long fx:value="1" />
+      <Long fx:value="0" />
     </translateX>
     <translateY>
-      <Long fx:value="1" />
+      <Long fx:value="0" />
     </translateY>
     <translateZ>
-      <Long fx:value="1" />
+      <Long fx:value="0" />
     </translateZ>
     <VBox.margin>
       <Insets bottom="10.0" left="10.0" right="10.0" />
