@@ -4,18 +4,18 @@ buildscript {
 		mavenCentral()
 	}
 
-	dependencies {
-		classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.6.0'
-	}
+//	dependencies {
+//		classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.6.0'
+//	}
 }
 
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'license'
+    //apply plugin: 'license'
 	apply plugin: 'jdepend'
 
-	def javaFxHome = "$System.env.JAVAFX_HOME"
+	def javaFxHome = "$System.env.JAVA_HOME"
 	//def javaFxHome = "/opt/jre1.7.0_21";
 
     repositories {
@@ -33,10 +33,10 @@ subprojects {
         manifest.attributes provider: 'gradle'
     }
 
-	license {
-		header rootProject.file('etc/header.txt')
-		strictCheck true
-	}
+//	license {
+//		header rootProject.file('etc/header.txt')
+//		strictCheck true
+//	}
 
 }
 

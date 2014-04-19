@@ -18,7 +18,7 @@ import org.junit.Test;
 public class DataTest {
 
 
-	@Test
+	//@Test
 	public void dataTreeTest() {
 		Integer testDataObject = new Integer(10);
 

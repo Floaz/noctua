@@ -19,22 +19,16 @@
 package net.noctuasource.noctua.core.ui.vocable;
 
 import com.google.common.eventbus.Subscribe;
-import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
-import com.sun.javafx.scene.control.skin.SkinBase;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -191,22 +185,22 @@ public class AddVocabularyView extends SubContextController {
 
 
 
-	class TabKeyEventHandler implements EventHandler<KeyEvent> {
-        @Override
-        public void handle(KeyEvent event) {
-            if (event.getCode() == KeyCode.TAB) {
-                SkinBase skin = (SkinBase) ((TextArea)event.getSource()).getSkin();
-                if (skin.getBehavior() instanceof TextAreaBehavior) {
-                    TextAreaBehavior behavior = (TextAreaBehavior) skin.getBehavior();
-                    if (event.isControlDown()) {
-                        behavior.callAction("InsertTab");
-                    } else {
-                        behavior.callAction("TraverseNext");
-                    }
-                    event.consume();
-                }
-
-            }
-        }
-    }
+//	class TabKeyEventHandler implements EventHandler<KeyEvent> {
+//        @Override
+//        public void handle(KeyEvent event) {
+//            if (event.getCode() == KeyCode.TAB) {
+//                SkinBase skin = (SkinBase) ((TextArea)event.getSource()).getSkin();
+//                if (skin.getBehavior() instanceof TextAreaBehavior) {
+//                    TextAreaBehavior behavior = (TextAreaBehavior) skin.getBehavior();
+//                    if (event.isControlDown()) {
+//                        behavior.callAction("InsertTab");
+//                    } else {
+//                        behavior.callAction("TraverseNext");
+//                    }
+//                    event.consume();
+//                }
+//
+//            }
+//        }
+//    }
 }
