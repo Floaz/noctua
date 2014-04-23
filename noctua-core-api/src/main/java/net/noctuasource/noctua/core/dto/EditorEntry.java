@@ -1,0 +1,162 @@
+/**
+ * This file is part of Noctua.
+ *
+ * Copyright (C) 2013 Philipp Rene Thomas <info@noctuasource.net>
+ *
+ * Noctua is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Noctua is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package net.noctuasource.noctua.core.dto;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import net.noctuasource.noctua.core.model.Gender;
+import net.noctuasource.noctua.core.model.PartOfSpeech;
+
+
+
+
+
+public class EditorEntry {
+
+	private String			id;
+
+	private StringProperty	vocable = new SimpleStringProperty();
+	private StringProperty	native1 = new SimpleStringProperty();
+	private StringProperty	native2 = new SimpleStringProperty();
+	private StringProperty	native3 = new SimpleStringProperty();
+	private StringProperty	example = new SimpleStringProperty();
+	private StringProperty	exampleTranslation = new SimpleStringProperty();
+	private StringProperty	tip = new SimpleStringProperty();
+	private StringProperty	info = new SimpleStringProperty();
+	private Gender			gender;
+	private PartOfSpeech	partOfSpeech;
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getVocable() {
+		return vocable.get();
+	}
+
+	public StringProperty vocableProperty() {
+		return vocable;
+	}
+
+
+	public void setVocable(String vocable) {
+		this.vocable.set(vocable);
+	}
+
+
+	public String getNative1() {
+		return native1.get();
+	}
+
+
+	public void setNative1(String native1) {
+		this.native1.set(native1);
+	}
+
+
+	public String getNative2() {
+		return native2.get();
+	}
+
+
+	public void setNative2(String native2) {
+		this.native2.set(native2);
+	}
+
+
+	public String getNative3() {
+		return native3.get();
+	}
+
+
+	public void setNative3(String native3) {
+		this.native3.set(native3);
+	}
+
+
+	public String getExample() {
+		return example.get();
+	}
+
+
+	public void setExample(String example) {
+		this.example.set(example);
+	}
+
+
+	public String getExampleTranslation() {
+		return exampleTranslation.get();
+	}
+
+
+	public void setExampleTranslation(String exampleTranslation) {
+		this.exampleTranslation.set(exampleTranslation);
+	}
+
+
+	public String getTip() {
+		return tip.get();
+	}
+
+
+	public void setTip(String tip) {
+		this.tip.set(tip);
+	}
+
+
+	public String getInfo() {
+		return info.get();
+	}
+
+
+	public void setInfo(String info) {
+		this.info.set(info);
+	}
+
+
+	public Gender getGender() {
+		return gender;
+	}
+
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+
+	public PartOfSpeech getPartOfSpeech() {
+		return partOfSpeech;
+	}
+
+
+	public void setPartOfSpeech(PartOfSpeech partOfSpeech) {
+		this.partOfSpeech = partOfSpeech;
+	}
+
+
+
+
+}

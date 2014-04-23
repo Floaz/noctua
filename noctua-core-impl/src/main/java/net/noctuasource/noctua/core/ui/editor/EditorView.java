@@ -21,13 +21,10 @@ package net.noctuasource.noctua.core.ui.editor;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +32,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -47,11 +50,9 @@ import net.noctuasource.act.controller.ContextController;
 import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
+import net.noctuasource.noctua.core.dto.EditorEntry;
 import net.noctuasource.noctua.core.events.FlashCardEvent;
-import org.controlsfx.control.spreadsheet.GridBase;
-import org.controlsfx.control.spreadsheet.SpreadsheetCell;
-import org.controlsfx.control.spreadsheet.SpreadsheetCellType;
-import org.controlsfx.control.spreadsheet.SpreadsheetView;
+import org.apache.log4j.Logger;
 
 
 
@@ -59,10 +60,16 @@ import org.controlsfx.control.spreadsheet.SpreadsheetView;
 
 public class EditorView {
 
+	// ***** Basic Static Members ******************************************* //
+
+	private static final Logger logger = Logger.getLogger(EditorView.class);
+
+
 	// ***** Static Members ************************************************* //
 
 	private static final String	FXML_FILE = "/EditorView.fxml";
 	private static final String	CSS_FILE = "/General.css";
+	private static final String	WINDOW_TITLE = "Lektionseditor";
 
 
 	// ***** Members ******************************************************** //
@@ -79,21 +86,29 @@ public class EditorView {
 	private Stage				stage;
 
 	private FlashCardGroupDto	flashCardGroup;
-	
-	private SpreadsheetView		spreadsheetView;
-	
-	private GridBase			grid;
+
+	private TableColumn<EditorEntry,String> firstColumn;
 
 
 	// ***** FXML Nodes ***************************************************** //
 
-	@FXML private Label							flashCardGroupTitle;
-
 	@FXML private Button						addButton;
-	@FXML private Button						editButton;
 	@FXML private Button						moveButton;
 	@FXML private Button						deleteButton;
-	@FXML private VBox							tableEditorBox;
+	@FXML private TableView<EditorEntry>		table;
+
+	@FXML private HBox							vocableEditPanel;
+
+	@FXML private TextField						vocableTextField;
+	@FXML private TextField						translation1TextField;
+	@FXML private TextField						translation2TextField;
+	@FXML private TextField						translation3TextField;
+	@FXML private TextField						sentenceTextField;
+	@FXML private TextField						sentenceTranslationTextField;
+	@FXML private TextField						addInfoTextField;
+	@FXML private TextField						tipTextField;
+	@FXML private ChoiceBox						genderChoiceBox;
+	@FXML private ChoiceBox						partOfSpeechChoiceBox;
 
 
 	// ***** Constructor **************************************************** //
@@ -108,7 +123,7 @@ public class EditorView {
     	VBox root = new VBox();
 
     	stage = new Stage();
-        stage.setTitle("Testergebnis");
+        stage.setTitle(WINDOW_TITLE);
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
         stage.setScene(scene);
@@ -123,12 +138,11 @@ public class EditorView {
 			root.getChildren().add(node);
 			VBox.setVgrow(node, Priority.ALWAYS);
 		} catch (IOException e) {
-			//logger.error("Error while creating result view: ", e);
+			logger.error("Error while creating result view: ", e);
 			stage.close();
 		}
 
         initStaticFields();
-        initStatistics();
         initVocabularyTable();
 
         stage.sizeToScene();
@@ -143,6 +157,13 @@ public class EditorView {
 	}
 
 
+	@PreDestroy
+	protected void onDestroy() {
+		stage.close();
+		eventBus.unregister(this);
+	}
+
+
 	// ***** Methods ******************************************************** //
 
     private void initStaticFields() {
@@ -150,201 +171,74 @@ public class EditorView {
     }
 
 
-    private void initStatistics() {
-//    	Integer correct = history.getCorrectCount();
-//    	Integer count = history.size();
-//
-//        ObservableList<PieChart.Data> pieChartData =
-//    				FXCollections.observableArrayList(
-//				           new PieChart.Data("Richtig beantwortet", correct),
-//				           new PieChart.Data("Falsch beantwortet", count-correct));
-//    	testResultChart.setData(pieChartData);
-//    	testResultChart.setLabelsVisible(true);
-//    	testResultChart.setPickOnBounds(true);
-//    	testResultChart.setStartAngle(90);
-//
-//    	summaryTextLabel.setText("Blaaa");
-//    	markLabel.setText("6");
-//    	markLabel.setTextFill(Color.ORANGERED);
-//
-//    	dateValueLabel.setText(new SimpleDateFormat().format(resultData.getStartTime()));
-//    	countValueLabel.setText(count.toString());
-//    	correctValueLabel.setText(correct.toString());
-//    	wrongValueLabel.setText(new Integer(count -correct).toString());
-//    	tipsValueLabel.setText(Integer.toString(history.getTipsCount()));
-//
-//    	String elapsedTimeValue = String.format("%02d Min. %02d Sek.",
-//    										timeElapsed/60, (timeElapsed%60));
-//    	elapsedTimeValueLabel.setText(elapsedTimeValue);
-    }
-
-
 	private void initVocabularyTable() {
-		grid = new GridBase(50, 10);
-		buildGrid(grid, true);
-		
-		spreadsheetView = new SpreadsheetView(grid);
-		grid.setRowHeightCallback(new GridBase.MapBasedRowHeightFactory(generateRowHeight()));
-		spreadsheetView.setShowRowHeader(true);
-		spreadsheetView.setShowColumnHeader(true);
-    	spreadsheetView.setEditable(true);
-				
-    	//spreadsheetView.getColumns().addAll(foreignColumn);
-		//spreadsheetView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-//		spreadsheetView.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>() {
-//			@Override
-//			public void onChanged(ListChangeListener.Change<? extends Integer> change) {
-//				updateButtons();
-//			}
-//		});
-		
-		spreadsheetView.setFixingColumnsAllowed(false);
-		spreadsheetView.setFixingRowsAllowed(false);
-		VBox.setVgrow(spreadsheetView, Priority.ALWAYS);
-		tableEditorBox.getChildren().add(spreadsheetView);
+//		Callback<TableColumn<EditorEntry,String>, TableCell<EditorEntry,String>> cellFactory =
+//             new Callback<TableColumn<EditorEntry,String>, TableCell<EditorEntry,String>>() {
+//                 public TableCell call(TableColumn<EditorEntry,String> p) {
+//                    return new EditingCell();
+//                 }
+//             };
+
+    	table.setEditable(false);
+
+        TableColumn<EditorEntry,String> vocableCol = new TableColumn<>("Vokabel");
+		vocableCol.setCellValueFactory(new PropertyValueFactory<>("vocable"));
+		//vocableCol.setCellFactory(cellFactory);
+		firstColumn = vocableCol;
+        TableColumn native1Col = new TableColumn("Übersetzung 1");
+		native1Col.setCellValueFactory(new PropertyValueFactory<>("native1"));
+        TableColumn native2Col = new TableColumn("Übersetzung 2");
+		native2Col.setCellValueFactory(new PropertyValueFactory<>("native2"));
+        TableColumn native3Col = new TableColumn("Übersetzung 3");
+		native3Col.setCellValueFactory(new PropertyValueFactory<>("native3"));
+        TableColumn exampleCol = new TableColumn("Beispielsatz");
+		exampleCol.setCellValueFactory(new PropertyValueFactory<>("example"));
+        TableColumn exampleTranslationCol = new TableColumn("Beispielsatz Übersetzung");
+		exampleTranslationCol.setCellValueFactory(new PropertyValueFactory<>("exampleTranslation"));
+        TableColumn tipCol = new TableColumn("Tip");
+		tipCol.setCellValueFactory(new PropertyValueFactory<>("tip"));
+        TableColumn infoCol = new TableColumn("Zusatzinfo");
+		infoCol.setCellValueFactory(new PropertyValueFactory<>("info"));
+        TableColumn genderCol = new TableColumn("Genius");
+		genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        TableColumn partOfSpeechCol = new TableColumn("Wortart");
+		partOfSpeechCol.setCellValueFactory(new PropertyValueFactory<>("partOfSpeech"));
+
+		vocableCol.setPrefWidth(200);
+		native1Col.setPrefWidth(150);
+		native2Col.setPrefWidth(100);
+		native3Col.setPrefWidth(100);
+		exampleCol.setPrefWidth(200);
+
+        table.getColumns().addAll(vocableCol, native1Col, native2Col, native3Col, exampleCol, exampleTranslationCol);
+        table.getColumns().addAll(tipCol, infoCol, genderCol, partOfSpeechCol);
+
+		table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+		table.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>() {
+			@Override
+			public void onChanged(ListChangeListener.Change<? extends Integer> change) {
+				updateButtons();
+				onSelectionChanged();
+			}
+		});
+
+
+		EditorEntry entry;
+		entry= new EditorEntry();
+		entry.setVocable("to eat");
+		entry.setNative1("essen");
+		table.getItems().add(entry);
+		entry= new EditorEntry();
+		entry.setVocable("mouse");
+		entry.setNative1("die Maus");
+		table.getItems().add(entry);
+		entry= new EditorEntry();
+		entry.setVocable("car");
+		entry.setNative1("das Auto");
+		table.getItems().add(entry);
     }
 
-	
-    /**
-     * FIXME need to be removed after Compute RowHeight for test
-     *
-     * @return
-     */
-    private Map<Integer, Double> generateRowHeight() {
-        Map<Integer, Double> rowHeight = new HashMap<>();
-        rowHeight.put(1, 100.0);
-        rowHeight.put(5, 50.0);
-        rowHeight.put(8, 70.0);
-        rowHeight.put(12, 40.0);
-        return rowHeight;
-    }
-	
-	
-    /**
-     * Build the grid with the type specifying for normal(0) or Both span(1).
-     *
-     * @param grid
-     * @param type
-     */
-    private void buildGrid(GridBase grid, boolean span) {
-		normalGrid(grid);
-		buildBothGrid(grid);
-		grid.getColumnHeaders().add("Vokabel");
-		grid.getColumnHeaders().add("Übersetzung 1");
-		grid.getColumnHeaders().add("Übersetzung 2");
-//		grid.getColumnHeaders().add("Übersetzung 3");
-//		grid.getColumnHeaders().add("Beispielsatz");
-//		grid.getColumnHeaders().add("Beispielsatz Übersetzung");
-    }
- 
-	
-    /**
-     * Build the grid with no span.
-     *
-     * @param grid
-     */
-    private void normalGrid(GridBase grid) {
-        ArrayList<ObservableList<SpreadsheetCell>> rows = new ArrayList<>(grid.getRowCount());
- 
-        for (int row = 0; row < grid.getRowCount(); ++row) {
-            final ObservableList<SpreadsheetCell> dataRow = FXCollections.observableArrayList(); // new
-                                                                                                 // DataRow(row,
-                                                                                                 // grid.getColumnCount());
-            for (int column = 0; column < grid.getColumnCount(); ++column) {
-                dataRow.add(generateCell(row, column, 1, 1));
-            }
-            rows.add(dataRow);
-        }
-        grid.setRows(rows);
- 
-//        // FIXME When setting at the very first row, the display is
-//        // huumm..wrong.
-//        final ObservableList<SpreadsheetCell> imageRow = FXCollections.observableArrayList();
-//        for (int column = 0; column < grid.getColumnCount(); ++column) {
-//            SpreadsheetCell cell = SpreadsheetCellType.STRING.createCell(1, column, 1, 1, null);
-//            if (column % 3 == 0) {
-//                cell.setGraphic(new ImageView(new Image(SpreadsheetView.class.getResourceAsStream("Koala.jpg"))));
-//            } else if (column % 3 == 1) {
-//                cell.setGraphic(new ImageView(new Image(SpreadsheetView.class.getResourceAsStream("Penguins.jpg"))));
-//            } else {
-//                cell.setGraphic(new ImageView(new Image(SpreadsheetView.class.getResourceAsStream("Jellyfish.jpg"))));
-//            }
-// 
-//            cell.setEditable(false);
-//            imageRow.add(cell);
-//        }
-//        grid.getRows().set(1, imageRow);
-    }
-	
-	
-	/**
-     * Build a sample RowSpan and ColSpan grid
-     *
-     * @param grid
-     */
-    private void buildBothGrid(GridBase grid) {
-//        grid.spanRow(2, 2, 2);
-//        grid.spanColumn(2, 2, 2);
-// 
-//        grid.spanRow(4, 2, 4);
-// 
-//        grid.spanColumn(5, 8, 2);
-// 
-//        grid.spanRow(15, 3, 8);
-// 
-//        grid.spanRow(3, 5, 5);
-//        grid.spanColumn(3, 5, 5);
-// 
-//        grid.spanRow(2, 10, 4);
-//        grid.spanColumn(3, 10, 4);
-// 
-//        grid.spanRow(2, 12, 3);
-//        grid.spanColumn(3, 22, 3);
-// 
-//        grid.spanRow(1, 27, 4);
-// 
-//        grid.spanColumn(4, 30, 3);
-//        grid.spanRow(4, 30, 3);
-    }
-	
-	
-    /**
-     * Randomly generate a {@link SpreadsheetCell}. Also use the value inside
-     * {@link #typeOfCell} to display all cells, only numbers or only dates.
-     */
-    private SpreadsheetCell generateCell(int row, int column, int rowSpan, int colSpan) {
-        SpreadsheetCell cell;
-
-		List<String> stringListTextCell = Arrays.asList("Shanghai", "Paris", "New York City", "Bangkok",
-				"Singapore", "Johannesburg", "Berlin", "Wellington", "London", "Montreal");
-		final double random = Math.random();
-		if (random < 0.25) {
-			List<String> stringList = Arrays.asList("China", "France", "New Zealand", "United States", "Germany",
-					"Canada");
-			cell = SpreadsheetCellType.LIST(stringList).createCell(row, column, rowSpan, colSpan,
-					stringList.get((int) (Math.random() * 6)));
-		} else {
-			cell = SpreadsheetCellType.STRING.createCell(row, column, rowSpan, colSpan,
-					stringListTextCell.get((int) (Math.random() * 10)));
-		}
-
-        return cell;
-    }
-	
-	
-    /**
-     * Build the grid with no span.
-     *
-     * @param grid
-     */
-    private void addLine() {
-		final ObservableList<SpreadsheetCell> dataRow = FXCollections.observableArrayList(); // new DataRow(row, grid.getColumnCount());
-		for (int column = 0; column < grid.getColumnCount(); ++column) {
-			dataRow.add(generateCell(grid.getRowCount(), column, 1, 1));
-		}
-		
-		grid.getRows().add(dataRow);
-	}
 
 	@Subscribe
     public void updateVocabularyTable(FlashCardEvent event) {
@@ -360,17 +254,27 @@ public class EditorView {
 
 
     private void updateButtons() {
-		ObservableList<?> items = spreadsheetView.getSelectionModel().getSelectedItems();
+		ObservableList<?> items = table.getSelectionModel().getSelectedItems();
         //addButton.setDisable(false);
-		editButton.setDisable(items.size() != 1);
+		//editButton.setDisable(items.size() != 1);
 		moveButton.setDisable(items.size() <= 0);
 		deleteButton.setDisable(items.size() <= 0);
+	}
 
+
+    private void onSelectionChanged() {
+		ObservableList items = table.getSelectionModel().getSelectedItems();
+		vocableEditPanel.setVisible(items.size() == 1);
+		if(items.size() == 1) {
+			EditorEntry entry = (EditorEntry) items.get(0);
+			vocableTextField.textProperty().unbind();
+			vocableTextField.textProperty().bind(entry.vocableProperty());
+		}
 	}
 
 
     private List<String> getSelectedIds() {
-		ObservableList<?> items = spreadsheetView.getSelectionModel().getSelectedItems();
+		ObservableList<?> items = table.getSelectionModel().getSelectedItems();
         List<String> vocableIds = FXCollections.observableArrayList();
 //
 //		for(VocableListElement element : items) {
@@ -383,20 +287,13 @@ public class EditorView {
 
     @FXML
     protected void handleAddButtonAction(ActionEvent event) {
-    	addLine();
+		EditorEntry entry = new EditorEntry();
+		table.getItems().add(entry);
+		table.getSelectionModel().clearAndSelect(table.getItems().size()-1);
+		vocableTextField.requestFocus();
+		//Platform.runLater(() -> { table.edit(5, table.getColumns().get(0)); });
     }
 
-    @FXML
-    protected void handleEditButtonAction(ActionEvent event) {
-    	List<String> vocableIds = getSelectedIds();
-    	if(vocableIds.size() != 1) {
-    		return;
-    	}
-
-    	contextController.createController("editVocableView", ControllerParamsBuilder.create()
-																.add("vocableId", vocableIds.iterator().next())
-																.add("parentWindow", stage).build());
-    }
 
     @FXML
     protected void handleMoveButtonAction(ActionEvent event) {
@@ -410,6 +307,7 @@ public class EditorView {
 																.add("parentWindow", stage).build());
     }
 
+
     @FXML
     protected void handleDeleteButtonAction(ActionEvent event) {
     	List<String> vocableIds = getSelectedIds();
@@ -422,19 +320,52 @@ public class EditorView {
 																.add("parentWindow", stage).build());
     }
 
+
+    @FXML
+    protected void handleSaveButtonAction(ActionEvent event) {
+    }
+
+
     @FXML
     protected void handleCloseButtonAction(ActionEvent event) {
     	contextController.destroy();
     }
 
 
-	@PreDestroy
-	protected void onDestroy() {
-		stage.close();
-		eventBus.unregister(this);
-	}
+    @FXML
+    protected void onVocableTextFieldAction(ActionEvent event) {
+		translation1TextField.requestFocus();
+    }
 
-	
+
+    @FXML
+    protected void onTranslation1TextFieldAction(ActionEvent event) {
+		if(translation1TextField.getText().trim().isEmpty()) {
+			return;
+		}
+
+		translation2TextField.requestFocus();
+    }
+
+
+    @FXML
+    protected void onTranslation2TextFieldAction(ActionEvent event) {
+		if(translation2TextField.getText().trim().isEmpty()) {
+			return;
+		}
+
+		translation3TextField.requestFocus();
+    }
+
+
+    @FXML
+    protected void onTranslation3TextFieldAction(ActionEvent event) {
+		if(translation3TextField.getText().trim().isEmpty()) {
+			return;
+		}
+    }
+
+
 	public void setContextController(ContextController contextController) {
 		this.contextController = contextController;
 	}
@@ -444,9 +375,91 @@ public class EditorView {
 		this.flashCardBo = flashCardBo;
 	}
 
-	
+
 	public void setEventBus(EventBus eventBus) {
 		this.eventBus = eventBus;
 	}
 
+//
+//	class EditingCell extends TableCell<EditorEntry, String> {
+//
+//		private TextField textField;
+//
+//
+//		public EditingCell() {
+//		}
+//
+//
+//		@Override
+//		public void startEdit() {
+//			if(!isEmpty()) {
+//				super.startEdit();
+//				if (textField == null) {
+//					createTextField();
+//				}
+//				setText(null);
+//				setGraphic(textField);
+//				textField.selectAll();
+//				textField.requestFocus();
+//			}
+//		}
+//
+//
+//		@Override
+//		public void cancelEdit() {
+//			super.cancelEdit();
+//
+//			setText((String) getItem());
+//			setGraphic(null);
+//		}
+//
+//
+//		@Override
+//		public void updateItem(String item, boolean empty) {
+//			super.updateItem(item, empty);
+//
+//			if(empty) {
+//				setText(null);
+//				setGraphic(null);
+//			} else {
+//				if(isEditing()) {
+//					if(textField != null) {
+//						textField.setText(getString());
+//					}
+//					setText(null);
+//					setGraphic(textField);
+//				} else {
+//					setText(getString());
+//					setGraphic(null);
+//				}
+//			}
+//		}
+//
+//
+//		private void createTextField() {
+//			textField = new TextField(getString());
+//			textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+//			textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+//				@Override
+//				public void changed(ObservableValue<? extends Boolean> arg0,
+//						Boolean arg1, Boolean arg2) {
+//					if(!arg2) {
+//						commitEdit(textField.getText());
+//					}
+//				}
+//			});
+//			textField.setOnAction(new EventHandler<ActionEvent>() {
+//				@Override
+//				public void handle(ActionEvent event) {
+//					commitEdit(textField.getText());
+//				}
+//			});
+//		}
+//
+//
+//		private String getString() {
+//			return getItem() == null ? "" : getItem().toString();
+//		}
+//
+//	}
 }
