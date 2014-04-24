@@ -29,6 +29,8 @@ public interface VocabularyManagerBo {
 
 	List<EditorEntry> getEditorEntries(FlashCardGroupDto flashCardGroup);
 
+	void saveModifiedEntries(List<EditorEntry> modifiedEntries, List<EditorEntry> deletedEntries);
+
 }
 
 

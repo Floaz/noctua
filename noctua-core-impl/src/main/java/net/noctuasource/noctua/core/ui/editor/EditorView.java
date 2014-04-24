@@ -19,12 +19,16 @@
 package net.noctuasource.noctua.core.ui.editor;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -32,6 +36,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -40,6 +45,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
@@ -50,6 +57,8 @@ import net.noctuasource.noctua.core.business.TreeNodeDto;
 import net.noctuasource.noctua.core.business.VocabularyManagerBo;
 import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 import net.noctuasource.noctua.core.dto.EditorEntry;
+import net.noctuasource.noctua.core.ui.vocable.GenderMap;
+import net.noctuasource.noctua.core.ui.vocable.PartOfSpeechMap;
 import org.apache.log4j.Logger;
 
 
@@ -87,7 +96,12 @@ public class EditorView {
 
 	private ObservableList<EditorEntry>	entries;
 
+	private ObservableList<EditorEntry>	removedEntries = FXCollections.observableArrayList();
+
 	private EditorEntry					lastSingleSelectedEntry = null;
+
+	private final GenderMap				genderMap = new GenderMap();
+	private final PartOfSpeechMap		partOfSpeechMap = new PartOfSpeechMap();
 
 
 	// ***** FXML Nodes ***************************************************** //
@@ -112,6 +126,20 @@ public class EditorView {
 	@FXML private ChoiceBox						partOfSpeechChoiceBox;
 
 
+
+	// ***** Inject setters ***************************************************** //
+
+	public void setContextController(ContextController contextController) {
+		this.contextController = contextController;
+	}
+
+
+	public void setVocabularyManagerBo(VocabularyManagerBo vocabularyManagerBo) {
+		this.vocabularyManagerBo = vocabularyManagerBo;
+	}
+
+
+
 	// ***** Constructor **************************************************** //
 
 	@PostConstruct
@@ -128,6 +156,7 @@ public class EditorView {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
         stage.setScene(scene);
+		stage.setOnCloseRequest((WindowEvent event) -> { contextController.destroy(); });
 
     	FXMLLoader loader = new FXMLLoader();
     	loader.setClassLoader(getClass().getClassLoader());
@@ -144,6 +173,7 @@ public class EditorView {
 		}
 
         initStaticFields();
+		initChoiceBoxes();
         initVocabularyTable();
 
         stage.sizeToScene();
@@ -151,13 +181,13 @@ public class EditorView {
         stage.show();
         stage.toFront();
 
-		updateVocabularyTable();
+		handleTableSelectionChanged();
 		updateButtons();
 	}
 
 
 	@PreDestroy
-	protected void onDestroy() {
+	public void onDestroy() {
 		stage.close();
 	}
 
@@ -169,33 +199,46 @@ public class EditorView {
     }
 
 
-	private void initVocabularyTable() {
-//		Callback<TableColumn<EditorEntry,String>, TableCell<EditorEntry,String>> cellFactory =
-//             new Callback<TableColumn<EditorEntry,String>, TableCell<EditorEntry,String>>() {
-//                 public TableCell call(TableColumn<EditorEntry,String> p) {
-//                    return new EditingCell();
-//                 }
-//             };
+    private void initChoiceBoxes() {
+    	genderChoiceBox.setItems(FXCollections.observableArrayList(genderMap.getGenderStrings()));
+    	partOfSpeechChoiceBox.setItems(FXCollections.observableArrayList(partOfSpeechMap.getPartOfSpeechStrings()));
+    }
 
-    	table.setEditable(false);
+
+	private void initVocabularyTable() {
+		Callback<TableColumn<EditorEntry,String>, TableCell<EditorEntry,String>> cellFactory =
+             new Callback<TableColumn<EditorEntry,String>, TableCell<EditorEntry,String>>() {
+                 public TableCell call(TableColumn<EditorEntry,String> p) {
+                    return new EditingCell();
+                 }
+             };
+
+    	table.setEditable(true);
 
         TableColumn<EditorEntry,String> vocableCol = new TableColumn<>("Vokabel");
 		vocableCol.setCellValueFactory(new PropertyValueFactory<>("vocable"));
-		//vocableCol.setCellFactory(cellFactory);
+		vocableCol.setCellFactory(cellFactory);
         TableColumn native1Col = new TableColumn("Übersetzung 1");
 		native1Col.setCellValueFactory(new PropertyValueFactory<>("native1"));
+		native1Col.setCellFactory(cellFactory);
         TableColumn native2Col = new TableColumn("Übersetzung 2");
 		native2Col.setCellValueFactory(new PropertyValueFactory<>("native2"));
+		native2Col.setCellFactory(cellFactory);
         TableColumn native3Col = new TableColumn("Übersetzung 3");
 		native3Col.setCellValueFactory(new PropertyValueFactory<>("native3"));
+		native3Col.setCellFactory(cellFactory);
         TableColumn exampleCol = new TableColumn("Beispielsatz");
 		exampleCol.setCellValueFactory(new PropertyValueFactory<>("example"));
+		exampleCol.setCellFactory(cellFactory);
         TableColumn exampleTranslationCol = new TableColumn("Beispielsatz Übersetzung");
 		exampleTranslationCol.setCellValueFactory(new PropertyValueFactory<>("exampleTranslation"));
+		exampleTranslationCol.setCellFactory(cellFactory);
         TableColumn tipCol = new TableColumn("Tip");
 		tipCol.setCellValueFactory(new PropertyValueFactory<>("tip"));
+		tipCol.setCellFactory(cellFactory);
         TableColumn infoCol = new TableColumn("Zusatzinfo");
 		infoCol.setCellValueFactory(new PropertyValueFactory<>("info"));
+		infoCol.setCellFactory(cellFactory);
         TableColumn genderCol = new TableColumn("Genius");
 		genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
         TableColumn partOfSpeechCol = new TableColumn("Wortart");
@@ -216,20 +259,13 @@ public class EditorView {
 			@Override
 			public void onChanged(ListChangeListener.Change<? extends Integer> change) {
 				updateButtons();
-				onSelectionChanged();
+				handleTableSelectionChanged();
 			}
 		});
 
 		entries = FXCollections.observableList(vocabularyManagerBo.getEditorEntries(flashCardGroup));
 		table.setItems(entries);
     }
-
-
-    private void updateVocabularyTable() {
-        ObservableList<?> data = FXCollections.observableArrayList();
-//        data.addAll(flashCardBo.getVocabularyOfFlashCardGroup(flashCardGroup.getId()));
-//    	vocabularyTable.setItems(data);
-	}
 
 
     private void updateButtons() {
@@ -241,7 +277,10 @@ public class EditorView {
 	}
 
 
-    private void onSelectionChanged() {
+
+	// ***** Handlers ***************************************************** //
+
+    private void handleTableSelectionChanged() {
 		ObservableList items = table.getSelectionModel().getSelectedItems();
 		vocableEditPanel.setVisible(items.size() == 1);
 		if(items.size() == 1) {
@@ -272,31 +311,19 @@ public class EditorView {
 	}
 
 
-    private List<String> getSelectedIds() {
-		ObservableList<?> items = table.getSelectionModel().getSelectedItems();
-        List<String> vocableIds = FXCollections.observableArrayList();
-//
-//		for(VocableListElement element : items) {
-//			vocableIds.add(element.getId());
-//		}
-
-		return vocableIds;
-	}
-
-
     @FXML
     protected void handleAddButtonAction(ActionEvent event) {
 		EditorEntry entry = new EditorEntry();
 		table.getItems().add(entry);
 		table.getSelectionModel().clearAndSelect(table.getItems().size()-1);
 		vocableTextField.requestFocus();
-		//Platform.runLater(() -> { table.edit(5, table.getColumns().get(0)); });
     }
 
 
     @FXML
     protected void handleMoveButtonAction(ActionEvent event) {
-    	List<String> vocableIds = getSelectedIds();
+    	List<String> vocableIds = new LinkedList<>();
+		table.getSelectionModel().getSelectedItems().forEach( (EditorEntry e) -> { vocableIds.add(e.getId()); } );
     	if(vocableIds.isEmpty()) {
     		return;
     	}
@@ -309,19 +336,17 @@ public class EditorView {
 
     @FXML
     protected void handleDeleteButtonAction(ActionEvent event) {
-    	List<String> vocableIds = getSelectedIds();
-    	if(vocableIds.isEmpty()) {
-    		return;
-    	}
-
-    	contextController.createController("deleteVocabularyView", ControllerParamsBuilder.create()
-																.add("vocableIds", vocableIds)
-																.add("parentWindow", stage).build());
+		List<EditorEntry> selected = new LinkedList<>(table.getSelectionModel().getSelectedItems());
+		removedEntries.addAll(selected);
+		entries.removeAll(selected);
+		table.getSelectionModel().clearSelection();
     }
 
 
     @FXML
     protected void handleSaveButtonAction(ActionEvent event) {
+		vocabularyManagerBo.saveModifiedEntries(entries, removedEntries);
+		removedEntries.clear();
     }
 
 
@@ -332,13 +357,13 @@ public class EditorView {
 
 
     @FXML
-    protected void onVocableTextFieldAction(ActionEvent event) {
+    protected void handleVocableTextFieldAction(ActionEvent event) {
 		translation1TextField.requestFocus();
     }
 
 
     @FXML
-    protected void onTranslation1TextFieldAction(ActionEvent event) {
+    protected void handleTranslation1TextFieldAction(ActionEvent event) {
 		if(translation1TextField.getText() == null || translation1TextField.getText().trim().isEmpty()) {
 			return;
 		}
@@ -348,7 +373,7 @@ public class EditorView {
 
 
     @FXML
-    protected void onTranslation2TextFieldAction(ActionEvent event) {
+    protected void handleTranslation2TextFieldAction(ActionEvent event) {
 		if(translation2TextField.getText() == null || translation2TextField.getText().trim().isEmpty()) {
 			return;
 		}
@@ -358,102 +383,101 @@ public class EditorView {
 
 
     @FXML
-    protected void onTranslation3TextFieldAction(ActionEvent event) {
+    protected void handleTranslation3TextFieldAction(ActionEvent event) {
 		if(translation3TextField.getText() == null || translation3TextField.getText().trim().isEmpty()) {
 			return;
 		}
     }
 
 
-	public void setContextController(ContextController contextController) {
-		this.contextController = contextController;
+
+
+
+
+
+
+	/**
+	 * Own implementation for editing cell.
+	 */
+	class EditingCell extends TableCell<EditorEntry, String> {
+
+		private TextField textField;
+
+
+		public EditingCell() {
+		}
+
+
+		@Override
+		public void startEdit() {
+			if(!isEmpty()) {
+				super.startEdit();
+				if (textField == null) {
+					createTextField();
+				}
+				setText(null);
+				setGraphic(textField);
+				textField.selectAll();
+				textField.requestFocus();
+			}
+		}
+
+
+		@Override
+		public void cancelEdit() {
+			super.cancelEdit();
+
+			setText((String) getItem());
+			setGraphic(null);
+		}
+
+
+		@Override
+		public void updateItem(String item, boolean empty) {
+			super.updateItem(item, empty);
+
+			if(empty) {
+				setText(null);
+				setGraphic(null);
+			} else {
+				if(isEditing()) {
+					if(textField != null) {
+						textField.setText(getString());
+					}
+					setText(null);
+					setGraphic(textField);
+				} else {
+					setText(getString());
+					setGraphic(null);
+				}
+			}
+		}
+
+
+		private void createTextField() {
+			textField = new TextField(getString());
+			textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+			textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> arg0,
+						Boolean arg1, Boolean arg2) {
+					if(!arg2) {
+						commitEdit(textField.getText());
+					}
+				}
+			});
+			textField.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					commitEdit(textField.getText());
+				}
+			});
+		}
+
+
+		private String getString() {
+			return getItem() == null ? "" : getItem().toString();
+		}
+
 	}
-
-
-	public void setVocabularyManagerBo(VocabularyManagerBo vocabularyManagerBo) {
-		this.vocabularyManagerBo = vocabularyManagerBo;
-	}
-
-//
-//	class EditingCell extends TableCell<EditorEntry, String> {
-//
-//		private TextField textField;
-//
-//
-//		public EditingCell() {
-//		}
-//
-//
-//		@Override
-//		public void startEdit() {
-//			if(!isEmpty()) {
-//				super.startEdit();
-//				if (textField == null) {
-//					createTextField();
-//				}
-//				setText(null);
-//				setGraphic(textField);
-//				textField.selectAll();
-//				textField.requestFocus();
-//			}
-//		}
-//
-//
-//		@Override
-//		public void cancelEdit() {
-//			super.cancelEdit();
-//
-//			setText((String) getItem());
-//			setGraphic(null);
-//		}
-//
-//
-//		@Override
-//		public void updateItem(String item, boolean empty) {
-//			super.updateItem(item, empty);
-//
-//			if(empty) {
-//				setText(null);
-//				setGraphic(null);
-//			} else {
-//				if(isEditing()) {
-//					if(textField != null) {
-//						textField.setText(getString());
-//					}
-//					setText(null);
-//					setGraphic(textField);
-//				} else {
-//					setText(getString());
-//					setGraphic(null);
-//				}
-//			}
-//		}
-//
-//
-//		private void createTextField() {
-//			textField = new TextField(getString());
-//			textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
-//			textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-//				@Override
-//				public void changed(ObservableValue<? extends Boolean> arg0,
-//						Boolean arg1, Boolean arg2) {
-//					if(!arg2) {
-//						commitEdit(textField.getText());
-//					}
-//				}
-//			});
-//			textField.setOnAction(new EventHandler<ActionEvent>() {
-//				@Override
-//				public void handle(ActionEvent event) {
-//					commitEdit(textField.getText());
-//				}
-//			});
-//		}
-//
-//
-//		private String getString() {
-//			return getItem() == null ? "" : getItem().toString();
-//		}
-//
-//	}
 }

@@ -103,13 +103,13 @@
               <Font name="System Bold" size="13.0" fx:id="x1" />
             </font>
           </Label>
-          <TextField fx:id="vocableTextField" onAction="#onVocableTextFieldAction" prefHeight="-1.0" prefWidth="-1.0" promptText="to eat" />
+          <TextField fx:id="vocableTextField" onAction="#handleVocableTextFieldAction" prefHeight="-1.0" prefWidth="-1.0" promptText="to eat" />
           <Label font="$x1" text="Übersetzung 1*:" />
-          <TextField fx:id="translation1TextField" onAction="#onTranslation1TextFieldAction" prefWidth="-1.0" promptText="essen" />
+          <TextField fx:id="translation1TextField" onAction="#handleTranslation1TextFieldAction" prefWidth="-1.0" promptText="essen" />
           <Label font="$x1" text="Übersetzung 2:" />
-          <TextField fx:id="translation2TextField" onAction="#onTranslation2TextFieldAction" prefWidth="-1.0" />
+          <TextField fx:id="translation2TextField" onAction="#handleTranslation2TextFieldAction" prefWidth="-1.0" />
           <Label font="$x1" text="Übersetzung 3:" />
-          <TextField fx:id="translation3TextField" onAction="#onTranslation3TextFieldAction" prefWidth="-1.0" />
+          <TextField fx:id="translation3TextField" onAction="#handleTranslation3TextFieldAction" prefWidth="-1.0" />
           <Region prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
         </children>
         <padding>
@@ -132,7 +132,7 @@
             <children>
               <Label font="$x1" text="Geschlecht:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <labelFor>
-                  <ChoiceBox id="genderChoiceBox" fx:id="geniusChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <ChoiceBox id="genderChoiceBox" fx:id="genderChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />
@@ -145,7 +145,7 @@
               </Label>
               <Label font="$x1" text="Wortart:" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <labelFor>
-                  <ChoiceBox id="speechTypeChoiceBox" fx:id="partOfSpeechChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ChoiceBox id="partOfSpeechChoiceBox" fx:id="partOfSpeechChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />
@@ -156,7 +156,7 @@
                   </ChoiceBox>
                 </labelFor>
               </Label>
-              <fx:reference source="geniusChoiceBox" />
+              <fx:reference source="genderChoiceBox" />
               <fx:reference source="partOfSpeechChoiceBox" />
             </children>
             <columnConstraints>

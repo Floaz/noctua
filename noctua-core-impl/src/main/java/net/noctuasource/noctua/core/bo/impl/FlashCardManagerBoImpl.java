@@ -81,12 +81,32 @@ public class FlashCardManagerBoImpl implements FlashCardManagerBo, VocableAddBo,
 
 		for(FlashCard flashCard : flashCardGroup.getFlashCards()) {
 			EditorEntry entry = new EditorEntry();
+			entry.setId(flashCard.getId());
 			entry.setVocable(flashCard.getElementsOfType(FlashCardElementType.CONTENT).get(0).getValue());
 			entry.setNative1(flashCard.getElementsOfType(FlashCardElementType.EXPLANATION).get(0).getValue());
 			list.add(entry);
 		}
 
 		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public void saveModifiedEntries(List<EditorEntry> modifiedEntries, List<EditorEntry> deletedEntries) {
+		for(EditorEntry entry : deletedEntries) {
+			FlashCard flashCard = flashCardDao.findById(entry.getId());
+			flashCard.getGroup().removeFlashCard(flashCard);
+			flashCardDao.delete(flashCard);
+		}
+
+//		for(EditorEntry entry : modifiedEntries) {
+//			if(entry.getId() == null) {
+//				FlashCard flashCard = new FlashCard();
+//				//flashCard.getGroup().removeFlashCard(flashCard);
+//				flashCardDao.create(flashCard);
+//			}
+//		}
 	}
 
 
