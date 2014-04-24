@@ -18,6 +18,7 @@
  */
 package net.noctuasource.act.controller;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import net.noctuasource.act.annotation.ControllerContext;
 
@@ -58,6 +59,20 @@ public class SubContextProxyController extends AbstractContextController {
 
 
 	public void injectControllerNode() {
+		Field[] fields = controllerObject.getClass().getDeclaredFields();
+		for(Field field : fields) {
+			if(field.getAnnotation(ControllerContext.class) != null) {
+				try {
+					field.setAccessible(true);
+					field.set(controllerObject, this);
+					field.setAccessible(false);
+				}
+				catch(Exception ex) {
+					throw new RuntimeException("Exception while setting method. ", ex);
+				}
+			}
+		}
+
 		Method[] methods = controllerObject.getClass().getMethods();
 		for(Method method : methods) {
 			if(method.getAnnotation(ControllerContext.class) != null) {

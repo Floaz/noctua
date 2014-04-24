@@ -68,7 +68,7 @@ public class SpringAutowireControllerEventListener extends DefaultControllerEven
 
 		SpringBeanInjector injector = new SpringBeanInjector();
 		injector.setApplicationContext(context);
-		injector.inject(createdController);
+		injector.inject(createdController.getController());
 	}
 
 

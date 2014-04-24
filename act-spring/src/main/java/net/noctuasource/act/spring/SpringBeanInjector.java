@@ -49,7 +49,7 @@ public class SpringBeanInjector implements Injector, ApplicationContextAware {
 		applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(
 																	object,
 																	AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE,
-																	true);
+																	false);
 	}
 
 }
