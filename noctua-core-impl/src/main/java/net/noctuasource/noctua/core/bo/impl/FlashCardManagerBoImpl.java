@@ -24,11 +24,13 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
 import net.noctuasource.noctua.core.business.FlashCardManagerBo;
+import net.noctuasource.noctua.core.business.VocabularyManagerBo;
 import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 import net.noctuasource.noctua.core.business.add.NewVocable;
 import net.noctuasource.noctua.core.business.add.VocableAddBo;
 import net.noctuasource.noctua.core.dao.FlashCardDao;
 import net.noctuasource.noctua.core.dao.TreeNodeDao;
+import net.noctuasource.noctua.core.dto.EditorEntry;
 import net.noctuasource.noctua.core.events.AbstractObjectEvent.EventType;
 import net.noctuasource.noctua.core.events.FlashCardEvent;
 import net.noctuasource.noctua.core.model.FlashCard;
@@ -44,7 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-public class FlashCardManagerBoImpl implements FlashCardManagerBo, VocableAddBo {
+public class FlashCardManagerBoImpl implements FlashCardManagerBo, VocableAddBo, VocabularyManagerBo {
 
 	private static Logger logger = Logger.getLogger(FlashCardManagerBoImpl.class);
 
@@ -70,6 +72,22 @@ public class FlashCardManagerBoImpl implements FlashCardManagerBo, VocableAddBo 
 	}
 
 
+	@Override
+	@Transactional
+	public List<EditorEntry> getEditorEntries(FlashCardGroupDto flashCardGroupDto) {
+		List<EditorEntry> list = new LinkedList<>();
+
+		FlashCardGroup flashCardGroup = (FlashCardGroup) treeNodeDao.findById(flashCardGroupDto.getId());
+
+		for(FlashCard flashCard : flashCardGroup.getFlashCards()) {
+			EditorEntry entry = new EditorEntry();
+			entry.setVocable(flashCard.getElementsOfType(FlashCardElementType.CONTENT).get(0).getValue());
+			entry.setNative1(flashCard.getElementsOfType(FlashCardElementType.EXPLANATION).get(0).getValue());
+			list.add(entry);
+		}
+
+		return list;
+	}
 
 
 	@Override

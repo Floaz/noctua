@@ -71,6 +71,10 @@ public class EditorEntry {
 		return native1.get();
 	}
 
+	public StringProperty native1Property() {
+		return native1;
+	}
+
 
 	public void setNative1(String native1) {
 		this.native1.set(native1);
@@ -79,6 +83,10 @@ public class EditorEntry {
 
 	public String getNative2() {
 		return native2.get();
+	}
+
+	public StringProperty native2Property() {
+		return native2;
 	}
 
 
@@ -91,6 +99,10 @@ public class EditorEntry {
 		return native3.get();
 	}
 
+	public StringProperty native3Property() {
+		return native3;
+	}
+
 
 	public void setNative3(String native3) {
 		this.native3.set(native3);
@@ -99,6 +111,10 @@ public class EditorEntry {
 
 	public String getExample() {
 		return example.get();
+	}
+
+	public StringProperty exampleProperty() {
+		return example;
 	}
 
 
@@ -111,6 +127,10 @@ public class EditorEntry {
 		return exampleTranslation.get();
 	}
 
+	public StringProperty exampleTranslationProperty() {
+		return exampleTranslation;
+	}
+
 
 	public void setExampleTranslation(String exampleTranslation) {
 		this.exampleTranslation.set(exampleTranslation);
@@ -121,6 +141,10 @@ public class EditorEntry {
 		return tip.get();
 	}
 
+	public StringProperty tipProperty() {
+		return tip;
+	}
+
 
 	public void setTip(String tip) {
 		this.tip.set(tip);
@@ -129,6 +153,10 @@ public class EditorEntry {
 
 	public String getInfo() {
 		return info.get();
+	}
+
+	public StringProperty infoProperty() {
+		return info;
 	}
 
 

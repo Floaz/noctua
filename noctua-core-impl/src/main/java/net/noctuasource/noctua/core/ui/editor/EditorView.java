@@ -18,8 +18,6 @@
  */
 package net.noctuasource.noctua.core.ui.editor;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,17 +45,20 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import net.noctuasource.act.annotation.ControllerContext;
 import net.noctuasource.act.controller.ContextController;
-import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
+import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.VocabularyManagerBo;
 import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 import net.noctuasource.noctua.core.dto.EditorEntry;
-import net.noctuasource.noctua.core.events.FlashCardEvent;
 import org.apache.log4j.Logger;
 
 
 
 
-
+/**
+ * View controller for listing and editing the vocabulary.
+ * @author Philipp Thomas
+ */
 public class EditorView {
 
 	// ***** Basic Static Members ******************************************* //
@@ -78,16 +79,15 @@ public class EditorView {
 	private ContextController			contextController;
 
 	@Resource
-	private FlashCardManagerBo			flashCardBo;
+	private VocabularyManagerBo			vocabularyManagerBo;
 
-	@Resource
-	EventBus					eventBus;
+	private Stage						stage;
 
-	private Stage				stage;
+	private FlashCardGroupDto			flashCardGroup;
 
-	private FlashCardGroupDto	flashCardGroup;
+	private ObservableList<EditorEntry>	entries;
 
-	private TableColumn<EditorEntry,String> firstColumn;
+	private EditorEntry					lastSingleSelectedEntry = null;
 
 
 	// ***** FXML Nodes ***************************************************** //
@@ -95,6 +95,7 @@ public class EditorView {
 	@FXML private Button						addButton;
 	@FXML private Button						moveButton;
 	@FXML private Button						deleteButton;
+
 	@FXML private TableView<EditorEntry>		table;
 
 	@FXML private HBox							vocableEditPanel;
@@ -115,10 +116,10 @@ public class EditorView {
 
 	@PostConstruct
 	public void onCreate() {
-		//TreeNodeDto treeNode = contextController.getControllerParams().get("treeNode", TreeNodeDto.class);
+		TreeNodeDto treeNode = contextController.getControllerParams().get("treeNode", TreeNodeDto.class);
 		flashCardGroup = new FlashCardGroupDto();
-		//flashCardGroup.setId(treeNode.getId());
-		//flashCardGroup.setName(treeNode.getName());
+		flashCardGroup.setId(treeNode.getId());
+		flashCardGroup.setName(treeNode.getName());
 
     	VBox root = new VBox();
 
@@ -152,15 +153,12 @@ public class EditorView {
 
 		updateVocabularyTable();
 		updateButtons();
-
-		//eventBus.register(this);
 	}
 
 
 	@PreDestroy
 	protected void onDestroy() {
 		stage.close();
-		eventBus.unregister(this);
 	}
 
 
@@ -184,7 +182,6 @@ public class EditorView {
         TableColumn<EditorEntry,String> vocableCol = new TableColumn<>("Vokabel");
 		vocableCol.setCellValueFactory(new PropertyValueFactory<>("vocable"));
 		//vocableCol.setCellFactory(cellFactory);
-		firstColumn = vocableCol;
         TableColumn native1Col = new TableColumn("Übersetzung 1");
 		native1Col.setCellValueFactory(new PropertyValueFactory<>("native1"));
         TableColumn native2Col = new TableColumn("Übersetzung 2");
@@ -223,27 +220,9 @@ public class EditorView {
 			}
 		});
 
-
-		EditorEntry entry;
-		entry= new EditorEntry();
-		entry.setVocable("to eat");
-		entry.setNative1("essen");
-		table.getItems().add(entry);
-		entry= new EditorEntry();
-		entry.setVocable("mouse");
-		entry.setNative1("die Maus");
-		table.getItems().add(entry);
-		entry= new EditorEntry();
-		entry.setVocable("car");
-		entry.setNative1("das Auto");
-		table.getItems().add(entry);
+		entries = FXCollections.observableList(vocabularyManagerBo.getEditorEntries(flashCardGroup));
+		table.setItems(entries);
     }
-
-
-	@Subscribe
-    public void updateVocabularyTable(FlashCardEvent event) {
-        updateVocabularyTable();
-	}
 
 
     private void updateVocabularyTable() {
@@ -266,9 +245,29 @@ public class EditorView {
 		ObservableList items = table.getSelectionModel().getSelectedItems();
 		vocableEditPanel.setVisible(items.size() == 1);
 		if(items.size() == 1) {
-			EditorEntry entry = (EditorEntry) items.get(0);
-			vocableTextField.textProperty().unbind();
-			vocableTextField.textProperty().bind(entry.vocableProperty());
+			EditorEntry newEntry = (EditorEntry) items.get(0);
+
+			if(lastSingleSelectedEntry != null) {
+				vocableTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.vocableProperty());
+				translation1TextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.native1Property());
+				translation2TextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.native2Property());
+				translation3TextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.native3Property());
+				sentenceTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.exampleProperty());
+				sentenceTranslationTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.exampleTranslationProperty());
+				tipTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.tipProperty());
+				addInfoTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.infoProperty());
+			}
+
+			vocableTextField.textProperty().bindBidirectional(newEntry.vocableProperty());
+			translation1TextField.textProperty().bindBidirectional(newEntry.native1Property());
+			translation2TextField.textProperty().bindBidirectional(newEntry.native2Property());
+			translation3TextField.textProperty().bindBidirectional(newEntry.native3Property());
+			sentenceTextField.textProperty().bindBidirectional(newEntry.exampleProperty());
+			sentenceTranslationTextField.textProperty().bindBidirectional(newEntry.exampleTranslationProperty());
+			tipTextField.textProperty().bindBidirectional(newEntry.tipProperty());
+			addInfoTextField.textProperty().bindBidirectional(newEntry.infoProperty());
+
+			lastSingleSelectedEntry = newEntry;
 		}
 	}
 
@@ -340,7 +339,7 @@ public class EditorView {
 
     @FXML
     protected void onTranslation1TextFieldAction(ActionEvent event) {
-		if(translation1TextField.getText().trim().isEmpty()) {
+		if(translation1TextField.getText() == null || translation1TextField.getText().trim().isEmpty()) {
 			return;
 		}
 
@@ -350,7 +349,7 @@ public class EditorView {
 
     @FXML
     protected void onTranslation2TextFieldAction(ActionEvent event) {
-		if(translation2TextField.getText().trim().isEmpty()) {
+		if(translation2TextField.getText() == null || translation2TextField.getText().trim().isEmpty()) {
 			return;
 		}
 
@@ -360,7 +359,7 @@ public class EditorView {
 
     @FXML
     protected void onTranslation3TextFieldAction(ActionEvent event) {
-		if(translation3TextField.getText().trim().isEmpty()) {
+		if(translation3TextField.getText() == null || translation3TextField.getText().trim().isEmpty()) {
 			return;
 		}
     }
@@ -371,13 +370,8 @@ public class EditorView {
 	}
 
 
-	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
-		this.flashCardBo = flashCardBo;
-	}
-
-
-	public void setEventBus(EventBus eventBus) {
-		this.eventBus = eventBus;
+	public void setVocabularyManagerBo(VocabularyManagerBo vocabularyManagerBo) {
+		this.vocabularyManagerBo = vocabularyManagerBo;
 	}
 
 //

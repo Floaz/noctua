@@ -120,9 +120,9 @@
       <VBox id="VBox" alignment="TOP_LEFT" padding="$x2" spacing="5.0" style="" HBox.hgrow="ALWAYS">
         <children>
           <Label font="$x1" text="Beispielsatz:" />
-          <TextField id="sentenceTextField" fx:id="exampleTextField" prefWidth="-1.0" />
+          <TextField id="sentenceTextField" fx:id="sentenceTextField" prefWidth="-1.0" />
           <Label font="$x1" text="Beispielsatz Übersetzung:" />
-          <TextField id="sentenceTranslationTextField" fx:id="exampleTranslationTextField" prefWidth="-1.0" />
+          <TextField id="sentenceTranslationTextField" fx:id="sentenceTranslationTextField" prefWidth="-1.0" />
           <Region prefHeight="-1.0" prefWidth="-1.0" />
           <Label font="$x1" text="Zusatzinfo:" />
           <TextField fx:id="addInfoTextField" prefWidth="-1.0" />
