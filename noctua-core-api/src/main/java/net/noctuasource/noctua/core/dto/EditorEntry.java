@@ -18,10 +18,10 @@
  */
 package net.noctuasource.noctua.core.dto;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import net.noctuasource.noctua.core.model.Gender;
-import net.noctuasource.noctua.core.model.PartOfSpeech;
 
 
 
@@ -39,8 +39,8 @@ public class EditorEntry {
 	private StringProperty	exampleTranslation = new SimpleStringProperty();
 	private StringProperty	tip = new SimpleStringProperty();
 	private StringProperty	info = new SimpleStringProperty();
-	private Gender			gender;
-	private PartOfSpeech	partOfSpeech;
+	private IntegerProperty	gender = new SimpleIntegerProperty(0);
+	private IntegerProperty	partOfSpeech = new SimpleIntegerProperty(0);
 
 
 	public String getId() {
@@ -165,25 +165,34 @@ public class EditorEntry {
 	}
 
 
-	public Gender getGender() {
+	public int getGender() {
+		return gender.get();
+	}
+
+
+	public IntegerProperty genderProperty() {
 		return gender;
 	}
 
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
+	public void setGender(int gender) {
+		this.gender.set(gender);
 	}
 
 
-	public PartOfSpeech getPartOfSpeech() {
+	public int getPartOfSpeech() {
+		return partOfSpeech.get();
+	}
+
+
+	public IntegerProperty partOfSpeechProperty() {
 		return partOfSpeech;
 	}
 
 
-	public void setPartOfSpeech(PartOfSpeech partOfSpeech) {
-		this.partOfSpeech = partOfSpeech;
+	public void setPartOfSpeech(int partOfSpeech) {
+		this.partOfSpeech.set(partOfSpeech);
 	}
-
 
 
 

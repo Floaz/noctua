@@ -40,6 +40,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -57,6 +58,8 @@ import net.noctuasource.noctua.core.business.TreeNodeDto;
 import net.noctuasource.noctua.core.business.VocabularyManagerBo;
 import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
 import net.noctuasource.noctua.core.dto.EditorEntry;
+import net.noctuasource.noctua.core.model.Gender;
+import net.noctuasource.noctua.core.model.PartOfSpeech;
 import net.noctuasource.noctua.core.ui.vocable.GenderMap;
 import net.noctuasource.noctua.core.ui.vocable.PartOfSpeechMap;
 import org.apache.log4j.Logger;
@@ -98,7 +101,7 @@ public class EditorView {
 
 	private ObservableList<EditorEntry>	removedEntries = FXCollections.observableArrayList();
 
-	private EditorEntry					lastSingleSelectedEntry = null;
+	private EditorEntry					currentSelectedEntry = null;
 
 	private final GenderMap				genderMap = new GenderMap();
 	private final PartOfSpeechMap		partOfSpeechMap = new PartOfSpeechMap();
@@ -213,6 +216,20 @@ public class EditorView {
                  }
              };
 
+		Callback<TableColumn<EditorEntry,Integer>, TableCell<EditorEntry,Integer>> genderCellFactory =
+             new Callback<TableColumn<EditorEntry,Integer>, TableCell<EditorEntry,Integer>>() {
+                 public TableCell call(TableColumn<EditorEntry,Integer> p) {
+                    return new GenderCell();
+                 }
+             };
+
+		Callback<TableColumn<EditorEntry,Integer>, TableCell<EditorEntry,Integer>> partOfSpeechCellFactory =
+             new Callback<TableColumn<EditorEntry,Integer>, TableCell<EditorEntry,Integer>>() {
+                 public TableCell call(TableColumn<EditorEntry,Integer> p) {
+                    return new PartOfSpeechCell();
+                 }
+             };
+
     	table.setEditable(true);
 
         TableColumn<EditorEntry,String> vocableCol = new TableColumn<>("Vokabel");
@@ -241,8 +258,11 @@ public class EditorView {
 		infoCol.setCellFactory(cellFactory);
         TableColumn genderCol = new TableColumn("Genius");
 		genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
+		genderCol.setCellFactory(genderCellFactory);
         TableColumn partOfSpeechCol = new TableColumn("Wortart");
 		partOfSpeechCol.setCellValueFactory(new PropertyValueFactory<>("partOfSpeech"));
+		partOfSpeechCol.setCellFactory(partOfSpeechCellFactory);
+
 
 		vocableCol.setPrefWidth(200);
 		native1Col.setPrefWidth(150);
@@ -286,16 +306,22 @@ public class EditorView {
 		if(items.size() == 1) {
 			EditorEntry newEntry = (EditorEntry) items.get(0);
 
-			if(lastSingleSelectedEntry != null) {
-				vocableTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.vocableProperty());
-				translation1TextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.native1Property());
-				translation2TextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.native2Property());
-				translation3TextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.native3Property());
-				sentenceTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.exampleProperty());
-				sentenceTranslationTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.exampleTranslationProperty());
-				tipTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.tipProperty());
-				addInfoTextField.textProperty().unbindBidirectional(lastSingleSelectedEntry.infoProperty());
+			if(currentSelectedEntry != null) {
+				vocableTextField.textProperty().unbindBidirectional(currentSelectedEntry.vocableProperty());
+				translation1TextField.textProperty().unbindBidirectional(currentSelectedEntry.native1Property());
+				translation2TextField.textProperty().unbindBidirectional(currentSelectedEntry.native2Property());
+				translation3TextField.textProperty().unbindBidirectional(currentSelectedEntry.native3Property());
+				sentenceTextField.textProperty().unbindBidirectional(currentSelectedEntry.exampleProperty());
+				sentenceTranslationTextField.textProperty().unbindBidirectional(currentSelectedEntry.exampleTranslationProperty());
+				tipTextField.textProperty().unbindBidirectional(currentSelectedEntry.tipProperty());
+				addInfoTextField.textProperty().unbindBidirectional(currentSelectedEntry.infoProperty());
+				currentSelectedEntry.genderProperty().unbind();
+				currentSelectedEntry.partOfSpeechProperty().unbind();
 			}
+
+			// Set the gender and partofspeech manualy. Later only bind in one direction.
+			genderChoiceBox.getSelectionModel().select(newEntry.getGender());
+			partOfSpeechChoiceBox.getSelectionModel().select(newEntry.getPartOfSpeech());
 
 			vocableTextField.textProperty().bindBidirectional(newEntry.vocableProperty());
 			translation1TextField.textProperty().bindBidirectional(newEntry.native1Property());
@@ -305,8 +331,10 @@ public class EditorView {
 			sentenceTranslationTextField.textProperty().bindBidirectional(newEntry.exampleTranslationProperty());
 			tipTextField.textProperty().bindBidirectional(newEntry.tipProperty());
 			addInfoTextField.textProperty().bindBidirectional(newEntry.infoProperty());
+			newEntry.genderProperty().bind(genderChoiceBox.getSelectionModel().selectedIndexProperty());
+			newEntry.partOfSpeechProperty().bind(partOfSpeechChoiceBox.getSelectionModel().selectedIndexProperty());
 
-			lastSingleSelectedEntry = newEntry;
+			currentSelectedEntry = newEntry;
 		}
 	}
 
@@ -479,5 +507,42 @@ public class EditorView {
 			return getItem() == null ? "" : getItem().toString();
 		}
 
+	}
+
+
+	/**
+	 * Own implementation for gender cell.
+	 */
+	class GenderCell extends TableCell<EditorEntry, Integer> {
+
+		@Override
+		public void updateItem(Integer item, boolean empty) {
+			super.updateItem(item, empty);
+
+			if(empty) {
+				setText(null);
+				setGraphic(null);
+			} else {
+				setText(genderMap.getStringByGender(Gender.values()[item]));
+			}
+		}
+	}
+
+	/**
+	 * Own implementation for partOfSpeech cell.
+	 */
+	class PartOfSpeechCell extends TableCell<EditorEntry, Integer> {
+
+		@Override
+		public void updateItem(Integer item, boolean empty) {
+			super.updateItem(item, empty);
+
+			if(empty) {
+				setText(null);
+				setGraphic(null);
+			} else {
+				setText(partOfSpeechMap.getStringByPartOfSpeech(PartOfSpeech.values()[item]));
+			}
+		}
 	}
 }
