@@ -77,19 +77,7 @@ public class VocableManagerBoImpl implements VocableManagerBo, VocableAddBo, Voc
 		FlashCardGroup flashCardGroup = (FlashCardGroup) treeNodeDao.findById(flashCardGroupDto.getId());
 
 		for(Vocable vocable : flashCardGroup.getVocabulary()) {
-			EditorEntry entry = new EditorEntry();
-			entry.setId(vocable.getId());
-			entry.setVocable(vocable.getVocable());
-			entry.setNative1(vocable.getNative1());
-			entry.setNative2(vocable.getNative2());
-			entry.setNative3(vocable.getNative3());
-			entry.setExample(vocable.getExample());
-			entry.setExampleTranslation(vocable.getExampleTranslation());
-			entry.setTip(vocable.getTip());
-			entry.setInfo(vocable.getInfo());
-			entry.setGender(vocable.getGender().getValue());
-			entry.setPartOfSpeech(vocable.getPartOfSpeech().getValue());
-			list.add(entry);
+			list.add(vocableToEditorEntry(vocable));
 		}
 
 		return list;
@@ -192,6 +180,56 @@ public class VocableManagerBoImpl implements VocableManagerBo, VocableAddBo, Voc
 
 		eventBus.post(new VocableEvent(EventType.DELETED, null));
 	}
+
+
+	private EditorEntry vocableToEditorEntry(Vocable vocable) {
+		EditorEntry entry = new EditorEntry();
+		entry.setId(vocable.getId());
+		entry.setVocable(vocable.getVocable());
+		entry.setNative1(vocable.getNative1());
+		entry.setNative2(vocable.getNative2());
+		entry.setNative3(vocable.getNative3());
+		entry.setExample(vocable.getExample());
+		entry.setExampleTranslation(vocable.getExampleTranslation());
+		entry.setTip(vocable.getTip());
+		entry.setInfo(vocable.getInfo());
+		entry.setGender(vocable.getGender().getValue());
+		entry.setPartOfSpeech(vocable.getPartOfSpeech().getValue());
+		return entry;
+	}
+
+
+	private Vocable vocableToEditorEntry(EditorEntry entry) {
+		Vocable vocable = new Vocable();
+		vocable.setId(entry.getId());
+		vocable.setVocable(entry.getVocable());
+		vocable.setNative1(entry.getNative1());
+		vocable.setNative2(entry.getNative2());
+		vocable.setNative3(entry.getNative3());
+		vocable.setExample(entry.getExample());
+		vocable.setExampleTranslation(entry.getExampleTranslation());
+		vocable.setTip(entry.getTip());
+		vocable.setInfo(entry.getInfo());
+		//vocable.setGender(entry.getGender());
+		//vocable.setPartOfSpeech(entry.getPartOfSpeech());
+		return vocable;
+	}
+
+
+	private void vocableToEditorEntry(EditorEntry entry, Vocable vocable) {
+		vocable.setId(entry.getId());
+		vocable.setVocable(entry.getVocable());
+		vocable.setNative1(entry.getNative1());
+		vocable.setNative2(entry.getNative2());
+		vocable.setNative3(entry.getNative3());
+		vocable.setExample(entry.getExample());
+		vocable.setExampleTranslation(entry.getExampleTranslation());
+		vocable.setTip(entry.getTip());
+		vocable.setInfo(entry.getInfo());
+		//vocable.setGender(entry.getGender());
+		//vocable.setPartOfSpeech(entry.getPartOfSpeech());
+	}
+
 
 }
 
