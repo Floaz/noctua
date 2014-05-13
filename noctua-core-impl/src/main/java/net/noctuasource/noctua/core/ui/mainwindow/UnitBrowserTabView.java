@@ -48,7 +48,6 @@ import org.apache.log4j.Logger;
 
 import net.noctuasource.noctua.core.events.TreeNodeEvent;
 import net.noctuasource.noctua.core.business.GroupList;
-import net.noctuasource.noctua.core.test.impl.TestTypes;
 
 
 
@@ -220,38 +219,38 @@ public class UnitBrowserTabView extends SubContextController {
 
     @FXML
     protected void handleNormalTestButtonAction(ActionEvent event) {
-		GroupList groups = getSelectedFlashCardGroups();
-		if(groups == null) {
-			return;
-		}
-
-    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.NORMAL_TEST)
-																.add("groupList", groups)
-																.add("parentWindow", null).build());
+//		GroupList groups = getSelectedFlashCardGroups();
+//		if(groups == null) {
+//			return;
+//		}
+//
+//    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.NORMAL_TEST)
+//																.add("groupList", groups)
+//																.add("parentWindow", null).build());
     }
 
     @FXML
     protected void handleMCTestButtonAction(ActionEvent event) {
-		GroupList groups = getSelectedFlashCardGroups();
-		if(groups == null) {
-			return;
-		}
-
-    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.MULTIPLE_CHOICE_TEST)
-																.add("groupList", groups)
-																.add("parentWindow", null).build());
+//		GroupList groups = getSelectedFlashCardGroups();
+//		if(groups == null) {
+//			return;
+//		}
+//
+//    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.MULTIPLE_CHOICE_TEST)
+//																.add("groupList", groups)
+//																.add("parentWindow", null).build());
     }
 
     @FXML
     protected void handleSchoolTestButtonAction(ActionEvent event) {
-		GroupList groups = getSelectedFlashCardGroups();
-		if(groups == null) {
-			return;
-		}
-
-    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.SCHOOL_TEST)
-																.add("groupList", groups)
-																.add("parentWindow", null).build());
+//		GroupList groups = getSelectedFlashCardGroups();
+//		if(groups == null) {
+//			return;
+//		}
+//
+//    	createController("testInit", ControllerParamsBuilder.create().add("testType", TestTypes.SCHOOL_TEST)
+//																.add("groupList", groups)
+//																.add("parentWindow", null).build());
     }
 
 

@@ -15,7 +15,7 @@
 
 	<bean id="treeNodeBo" class="net.noctuasource.noctua.core.bo.impl.TreeNodeBoImpl"/>
 
-	<bean id="flashCardManagerBo" class="net.noctuasource.noctua.core.bo.impl.FlashCardManagerBoImpl"/>
+	<bean id="vocableManagerBo" class="net.noctuasource.noctua.core.bo.impl.VocableManagerBoImpl"/>
 
 
 
@@ -23,10 +23,7 @@
 
 	<bean id="treeNodeDao" class="net.noctuasource.noctua.core.dao.impl.TreeNodeDaoImpl"/>
 
-	<bean id="flashCardDao" class="net.noctuasource.noctua.core.dao.impl.FlashCardDaoImpl"/>
-
-	<bean id="flashCardElementDao" class="net.noctuasource.noctua.core.dao.impl.FlashCardElementDaoImpl"/>
-
+	<bean id="vocableDao" class="net.noctuasource.noctua.core.dao.impl.VocableDaoImpl"/>
 
 
 	<!-- Other -->

@@ -25,11 +25,11 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Languages")
+@Table(name="languages")
 @DiscriminatorValue(TreeNodeTypes.LANGUAGE_TYPE)
 public class Language extends TreeNode {
 
-	@Column(name="LanguageCode")
+	@Column(name="language_code")
 	private String languageCode;
 
 

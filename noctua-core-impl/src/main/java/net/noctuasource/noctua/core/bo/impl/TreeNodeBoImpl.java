@@ -91,7 +91,7 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeMan
 	@Override
 	public int getNumberFlashCardsOfGroup(TreeNodeDto dto) {
 		FlashCardGroup group = (FlashCardGroup) treeNodeDao.findById(dto.getId());
-		return group.getFlashCards().size();
+		return group.getVocabulary().size();
 	}
 
 
@@ -101,7 +101,7 @@ public class TreeNodeBoImpl implements TreeNodeBo, LanguageManageBo, TreeNodeMan
 		int number = 0;
 		for(TreeNodeDto dto : groupList) {
 			FlashCardGroup group = (FlashCardGroup) treeNodeDao.findById(dto.getId());
-			number += group.getFlashCards().size();
+			number += group.getVocabulary().size();
 		}
 		return number;
 	}

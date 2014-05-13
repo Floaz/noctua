@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet TestOptionsView.css?>
+
+<VBox id="" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
+  <Label text="Mit diesem Wizard kannst du Vokabeln aus Dateien importieren.&#10;Dazu musst du zunächst angeben, um was für einen Typ von Datei es sich handelt." wrapText="true" />
+  <Label text="Wähle den Typ der Datei aus:">
+    <font>
+      <Font name="System Bold" size="13.0" />
+    </font>
+  </Label>
+  <RadioButton mnemonicParsing="false" text="CSV (MS Excel, OO Calc)" />
+  <padding>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+  </padding>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+  <RadioButton mnemonicParsing="false" text="NOCV (Noctua Export)" />
+</VBox>

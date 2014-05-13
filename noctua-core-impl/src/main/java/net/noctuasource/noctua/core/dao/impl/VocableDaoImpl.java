@@ -16,41 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.model;
+package net.noctuasource.noctua.core.dao.impl;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-
-
-@Entity
-@Table(name="folders")
-@DiscriminatorValue(TreeNodeTypes.FOLDER_TYPE)
-public class Folder extends TreeNode {
-
-	@Column(name="folder_expanded")
-	private boolean expanded = true;
-
-
-	public Folder() {
-	}
-
-
-
-	public boolean isExpanded() {
-		return expanded;
-	}
-
-
-
-	public void setExpanded(boolean expanded) {
-		this.expanded = expanded;
-	}
+import net.noctuasource.noctua.core.dao.VocableDao;
+import net.noctuasource.noctua.core.model.Vocable;
 
 
 
 
 
+public class VocableDaoImpl extends GenericDaoImpl<Vocable, String> implements VocableDao {
 }
+

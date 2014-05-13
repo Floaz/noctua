@@ -13,108 +13,88 @@
 <?scenebuilder-stylesheet ResultView.css?>
 
 <VBox id="" fx:id="rootBox" prefHeight="700.0" prefWidth="700.0" spacing="10.0" styleClass="window" xmlns:fx="http://javafx.com/fxml">
-  <TabPane VBox.vgrow="ALWAYS">
-    <rotationAxis>
-      <Point3D x="1.0" z="1.0" />
-    </rotationAxis>
-    <tabs>
-      <Tab fx:id="answersTab" closable="false" text="Vokabeln">
-        <content>
-          <VBox id="VBox" alignment="CENTER" spacing="5.0">
-            <children>
-              <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x5" />
-                </VBox.margin>
-              </TableView>
-              <HBox>
-                <children>
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Hinzufügen">
-                    <graphic>
-                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                        <fitHeight>
-                          <Long fx:value="16" />
-                        </fitHeight>
-                        <fitWidth>
-                          <Long fx:value="16" />
-                        </fitWidth>
-                        <image>
-                          <Image url="@images/Add.png" preserveRatio="false" smooth="false" />
-                        </image>
-                      </ImageView>
-                    </graphic>
-                  </Button>
-                  <Region HBox.hgrow="ALWAYS">
-                    <prefHeight>
-                      <Long fx:value="-1" />
-                    </prefHeight>
-                    <prefWidth>
-                      <Long fx:value="-1" />
-                    </prefWidth>
-                  </Region>
-                  <Button fx:id="moveButton" mnemonicParsing="false" onAction="#handleMoveButtonAction" text="Verschieben">
-                    <graphic>
-                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                        <fitHeight>
-                          <Long fx:value="16" />
-                        </fitHeight>
-                        <fitWidth>
-                          <Long fx:value="16" />
-                        </fitWidth>
-                        <image>
-                          <Image url="@images/move.png" preserveRatio="false" smooth="false" />
-                        </image>
-                      </ImageView>
-                    </graphic>
-                  </Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Löschen">
-                    <graphic>
-                      <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                        <fitHeight>
-                          <Long fx:value="16" />
-                        </fitHeight>
-                        <fitWidth>
-                          <Long fx:value="16" />
-                        </fitWidth>
-                        <image>
-                          <Image url="@images/delete.png" preserveRatio="false" smooth="false" />
-                        </image>
-                      </ImageView>
-                    </graphic>
-                  </Button>
-                </children>
-                <prefHeight>
-                  <Long fx:value="-1" />
-                </prefHeight>
-                <prefWidth>
-                  <Long fx:value="-1" />
-                </prefWidth>
-                <spacing>
-                  <Long fx:value="6" />
-                </spacing>
-                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
-                </VBox.margin>
-              </HBox>
-            </children>
-          </VBox>
-        </content>
-      </Tab>
-    </tabs>
-    <translateX>
-      <Long fx:value="0" />
-    </translateX>
-    <translateY>
-      <Long fx:value="0" />
-    </translateY>
-    <translateZ>
-      <Long fx:value="0" />
-    </translateZ>
-    <VBox.margin>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x5" />
-    </VBox.margin>
-  </TabPane>
-  <HBox id="HBox" alignment="CENTER_LEFT" spacing="10.0" styleClass="editor-edit-panel" VBox.margin="$x5" VBox.vgrow="NEVER">
+  <VBox id="VBox" alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
+    <children>
+      <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x3" />
+        </VBox.margin>
+      </TableView>
+      <HBox>
+        <children>
+          <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Hinzufügen">
+            <graphic>
+              <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <fitHeight>
+                  <Long fx:value="16" />
+                </fitHeight>
+                <fitWidth>
+                  <Long fx:value="16" />
+                </fitWidth>
+                <image>
+                  <Image url="@images/Add.png" preserveRatio="false" smooth="false" />
+                </image>
+              </ImageView>
+            </graphic>
+          </Button>
+          <Region HBox.hgrow="ALWAYS">
+            <prefHeight>
+              <Long fx:value="-1" />
+            </prefHeight>
+            <prefWidth>
+              <Long fx:value="-1" />
+            </prefWidth>
+          </Region>
+          <Button fx:id="moveButton" mnemonicParsing="false" onAction="#handleMoveButtonAction" text="Verschieben">
+            <graphic>
+              <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <fitHeight>
+                  <Long fx:value="16" />
+                </fitHeight>
+                <fitWidth>
+                  <Long fx:value="16" />
+                </fitWidth>
+                <image>
+                  <Image url="@images/move.png" preserveRatio="false" smooth="false" />
+                </image>
+              </ImageView>
+            </graphic>
+          </Button>
+          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Löschen">
+            <graphic>
+              <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <fitHeight>
+                  <Long fx:value="16" />
+                </fitHeight>
+                <fitWidth>
+                  <Long fx:value="16" />
+                </fitWidth>
+                <image>
+                  <Image url="@images/delete.png" preserveRatio="false" smooth="false" />
+                </image>
+              </ImageView>
+            </graphic>
+          </Button>
+        </children>
+        <prefHeight>
+          <Long fx:value="-1" />
+        </prefHeight>
+        <prefWidth>
+          <Long fx:value="-1" />
+        </prefWidth>
+        <spacing>
+          <Long fx:value="6" />
+        </spacing>
+        <VBox.margin>
+          <Insets bottom="10.0" left="10.0" right="10.0" />
+        </VBox.margin>
+      </HBox>
+    </children>
+  </VBox>
+  <stylesheets>
+    <URL value="@General.css" />
+  </stylesheets>
+  <HBox id="HBox" fx:id="vocableEditPanel" alignment="CENTER_LEFT" disable="false" spacing="10.0" styleClass="editor-edit-panel" visible="true" VBox.margin="$x3" VBox.vgrow="NEVER">
     <children>
       <VBox id="VBox" alignment="TOP_LEFT" spacing="5.0" style="" HBox.hgrow="ALWAYS">
         <children>
@@ -123,36 +103,36 @@
               <Font name="System Bold" size="13.0" fx:id="x1" />
             </font>
           </Label>
-          <TextField id="vocableTextField" onAction="#onVocableTextFieldAction" prefHeight="-1.0" prefWidth="-1.0" promptText="to eat" />
+          <TextField fx:id="vocableTextField" onAction="#handleVocableTextFieldAction" prefHeight="-1.0" prefWidth="-1.0" promptText="to eat" />
           <Label font="$x1" text="Übersetzung 1*:" />
-          <TextField id="translation1TextField" onAction="#onTranslation1TextFieldAction" prefWidth="-1.0" promptText="essen" />
+          <TextField fx:id="translation1TextField" onAction="#handleTranslation1TextFieldAction" prefWidth="-1.0" promptText="essen" />
           <Label font="$x1" text="Übersetzung 2:" />
-          <TextField id="translation2TextField" onAction="#onTranslation2TextFieldAction" prefWidth="-1.0" />
+          <TextField fx:id="translation2TextField" onAction="#handleTranslation2TextFieldAction" prefWidth="-1.0" />
           <Label font="$x1" text="Übersetzung 3:" />
-          <TextField id="translation3TextField" onAction="#onTranslation3TextFieldAction" prefWidth="-1.0" />
+          <TextField fx:id="translation3TextField" onAction="#handleTranslation3TextFieldAction" prefWidth="-1.0" />
           <Region prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
         </children>
         <padding>
-          <Insets fx:id="x4" />
+          <Insets fx:id="x2" />
         </padding>
       </VBox>
       <Separator orientation="VERTICAL" prefHeight="200.0" />
-      <VBox id="VBox" alignment="TOP_LEFT" padding="$x4" spacing="5.0" style="" HBox.hgrow="ALWAYS">
+      <VBox id="VBox" alignment="TOP_LEFT" padding="$x2" spacing="5.0" style="" HBox.hgrow="ALWAYS">
         <children>
           <Label font="$x1" text="Beispielsatz:" />
-          <TextField id="sentenceTextField" prefWidth="-1.0" />
+          <TextField id="sentenceTextField" fx:id="sentenceTextField" prefWidth="-1.0" />
           <Label font="$x1" text="Beispielsatz Übersetzung:" />
-          <TextField id="sentenceTranslationTextField" prefWidth="-1.0" />
+          <TextField id="sentenceTranslationTextField" fx:id="sentenceTranslationTextField" prefWidth="-1.0" />
           <Region prefHeight="-1.0" prefWidth="-1.0" />
           <Label font="$x1" text="Zusatzinfo:" />
-          <TextField id="addInfoTextField" prefWidth="-1.0" />
+          <TextField fx:id="addInfoTextField" prefWidth="-1.0" />
           <Label font="$x1" text="Tipp für Abfrage:" />
-          <TextField id="tipTextField" prefWidth="-1.0" />
+          <TextField fx:id="tipTextField" prefWidth="-1.0" />
           <GridPane gridLinesVisible="false" hgap="6.0">
             <children>
               <Label font="$x1" text="Geschlecht:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <labelFor>
-                  <ChoiceBox id="genderChoiceBox" fx:id="x2" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <ChoiceBox id="genderChoiceBox" fx:id="genderChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />
@@ -165,7 +145,7 @@
               </Label>
               <Label font="$x1" text="Wortart:" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <labelFor>
-                  <ChoiceBox id="speechTypeChoiceBox" fx:id="x3" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ChoiceBox id="partOfSpeechChoiceBox" fx:id="partOfSpeechChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />
@@ -176,8 +156,8 @@
                   </ChoiceBox>
                 </labelFor>
               </Label>
-              <fx:reference source="x2" />
-              <fx:reference source="x3" />
+              <fx:reference source="genderChoiceBox" />
+              <fx:reference source="partOfSpeechChoiceBox" />
             </children>
             <columnConstraints>
               <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="99.0" minWidth="10.0" prefWidth="67.0" />
@@ -192,12 +172,9 @@
       </VBox>
     </children>
     <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x5" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x3" />
     </padding>
   </HBox>
-  <stylesheets>
-    <URL value="@General.css" />
-  </stylesheets>
   <HBox alignment="BOTTOM_LEFT" styleClass="bottomButtonBar">
     <spacing>
       <Long fx:value="10" />
@@ -207,7 +184,7 @@
         <Reflection />
       </effect>
       <font>
-        <Font name="System Bold" size="12.0" fx:id="x6" />
+        <Font name="System Bold" size="12.0" fx:id="x4" />
       </font>
       <graphic>
         <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
@@ -226,11 +203,11 @@
         <Long fx:value="2" />
       </graphicTextGap>
       <HBox.margin>
-        <Insets fx:id="x4" />
+        <Insets fx:id="x2" />
       </HBox.margin>
     </Button>
     <Region prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-    <Button cancelButton="true" font="$x6" onAction="#handleSaveButtonAction" style="&#10;" text="Speichern">
+    <Button cancelButton="true" font="$x4" onAction="#handleSaveButtonAction" style="&#10;" text="Speichern">
       <effect>
         <Reflection />
       </effect>

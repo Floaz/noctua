@@ -31,31 +31,16 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="FlashCardGroups")
+@Table(name="flash_card_groups")
 @DiscriminatorValue(TreeNodeTypes.FLASH_CARD_GROUP_TYPE)
 public class FlashCardGroup extends TreeNode {
 
-
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-	private Set<FlashCard> flashCards = new HashSet<FlashCard>();
+	private Set<Vocable> vocabulary = new HashSet<>();
 
-	@Column(name = "MaxFlashCardGroups")
+	@Column(name = "max_levels")
 	private int maxFlashCardGroups;
 
-
-
-	public FlashCardGroup() {
-	}
-
-
-
-	public Set<FlashCard> getFlashCards() {
-		return flashCards;
-	}
-
-	public void setFlashCards(Set<FlashCard> flashCards) {
-		this.flashCards = flashCards;
-	}
 
 
 	public int getMaxFlashCardGroups() {
@@ -68,6 +53,16 @@ public class FlashCardGroup extends TreeNode {
 	}
 
 
+	public Set<Vocable> getVocabulary() {
+		return vocabulary;
+	}
+
+
+	public void setVocabulary(Set<Vocable> vocabulary) {
+		this.vocabulary = vocabulary;
+	}
+
+
 
 
 
@@ -75,21 +70,15 @@ public class FlashCardGroup extends TreeNode {
 
     // ********************** Common Methods ******************************** //
 
-	public void addFlashCard(FlashCard flashCard) {
-		flashCard.setGroup(this);
-		flashCards.add(flashCard);
+	public void addVocable(Vocable vocable) {
+		vocable.setGroup(this);
+		vocabulary.add(vocable);
 	}
 
 
-	public void removeFlashCard(FlashCard flashCard) {
-		flashCard.setGroup(null);
-		flashCards.remove(flashCard);
+	public void removeVocable(Vocable vocable) {
+		vocable.setGroup(null);
+		vocabulary.remove(vocable);
 	}
-
-
-
-
-
-
 
 }

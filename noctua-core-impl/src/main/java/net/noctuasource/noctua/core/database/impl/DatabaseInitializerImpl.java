@@ -18,13 +18,6 @@
  */
 package net.noctuasource.noctua.core.database.impl;
 
-import net.noctuasource.noctua.core.model.FlashCardElement;
-import net.noctuasource.noctua.core.model.FlashCard;
-import net.noctuasource.noctua.core.model.TreeNode;
-import net.noctuasource.noctua.core.model.Language;
-import net.noctuasource.noctua.core.model.Folder;
-import net.noctuasource.noctua.core.model.FlashCardGroup;
-import net.noctuasource.noctua.core.model.VocableMetaInfo;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -42,7 +35,11 @@ import net.noctuasource.noctua.core.dao.impl.SessionHolder;
 import net.noctuasource.noctua.core.database.DatabaseInitializationException;
 import net.noctuasource.noctua.core.database.DatabaseInitializer;
 import net.noctuasource.noctua.core.database.DatabaseVersionUpdater;
-import net.noctuasource.noctua.core.model.ExampleSentence;
+import net.noctuasource.noctua.core.model.TreeNode;
+import net.noctuasource.noctua.core.model.Language;
+import net.noctuasource.noctua.core.model.Folder;
+import net.noctuasource.noctua.core.model.FlashCardGroup;
+import net.noctuasource.noctua.core.model.Vocable;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -159,10 +156,7 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             configuration.addAnnotatedClass(TreeNode.class);
             configuration.addAnnotatedClass(Folder.class);
             configuration.addAnnotatedClass(FlashCardGroup.class);
-            configuration.addAnnotatedClass(FlashCard.class);
-            configuration.addAnnotatedClass(FlashCardElement.class);
-            configuration.addAnnotatedClass(VocableMetaInfo.class);
-            configuration.addAnnotatedClass(ExampleSentence.class);
+            configuration.addAnnotatedClass(Vocable.class);
 
             configuration.setProperty("hibernate.dialect", SQLiteDialect.class.getName());
             configuration.setProperty("hibernate.connection.url",
@@ -201,10 +195,7 @@ public class DatabaseInitializerImpl implements DatabaseInitializer {
             annotatedClasses.add(TreeNode.class);
             annotatedClasses.add(Folder.class);
             annotatedClasses.add(FlashCardGroup.class);
-            annotatedClasses.add(FlashCard.class);
-            annotatedClasses.add(FlashCardElement.class);
-            annotatedClasses.add(VocableMetaInfo.class);
-            annotatedClasses.add(ExampleSentence.class);
+            annotatedClasses.add(Vocable.class);
 
 			LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 			sessionFactoryBean.setHibernateProperties(configuration.getProperties());

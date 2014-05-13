@@ -42,12 +42,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.annotation.Resource;
 import net.noctuasource.act.controller.SubContextController;
-import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.act.data.ControllerParamsBuilder;
 import net.noctuasource.noctua.core.business.TreeNodeDto;
+import net.noctuasource.noctua.core.business.VocableManagerBo;
 import net.noctuasource.noctua.core.business.add.FlashCardGroupDto;
-import net.noctuasource.noctua.core.events.FlashCardEvent;
 import net.noctuasource.noctua.core.dto.VocableListElement;
+import net.noctuasource.noctua.core.events.VocableEvent;
 
 import org.apache.log4j.Logger;
 
@@ -71,7 +71,7 @@ public class UnitMenuView extends SubContextController {
 	// ***** Members ******************************************************** //
 
 	@Resource
-	FlashCardManagerBo			flashCardBo;
+	VocableManagerBo			vocableManagerBo;
 
 	@Resource
 	EventBus					eventBus;
@@ -208,14 +208,14 @@ public class UnitMenuView extends SubContextController {
 
 
 	@Subscribe
-    public void updateVocabularyTable(FlashCardEvent event) {
+    public void updateVocabularyTable(VocableEvent event) {
         updateVocabularyTable();
 	}
 
 
     private void updateVocabularyTable() {
         ObservableList<VocableListElement> data = FXCollections.observableArrayList();
-        data.addAll(flashCardBo.getVocabularyOfFlashCardGroup(flashCardGroup.getId()));
+        data.addAll(vocableManagerBo.getVocabularyOfFlashCardGroup(flashCardGroup.getId()));
     	vocabularyTable.setItems(data);
 	}
 
@@ -302,8 +302,8 @@ public class UnitMenuView extends SubContextController {
 
 
 
-	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
-		this.flashCardBo = flashCardBo;
+	public void setVocableManagerBo(VocableManagerBo vocableManagerBo) {
+		this.vocableManagerBo = vocableManagerBo;
 	}
 
 	public void setEventBus(EventBus eventBus) {

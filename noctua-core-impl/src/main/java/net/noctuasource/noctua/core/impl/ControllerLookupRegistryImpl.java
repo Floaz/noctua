@@ -21,8 +21,8 @@ package net.noctuasource.noctua.core.impl;
 
 import net.noctuasource.act.factory.DefaultControllerLookupRegistry;
 import net.noctuasource.noctua.core.datastore.impl.DatastoreInitContextController;
-import net.noctuasource.noctua.core.test.impl.TestInitController;
 import net.noctuasource.noctua.core.ui.editor.EditorView;
+import net.noctuasource.noctua.core.ui.importer.ImportWizardController;
 import net.noctuasource.noctua.core.ui.mainwindow.AboutView;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFlashCardGroupView;
 import net.noctuasource.noctua.core.ui.mainwindow.AddFolderView;
@@ -33,11 +33,6 @@ import net.noctuasource.noctua.core.ui.mainwindow.MoveTreeNodeView;
 import net.noctuasource.noctua.core.ui.mainwindow.RenameTreeNodeView;
 import net.noctuasource.noctua.core.ui.mainwindow.UnitBrowserTabView;
 import net.noctuasource.noctua.core.ui.profiles.ProfileChooseView;
-import net.noctuasource.noctua.core.ui.test.MultipleChoiceTestView;
-import net.noctuasource.noctua.core.ui.test.NormalTestView;
-import net.noctuasource.noctua.core.ui.test.SchoolTestViewImpl;
-import net.noctuasource.noctua.core.ui.test.TooFewFlashCardsMessageDialog;
-import net.noctuasource.noctua.core.ui.vocable.AddVocabularyView;
 import net.noctuasource.noctua.core.ui.vocable.DeleteVocabularyView;
 import net.noctuasource.noctua.core.ui.vocable.MoveVocabularyView;
 import net.noctuasource.noctua.core.ui.vocable.UnitMenuView;
@@ -52,7 +47,7 @@ public class ControllerLookupRegistryImpl extends DefaultControllerLookupRegistr
 
 
 	public ControllerLookupRegistryImpl() {
-		addControllerClass("testInit", TestInitController.class);
+		//addControllerClass("testInit", TestInitController.class);
 
 		addControllerClass("datastoreInit", DatastoreInitContextController.class);
 		addControllerClass("copyOldData", CopyOldDatastoreToOld.class);
@@ -79,19 +74,13 @@ public class ControllerLookupRegistryImpl extends DefaultControllerLookupRegistr
 		addControllerClass("moveTreeNodeView", MoveTreeNodeView.class);
 		addControllerClass("deleteTreeNodeView", DeleteTreeNodeView.class);
 
-		addControllerClass("normalTestView", NormalTestView.class);
-		addControllerClass("multipleChoiceTestView", MultipleChoiceTestView.class);
-		addControllerClass("schoolTestView", SchoolTestViewImpl.class);
-
 		addControllerClass("unitMenuView", EditorView.class);
-		addControllerClass("addVocabularyView", AddVocabularyView.class);
 		addControllerClass("editVocableView", UnitMenuView.class);
 		addControllerClass("moveVocabularyView", MoveVocabularyView.class);
 		addControllerClass("deleteVocabularyView", DeleteVocabularyView.class);
+		addControllerClass("importVocabularyView", ImportWizardController.class);
 
-		addControllerClass("tooFewFlashCardsMessageDialog", TooFewFlashCardsMessageDialog.class);
-
-
+		//addControllerClass("tooFewFlashCardsMessageDialog", TooFewFlashCardsMessageDialog.class);
 	}
 
 }

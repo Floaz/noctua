@@ -44,22 +44,22 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
-@Table(name="TreeNodes")
+@Table(name="tree_nodes")
 @GenericGenerator(name="TREE_NODE_GEN", strategy="uuid2", parameters={})
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "TreeNodeType", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "tree_node_type", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class TreeNode {
 
     @Id
     @GeneratedValue(generator="TREE_NODE_GEN")
-    @Column(name="TreeNodeId")
+    @Column(name="tree_node_id")
     private String id;
 
-    @Column(name = "TreeNodeName")
+    @Column(name = "tree_node_name")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "TreeNodeParent", nullable = true)
+    @JoinColumn(name = "tree_node_parent", nullable = true)
     private TreeNode parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)

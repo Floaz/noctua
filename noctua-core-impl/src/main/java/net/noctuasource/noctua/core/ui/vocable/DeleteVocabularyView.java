@@ -22,8 +22,8 @@ import net.noctuasource.noctua.core.ui.mainwindow.DeleteTreeNodeView;
 import java.util.List;
 import javafx.stage.Window;
 import javax.annotation.Resource;
-import net.noctuasource.noctua.core.business.FlashCardManagerBo;
 import net.noctuasource.act.controller.SubContextController;
+import net.noctuasource.noctua.core.business.VocableManagerBo;
 
 import org.apache.log4j.Logger;
 
@@ -45,7 +45,7 @@ public class DeleteVocabularyView extends SubContextController
 	// ***** Members ******************************************************** //
 
 	@Resource
-	private FlashCardManagerBo 		flashCardBo;
+	private VocableManagerBo 		vocableManagerBo;
 
 	private List<String> 			flashCardIds;
 
@@ -72,7 +72,7 @@ public class DeleteVocabularyView extends SubContextController
 	public void finish(Result result) {
 		if(result == Result.YES) {
 			try {
-				flashCardBo.deleteVocabulary(flashCardIds);
+				vocableManagerBo.deleteVocabulary(flashCardIds);
 			} catch (Exception e) {
 				logger.warn("Could not delete tree node: ", e);
 			}
@@ -89,8 +89,8 @@ public class DeleteVocabularyView extends SubContextController
 
 
 
-	public void setFlashCardBo(FlashCardManagerBo flashCardBo) {
-		this.flashCardBo = flashCardBo;
+	public void setVocableManagerBo(VocableManagerBo vocableManagerBo) {
+		this.vocableManagerBo = vocableManagerBo;
 	}
 
 }

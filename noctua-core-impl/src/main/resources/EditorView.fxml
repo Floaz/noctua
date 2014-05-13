@@ -37,6 +37,21 @@
               </ImageView>
             </graphic>
           </Button>
+          <Button id="moveButton" fx:id="importButton" mnemonicParsing="false" onAction="#handleImportButtonAction" text="Importieren">
+            <graphic>
+              <ImageView mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                <fitHeight>
+                  <Long fx:value="16" />
+                </fitHeight>
+                <fitWidth>
+                  <Long fx:value="16" />
+                </fitWidth>
+                <image>
+                  <Image url="@images/Import%20Document.png" />
+                </image>
+              </ImageView>
+            </graphic>
+          </Button>
           <Region HBox.hgrow="ALWAYS">
             <prefHeight>
               <Long fx:value="-1" />
@@ -120,9 +135,9 @@
       <VBox id="VBox" alignment="TOP_LEFT" padding="$x2" spacing="5.0" style="" HBox.hgrow="ALWAYS">
         <children>
           <Label font="$x1" text="Beispielsatz:" />
-          <TextField id="sentenceTextField" fx:id="sentenceTextField" prefWidth="-1.0" />
+          <TextField fx:id="sentenceTextField" prefWidth="-1.0" />
           <Label font="$x1" text="Beispielsatz Übersetzung:" />
-          <TextField id="sentenceTranslationTextField" fx:id="sentenceTranslationTextField" prefWidth="-1.0" />
+          <TextField fx:id="sentenceTranslationTextField" prefWidth="-1.0" />
           <Region prefHeight="-1.0" prefWidth="-1.0" />
           <Label font="$x1" text="Zusatzinfo:" />
           <TextField fx:id="addInfoTextField" prefWidth="-1.0" />
@@ -132,7 +147,7 @@
             <children>
               <Label font="$x1" text="Geschlecht:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <labelFor>
-                  <ChoiceBox id="genderChoiceBox" fx:id="genderChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <ChoiceBox fx:id="genderChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />
@@ -145,7 +160,7 @@
               </Label>
               <Label font="$x1" text="Wortart:" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <labelFor>
-                  <ChoiceBox id="partOfSpeechChoiceBox" fx:id="partOfSpeechChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ChoiceBox fx:id="partOfSpeechChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />

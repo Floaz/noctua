@@ -16,41 +16,29 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.model;
+package net.noctuasource.noctua.core.events;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import net.noctuasource.noctua.core.model.Vocable;
 
 
 
-@Entity
-@Table(name="folders")
-@DiscriminatorValue(TreeNodeTypes.FOLDER_TYPE)
-public class Folder extends TreeNode {
 
-	@Column(name="folder_expanded")
-	private boolean expanded = true;
+/*
+ * Event when tree node changes.
+ */
+public class VocableEvent extends AbstractObjectEvent<Vocable> {
+
+	// -- Static Members ------------------------
 
 
-	public Folder() {
+	// -- Members ------------------------------
+
+
+	/*
+	 * Main for starting Noctua.
+	 */
+	public VocableEvent(EventType type, Vocable vocable) {
+		super(type, vocable);
 	}
-
-
-
-	public boolean isExpanded() {
-		return expanded;
-	}
-
-
-
-	public void setExpanded(boolean expanded) {
-		this.expanded = expanded;
-	}
-
-
-
-
-
 }

@@ -40,7 +40,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -345,6 +344,15 @@ public class EditorView {
 		table.getItems().add(entry);
 		table.getSelectionModel().clearAndSelect(table.getItems().size()-1);
 		vocableTextField.requestFocus();
+    }
+
+
+    @FXML
+    protected void handleImportButtonAction(ActionEvent event) {
+
+    	contextController.createController("importVocabularyView", ControllerParamsBuilder.create()
+																.add("treeNode", flashCardGroup)
+																.add("parentWindow", stage).build());
     }
 
 

@@ -16,41 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with Noctua.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.noctuasource.noctua.core.model;
-
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+package net.noctuasource.noctua.core.business;
 
 
-
-@Entity
-@Table(name="folders")
-@DiscriminatorValue(TreeNodeTypes.FOLDER_TYPE)
-public class Folder extends TreeNode {
-
-	@Column(name="folder_expanded")
-	private boolean expanded = true;
-
-
-	public Folder() {
-	}
+import java.util.List;
+import net.noctuasource.noctua.core.dto.VocableListElement;
+import net.noctuasource.noctua.core.model.Vocable;
 
 
 
-	public boolean isExpanded() {
-		return expanded;
-	}
+public interface VocableManagerBo {
 
+	List<VocableListElement> getVocabularyOfFlashCardGroup(String flashCardId);
 
+	void addVocable(Vocable vocable, String flashCardGroupId);
 
-	public void setExpanded(boolean expanded) {
-		this.expanded = expanded;
-	}
+	void moveVocabulary(List<String> vocableIds, String newFlashCardGroupId);
 
-
-
-
+	void deleteVocabulary(List<String> ids);
 
 }
+
+
+
